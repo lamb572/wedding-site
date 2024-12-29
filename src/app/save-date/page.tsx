@@ -1,4 +1,5 @@
-import { client, SaveDate } from "@/sanity"
+import { BrideAndGroom, client, SaveDate } from "@/sanity"
+import stringInterpolation from "@/utils/stringInterpolation"
 import Typography from "@mui/material/Typography"
 import { draftMode } from "next/headers"
 
@@ -17,6 +18,18 @@ export default async function SaveTheDatePage() {
           }
         : undefined
     )
+
+  const data = await client.fetch<BrideAndGroom>(
+    '*[_type == "brideAndGroom"][0]',
+    {},
+    isEnabled
+      ? {
+          perspective: "previewDrafts",
+          useCdn: false,
+          stega: true,
+        }
+      : undefined
+  )
   return (
     <div>
       <Typography variant={heading?.typographyVariant} component="h1">
@@ -26,7 +39,7 @@ export default async function SaveTheDatePage() {
         {subheading?.string}
       </Typography>
       <Typography variant={brideAndGroom?.typographyVariant} component="h3">
-        {brideAndGroom?.string}
+        {stringInterpolation(brideAndGroom?.string, data)}
       </Typography>
       <Typography variant={date?.typographyVariant} component="h4">
         {date?.string}
