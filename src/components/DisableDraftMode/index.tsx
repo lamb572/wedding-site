@@ -1,6 +1,6 @@
 "use client"
 import { disableDraftMode } from "@/app/actions"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 
 export default function DisableDraftMode() {
@@ -14,7 +14,7 @@ export default function DisableDraftMode() {
   const disable = () =>
     startTransition(async () => {
       await disableDraftMode()
-      router.reload()
+      router.refresh()
     })
 
   return (
