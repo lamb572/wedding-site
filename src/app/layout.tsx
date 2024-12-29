@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material"
 import theme from "@/theme"
 import { draftMode } from "next/headers"
 import { VisualEditing } from "next-sanity"
-import { DisableDraftMode } from "@/components"
+import DisableDraftMode from "@/components/DisableDraftMode"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
