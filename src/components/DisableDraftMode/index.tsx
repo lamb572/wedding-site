@@ -1,21 +1,33 @@
 "use client"
 import { disableDraftMode } from "@/app/actions"
 import { useRouter } from "next/navigation"
-import { useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 
 export default function DisableDraftMode() {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
+  const [loading, setLoading] = useState(true)
 
-  if (window !== window.parent || !!window.opener) {
-    return null
-  }
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      window !== window.parent ||
+      !!window.opener
+    ) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+  }, [])
 
   const disable = () =>
     startTransition(async () => {
       await disableDraftMode()
       router.refresh()
     })
+  if (loading) {
+    return null
+  }
 
   return (
     <div>

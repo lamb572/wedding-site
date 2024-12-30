@@ -1,12 +1,12 @@
+import DisableDraftMode from "@/components/DisableDraftMode"
+import ThemeWrapper from "@/components/ThemeWrapper"
+import { client, Theme } from "@/sanity"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import type { Metadata } from "next"
-import { Roboto } from "next/font/google"
-import "./globals.css"
-import { ThemeProvider } from "@mui/material"
-import theme from "@/theme"
-import { draftMode } from "next/headers"
 import { VisualEditing } from "next-sanity"
-import DisableDraftMode from "@/components/DisableDraftMode"
+import { Roboto } from "next/font/google"
+import { draftMode } from "next/headers"
+import "./globals.css"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -25,11 +25,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const sanityTheme = await client.fetch<Theme | undefined>(
+    '*[_type == "theme"][0]',
+    {}
+  )
+
   return (
     <html lang="en">
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
+          <ThemeWrapper sanityTheme={sanityTheme}>
             {children}
             {(await draftMode()).isEnabled && (
               <>
@@ -37,7 +42,7 @@ export default async function RootLayout({
                 <DisableDraftMode />
               </>
             )}
-          </ThemeProvider>
+          </ThemeWrapper>
         </AppRouterCacheProvider>
       </body>
     </html>

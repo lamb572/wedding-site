@@ -120,7 +120,7 @@ export type Geopoint = {
 
 export type Slug = {
   _type: "slug"
-  current?: string
+  current: string
   source?: string
 }
 
@@ -129,6 +129,60 @@ export type SanityAssetSourceData = {
   name?: string
   id?: string
   url?: string
+}
+
+export type HexColorPicker = string
+
+export type Theme = {
+  _id: string
+  _type: "theme"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: string
+  palette?: {
+    mode: "light" | "dark"
+    common?: {
+      black: HexColorPicker
+      white: HexColorPicker
+    }
+    primary?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+    secondary?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+    error?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+    warning?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+    info?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+    success?: {
+      main: HexColorPicker
+      light?: HexColorPicker
+      dark?: HexColorPicker
+      contrastText?: HexColorPicker
+    }
+  }
 }
 
 export type BrideAndGroom = {
@@ -200,6 +254,8 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | SanityAssetSourceData
+  | HexColorPicker
+  | Theme
   | BrideAndGroom
   | SaveDate
   | StringObjectField

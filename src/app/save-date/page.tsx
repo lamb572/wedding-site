@@ -19,7 +19,7 @@ export default async function SaveTheDatePage() {
         : undefined
     )
 
-  const data = await client.fetch<BrideAndGroom>(
+  const brideAndGroomData = await client.fetch<BrideAndGroom>(
     '*[_type == "brideAndGroom"][0]',
     {},
     isEnabled
@@ -32,20 +32,40 @@ export default async function SaveTheDatePage() {
   )
   return (
     <div>
-      <Typography variant={heading?.typographyVariant} component="h1">
-        {heading?.string}
+      <Typography
+        variant={heading?.typographyVariant}
+        component="h1"
+        color={heading?.color}
+      >
+        {stringInterpolation(heading?.string, brideAndGroomData)}
       </Typography>
-      <Typography variant={subheading?.typographyVariant} component="h2">
-        {subheading?.string}
+      <Typography
+        variant={subheading?.typographyVariant}
+        component="h2"
+        color={subheading?.color}
+      >
+        {stringInterpolation(subheading?.string, brideAndGroomData)}
       </Typography>
-      <Typography variant={brideAndGroom?.typographyVariant} component="h3">
-        {stringInterpolation(brideAndGroom?.string, data)}
+      <Typography
+        variant={brideAndGroom?.typographyVariant}
+        component="h3"
+        color={brideAndGroom?.color}
+      >
+        {stringInterpolation(brideAndGroom?.string, brideAndGroomData)}
       </Typography>
-      <Typography variant={date?.typographyVariant} component="h4">
-        {date?.string}
+      <Typography
+        variant={date?.typographyVariant}
+        component="h4"
+        color={date?.color}
+      >
+        {stringInterpolation(date?.string, brideAndGroomData)}
       </Typography>
-      <Typography variant={extraInfo?.typographyVariant} component="p">
-        {extraInfo?.string}
+      <Typography
+        variant={extraInfo?.typographyVariant}
+        component="p"
+        color={extraInfo?.color}
+      >
+        {stringInterpolation(extraInfo?.string, brideAndGroomData)}
       </Typography>
     </div>
   )
