@@ -22,7 +22,14 @@ export default function PortableText({
       h1: ({ children }) => <Typography variant="h1">{children}</Typography>,
 
       normal: ({ children }) => (
-        <Typography variant="body1">{children}</Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            minHeight: "1rem",
+          }}
+        >
+          {children}
+        </Typography>
       ),
       blockquote: ({ children }) => (
         <Typography

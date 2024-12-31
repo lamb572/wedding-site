@@ -43,11 +43,11 @@ export default async function SaveTheDatePage() {
         margin: 0,
         padding: 0,
         height: "100%",
-        backgroundRepeat: " repeat-y",
-        backgroundSize: " cover",
-        backgroundPosition: " center center",
-        backgroundAttachment: " fixed",
-        backgroundColor: " #ffffff",
+        backgroundRepeat: "repeat-y",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: "imfixed",
+        backgroundColor: " #DFE1D5",
         alignItems: "center",
         alignContent: "center",
         justifyContent: "center",
@@ -82,10 +82,16 @@ export default async function SaveTheDatePage() {
           >
             {stringInterpolation(heading?.string, brideAndGroomData)}
           </Typography>
-          <PortableText
-            value={context as TextBlock}
-            stringInterpolationData={brideAndGroomData}
-          />
+          <Stack
+            sx={{
+              alignItems: "center",
+            }}
+          >
+            <PortableText
+              value={context as TextBlock}
+              stringInterpolationData={brideAndGroomData}
+            />
+          </Stack>
           <Typography
             variant={extraInfo?.typographyVariant}
             component="p"
