@@ -69,7 +69,7 @@ export default async function SaveTheDatePage() {
             justifyContent: "center",
             maxWidth: { sm: "320px", md: "480px", lg: "640px" },
             textAlign: "center",
-            border: "2px inset #8F8665",
+            border: "2px ridge #576d53 ",
           }}
           margin={{ xs: 1, sm: 5 }}
           padding={{ xs: 2, sm: 5 }}
