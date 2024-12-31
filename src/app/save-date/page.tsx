@@ -72,7 +72,7 @@ export default async function SaveTheDatePage() {
             border: "2px inset #8F8665",
           }}
           margin={{ xs: 1, sm: 5 }}
-          padding={{ xs: 1, sm: 5 }}
+          padding={{ xs: 2, sm: 5 }}
           spacing={{ xs: 1, sm: 5 }}
         >
           <Typography

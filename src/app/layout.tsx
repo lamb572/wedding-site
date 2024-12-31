@@ -4,15 +4,15 @@ import { client, Theme } from "@/sanity"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import type { Metadata } from "next"
 import { VisualEditing } from "next-sanity"
-import { Roboto } from "next/font/google"
+import { Birthstone } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
 
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+const leagueScript = Birthstone({
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-roboto",
+  variable: "--font-birthstone",
 })
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={roboto.variable}>
+      <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
             {children}
