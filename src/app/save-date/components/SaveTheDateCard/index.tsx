@@ -27,6 +27,7 @@ export default function SaveTheDateCard({
         backgroundColor: "#DFE1D5",
         m: 1,
         ...(isSmall && { width: "90%" }),
+        width: { xs: "90%", sm: "50%", md: "50%" },
       }}
     >
       <Stack
