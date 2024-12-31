@@ -38,6 +38,7 @@ export default async function SaveTheDatePage() {
   return (
     <Stack
       sx={{
+        minHeight: "100dvh",
         backgroundImage: `url(${image})`,
         margin: 0,
         padding: 0,
@@ -56,26 +57,23 @@ export default async function SaveTheDatePage() {
         raised
         sx={{
           backgroundColor: "#DFE1D5",
-          // boxShadow: "0 0 10px 5px #8F8665",
+
           height: "fit-content",
         }}
       >
         <Stack
           sx={{
+            backgroundColor: "#DFE1D5",
             alignItems: "center",
             alignContent: "center",
             justifyContent: "center",
             maxWidth: { sm: "320px", md: "480px", lg: "640px" },
             textAlign: "center",
-            // height: "100%",
-            // borderRadius: 5,
-            border: "2px solid #8F8665",
-            // backgroundColor: "#DFE1D5",
-            // boxShadow: "0 0 10px 5px #8F8665",
+            border: "2px inset #8F8665",
           }}
-          margin={5}
-          padding={5}
-          spacing={5}
+          margin={{ xs: 1, sm: 5 }}
+          padding={{ xs: 1, sm: 5 }}
+          spacing={{ xs: 1, sm: 5 }}
         >
           <Typography
             variant={heading?.typographyVariant}
