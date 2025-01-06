@@ -1,7 +1,7 @@
 import { BrideAndGroom, client, imageLoader, SaveDate } from "@/sanity"
 import { Stack } from "@mui/material"
 import { draftMode } from "next/headers"
-import SaveTheDateCard from "./components/SaveTheDateCard"
+import SaveTheDateCard from "./_components/SaveTheDateCard"
 
 export default async function SaveTheDatePage() {
   const { isEnabled } = await draftMode()

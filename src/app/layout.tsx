@@ -1,5 +1,5 @@
-import DisableDraftMode from "@/components/DisableDraftMode"
-import ThemeWrapper from "@/components/ThemeWrapper"
+import DisableDraftMode from "@/client/components/DisableDraftMode"
+import ThemeWrapper from "@/client/components/ThemeWrapper"
 import { client, Theme } from "@/sanity"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import type { Metadata } from "next"

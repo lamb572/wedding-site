@@ -1,5 +1,5 @@
 "use client"
-import PortableText from "@/components/PortableText"
+import PortableText from "@/client/components/PortableText"
 import { BrideAndGroom, SaveDate } from "@/sanity"
 import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
 import { useMediaQuery, Card, Stack, Typography } from "@mui/material"
