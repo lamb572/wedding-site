@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion, Document } from "mongodb"
+import { MongoClient, ServerApiVersion } from "mongodb"
 
 export const initClient = () => {
   const uri = process.env.MONGODB_URI
@@ -17,32 +17,8 @@ export const initClient = () => {
   return client
 }
 
-interface ConnectParams {
-  collection: string
-  database: string
-}
-export const connect = async <TSchema extends Document = Document>({
-  collection: collectionName,
-  database: databaseName,
-}: ConnectParams) => {
-  const client = initClient()
-
-  try {
-    await client.connect()
-    const database = client.db(databaseName)
-    const collection = database.collection<TSchema>(collectionName)
-    return collection
-  } catch (err) {
-    console.error(err)
-    return undefined
-  } finally {
-    await client.close()
-  }
-}
-
 const mongoDBService = {
   initClient,
-  connect,
 }
 
 export default mongoDBService
