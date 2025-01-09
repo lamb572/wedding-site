@@ -6,6 +6,7 @@ import type { Metadata } from "next"
 import { VisualEditing } from "next-sanity"
 import { Birthstone } from "next/font/google"
 import { draftMode } from "next/headers"
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 
 const leagueScript = Birthstone({
@@ -36,6 +37,8 @@ export default async function RootLayout({
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
             {children}
+            <Analytics />
+
             {(await draftMode()).isEnabled && (
               <>
                 <VisualEditing />
