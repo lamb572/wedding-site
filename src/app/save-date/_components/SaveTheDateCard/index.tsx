@@ -9,7 +9,7 @@ export interface SaveTheDateCardProps
     SaveDate,
     "heading" | "backgroundImage" | "context" | "extraInfo"
   > {
-  brideAndGroomData: BrideAndGroom
+  brideAndGroomData: BrideAndGroom | undefined
 }
 
 export default function SaveTheDateCard({

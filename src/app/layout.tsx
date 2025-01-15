@@ -1,7 +1,7 @@
 import DisableDraftMode from "@/client/components/DisableDraftMode"
 import NavBar, { NavBarItem } from "@/client/components/NavBar"
 import ThemeWrapper from "@/client/components/ThemeWrapper"
-import { client, Theme } from "@/sanity"
+import { getSanityTheme } from "@/sanity/server"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -28,11 +28,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const sanityTheme = await client.fetch<Theme | undefined>(
-    '*[_type == "theme"][0]',
-    {}
-  )
-
+  const sanityTheme = await getSanityTheme()
   const showNav = Boolean(process.env.NEXT_MAIN_SITE_FLAG)
 
   const navBarItems: NavBarItem[] = [
