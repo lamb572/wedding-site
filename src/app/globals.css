@@ -16,7 +16,9 @@ html {
 body {
   line-height: 1.6;
   font-size: 16px;
+  height: 100dvh;
   min-height: 100dvh;
+  max-height: 100dvh;
 }
 img {
   max-width: 100%;
