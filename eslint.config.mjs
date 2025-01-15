@@ -19,6 +19,7 @@ const eslintConfig = [
           allowInterfaces: "with-single-extends",
         },
       ],
+      "react/display-name": "off",
     },
   }),
 ]
