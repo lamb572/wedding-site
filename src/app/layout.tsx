@@ -97,7 +97,13 @@ export default async function RootLayout({
               }}
             >
               {showNav && <NavBar open={showNav} navBarItems={navBarItems} />}
-              {children}
+              <Box
+                sx={{
+                  flexGrow: 1,
+                }}
+              >
+                {children}
+              </Box>
             </Box>
             <Analytics />
             <SpeedInsights />
