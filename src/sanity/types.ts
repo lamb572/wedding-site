@@ -163,9 +163,9 @@ export type Theme = {
   }
 }
 
-export type BrideAndGroom = {
+export type Wedding = {
   _id: string
-  _type: "brideAndGroom"
+  _type: "wedding"
   _createdAt: string
   _updatedAt: string
   _rev: string
@@ -314,7 +314,7 @@ export type AllSanitySchemaTypes =
   | Settings
   | Home
   | Theme
-  | BrideAndGroom
+  | Wedding
   | SaveDate
   | SanityImageCrop
   | SanityImageHotspot

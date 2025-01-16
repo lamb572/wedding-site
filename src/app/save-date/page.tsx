@@ -1,5 +1,5 @@
 import { imageLoader } from "@/sanity"
-import { getBrideGroomData, getSaveDate } from "@/sanity/server"
+import { getWeddingData, getSaveDate } from "@/sanity/server"
 import { Stack } from "@mui/material"
 import SaveTheDateCard from "./_components/SaveTheDateCard"
 
@@ -8,7 +8,7 @@ export default async function SaveTheDatePage() {
 
   const image = imageLoader({ source: saveDate?.backgroundImage?.asset })
 
-  const brideAndGroomData = await getBrideGroomData()
+  const weddingData = await getWeddingData()
   return (
     <Stack
       sx={{
@@ -30,7 +30,7 @@ export default async function SaveTheDatePage() {
         heading={saveDate?.heading}
         context={saveDate?.context}
         extraInfo={saveDate?.extraInfo}
-        brideAndGroomData={brideAndGroomData}
+        weddingData={weddingData}
       />
     </Stack>
   )

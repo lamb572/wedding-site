@@ -1,12 +1,12 @@
 import { client } from "@/sanity"
-import { BrideAndGroom } from "@/sanity/types"
+import { Wedding } from "@/sanity/types"
 import { draftMode } from "next/headers"
 
-export async function getBrideGroomData() {
+export async function getWeddingData() {
   try {
     const { isEnabled } = await draftMode()
-    const brideGroomData = await client.fetch<BrideAndGroom>(
-      '*[_type == "brideAndGroom"][0]',
+    const wedding = await client.fetch<Wedding>(
+      '*[_type == "wedding"][0]',
       {},
       isEnabled
         ? {
@@ -16,7 +16,7 @@ export async function getBrideGroomData() {
           }
         : undefined
     )
-    return brideGroomData
+    return wedding
   } catch (err) {
     console.warn(err)
   }
