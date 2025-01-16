@@ -1,37 +1,14 @@
-import { BrideAndGroom, client, imageLoader, SaveDate } from "@/sanity"
+import { imageLoader } from "@/sanity"
+import { getWeddingData, getSaveDate } from "@/sanity/server"
 import { Stack } from "@mui/material"
-import { draftMode } from "next/headers"
 import SaveTheDateCard from "./_components/SaveTheDateCard"
 
 export default async function SaveTheDatePage() {
-  const { isEnabled } = await draftMode()
+  const saveDate = await getSaveDate()
 
-  const { heading, backgroundImage, context, extraInfo } =
-    await client.fetch<SaveDate>(
-      `*[_type == "saveDate"][0]`,
-      {},
-      isEnabled
-        ? {
-            perspective: "previewDrafts",
-            useCdn: false,
-            stega: true,
-          }
-        : undefined
-    )
+  const image = imageLoader({ source: saveDate?.backgroundImage?.asset })
 
-  const image = imageLoader({ source: backgroundImage?.asset })
-
-  const brideAndGroomData = await client.fetch<BrideAndGroom>(
-    '*[_type == "brideAndGroom"][0]',
-    {},
-    isEnabled
-      ? {
-          perspective: "previewDrafts",
-          useCdn: false,
-          stega: true,
-        }
-      : undefined
-  )
+  const weddingData = await getWeddingData()
   return (
     <Stack
       sx={{
@@ -50,10 +27,10 @@ export default async function SaveTheDatePage() {
       }}
     >
       <SaveTheDateCard
-        heading={heading}
-        context={context}
-        extraInfo={extraInfo}
-        brideAndGroomData={brideAndGroomData}
+        heading={saveDate?.heading}
+        context={saveDate?.context}
+        extraInfo={saveDate?.extraInfo}
+        weddingData={weddingData}
       />
     </Stack>
   )

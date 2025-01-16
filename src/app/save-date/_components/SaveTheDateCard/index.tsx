@@ -1,6 +1,6 @@
 "use client"
 import PortableText from "@/client/components/PortableText"
-import { BrideAndGroom, SaveDate } from "@/sanity"
+import { Wedding, SaveDate } from "@/sanity"
 import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
 import { useMediaQuery, Card, Stack, Typography } from "@mui/material"
 
@@ -9,14 +9,14 @@ export interface SaveTheDateCardProps
     SaveDate,
     "heading" | "backgroundImage" | "context" | "extraInfo"
   > {
-  brideAndGroomData: BrideAndGroom
+  weddingData: Wedding | undefined
 }
 
 export default function SaveTheDateCard({
   heading,
   context,
   extraInfo,
-  brideAndGroomData,
+  weddingData,
 }: SaveTheDateCardProps) {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"))
 
@@ -47,7 +47,7 @@ export default function SaveTheDateCard({
           component="h1"
           color={heading?.color}
         >
-          {stringInterpolation(heading?.string, brideAndGroomData)}
+          {stringInterpolation(heading?.string, weddingData)}
         </Typography>
         <Stack
           sx={{
@@ -56,7 +56,7 @@ export default function SaveTheDateCard({
         >
           <PortableText
             value={context as TextBlock}
-            stringInterpolationData={brideAndGroomData}
+            stringInterpolationData={weddingData}
           />
         </Stack>
         <Typography
@@ -64,7 +64,7 @@ export default function SaveTheDateCard({
           component="p"
           color={extraInfo?.color}
         >
-          {stringInterpolation(extraInfo?.string, brideAndGroomData)}
+          {stringInterpolation(extraInfo?.string, weddingData)}
         </Typography>
       </Stack>
     </Card>

@@ -76,6 +76,42 @@ export type Slug = {
 
 export type HexColorPicker = string
 
+export type Settings = {
+  _id: string
+  _type: "settings"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  backgroundImage?: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
+  pageNames?: {
+    home?: string
+    schedule?: string
+    travel?: string
+    rsvp?: string
+    faq?: string
+    registry?: string
+  }
+}
+
+export type Home = {
+  _id: string
+  _type: "home"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  heading?: StringObjectField
+}
+
 export type Theme = {
   _id: string
   _type: "theme"
@@ -127,9 +163,9 @@ export type Theme = {
   }
 }
 
-export type BrideAndGroom = {
+export type Wedding = {
   _id: string
-  _type: "brideAndGroom"
+  _type: "wedding"
   _createdAt: string
   _updatedAt: string
   _rev: string
@@ -275,8 +311,10 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | HexColorPicker
+  | Settings
+  | Home
   | Theme
-  | BrideAndGroom
+  | Wedding
   | SaveDate
   | SanityImageCrop
   | SanityImageHotspot
