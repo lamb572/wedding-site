@@ -1,5 +1,5 @@
 import FAQCard from "@/client/components/FAQCard"
-import SanityIcon from "@/client/components/SanityIcon"
+import SanityIcon, { MDIcons } from "@/client/components/SanityIcon"
 import { getFAQs } from "@/sanity/server"
 import { Stack, Typography } from "@mui/material"
 
@@ -14,7 +14,7 @@ export default async function FAQPage() {
             key={_id}
             answer={answer}
             question={question}
-            icon={<SanityIcon name={icon?.name} />}
+            icon={<SanityIcon name={icon?.name as MDIcons} />}
           />
         )
       })}
