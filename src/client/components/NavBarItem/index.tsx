@@ -8,7 +8,7 @@ import LinkBehavior from "../Links/LinkBehavior"
 
 export interface NavBarItemProps {
   href: string
-  text: string
+  text: string | undefined
   selected?: boolean
   icon?: React.ReactNode
   hideIcon?: boolean

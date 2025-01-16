@@ -19,6 +19,7 @@ body {
   height: 100dvh;
   min-height: 100dvh;
   max-height: 100dvh;
+  max-width: 100dvw;
 }
 img {
   max-width: 100%;
