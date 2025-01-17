@@ -31,7 +31,7 @@ export function portableTextStringInterpolation(
   }
   return {
     ...block,
-    children: block.children.map((c) => {
+    children: block.children?.map((c) => {
       return {
         ...c,
         text: stringInterpolation(c.text, data),

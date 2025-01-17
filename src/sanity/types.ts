@@ -76,40 +76,19 @@ export type Slug = {
 
 export type HexColorPicker = string
 
-export type Settings = {
+export type Wedding = {
   _id: string
-  _type: "settings"
+  _type: "wedding"
   _createdAt: string
   _updatedAt: string
   _rev: string
-  backgroundImage?: {
-    asset?: {
-      _ref: string
-      _type: "reference"
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: "image"
-  }
-  pageNames?: {
-    home?: string
-    schedule?: string
-    travel?: string
-    rsvp?: string
-    faq?: string
-    registry?: string
-  }
-}
-
-export type Home = {
-  _id: string
-  _type: "home"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  heading?: StringObjectField
+  date?: string
+  brideName?: string
+  groomName?: string
+  brideImage?: string
+  groomImage?: string
+  brideDescription?: string
+  groomDescription?: string
 }
 
 export type Theme = {
@@ -163,18 +142,34 @@ export type Theme = {
   }
 }
 
-export type Wedding = {
+export type Settings = {
   _id: string
-  _type: "wedding"
+  _type: "settings"
   _createdAt: string
   _updatedAt: string
   _rev: string
-  brideName?: string
-  groomName?: string
-  brideImage?: string
-  groomImage?: string
-  brideDescription?: string
-  groomDescription?: string
+  background?: {
+    image?: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    }
+    color?: HexColorPicker
+  }
+  pageNames?: {
+    home?: string
+    schedule?: string
+    travel?: string
+    rsvp?: string
+    faq?: string
+    registry?: string
+  }
 }
 
 export type SaveDate = {
@@ -303,6 +298,64 @@ export type StringObjectField = {
     | "textDisabled"
 }
 
+export type Home = {
+  _id: string
+  _type: "home"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  distanceMessages?: {
+    upcoming?: string
+    past?: string
+  }
+  location?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+}
+
+export type Faq = {
+  _id: string
+  _type: "faq"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  question?: string
+  answer?: string
+  icon?: IconPicker
+}
+
+export type IconPicker = {
+  _type: "iconPicker"
+  provider?: string
+  name?: string
+  svg?: string
+}
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -311,10 +364,9 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | HexColorPicker
-  | Settings
-  | Home
-  | Theme
   | Wedding
+  | Theme
+  | Settings
   | SaveDate
   | SanityImageCrop
   | SanityImageHotspot
@@ -322,4 +374,7 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageMetadata
   | StringObjectField
+  | Home
+  | Faq
+  | IconPicker
 export declare const internalGroqTypeReferenceTo: unique symbol
