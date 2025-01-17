@@ -24,6 +24,7 @@ export default async function SaveTheDatePage() {
         alignItems: "center",
         alignContent: "center",
         justifyContent: "center",
+        width: "100%",
       }}
     >
       <SaveTheDateCard
