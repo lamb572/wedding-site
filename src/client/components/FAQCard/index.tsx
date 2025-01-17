@@ -1,6 +1,12 @@
 "use client"
 
-import { Card, Typography } from "@mui/material"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material"
 import { ReactNode } from "react"
 
 export interface FAQCardProps {
@@ -10,10 +16,25 @@ export interface FAQCardProps {
 }
 export default function FAQCard({ answer, icon, question }: FAQCardProps) {
   return (
-    <Card>
-      <Typography>
-        {icon} <span>{answer}</span>: {question}
-      </Typography>
-    </Card>
+    <Accordion
+      sx={(theme) => ({
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.dark,
+      })}
+    >
+      <AccordionSummary
+        aria-controls="faq-answer"
+        id="faq-question"
+        expandIcon={<ExpandMoreIcon />}
+      >
+        {icon}
+        <Typography component="span" sx={{ pl: 2 }}>
+          {question}
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails id="faq-answer">
+        <Typography>{answer}</Typography>
+      </AccordionDetails>
+    </Accordion>
   )
 }

@@ -1,23 +1,27 @@
+import Card from "@/client/components/Card"
 import FAQCard from "@/client/components/FAQCard"
-import SanityIcon, { MDIcons } from "@/client/components/SanityIcon"
-import { getFAQs } from "@/sanity/server"
-import { Stack, Typography } from "@mui/material"
+import SanityIcon from "@/client/components/SanityIcon"
+import { getFAQs, getSettings } from "@/sanity/server"
+import { Typography } from "@mui/material"
 
 export default async function FAQPage() {
   const faqs = await getFAQs()
+  const settings = await getSettings()
   return (
-    <Stack>
-      <Typography>FAQ&apos;s</Typography>
+    <Card backgroundColor={`${settings?.background?.color}`}>
+      <Typography variant="h3" component="h1" color="primary">
+        FAQ&apos;s
+      </Typography>
       {faqs?.map(({ _id, answer, icon, question }) => {
         return (
           <FAQCard
             key={_id}
             answer={answer}
             question={question}
-            icon={<SanityIcon name={icon?.name as MDIcons} />}
+            icon={<SanityIcon icon={icon} />}
           />
         )
       })}
-    </Stack>
+    </Card>
   )
 }

@@ -1,7 +1,8 @@
+import Card from "@/client/components/Card"
 import PortableText from "@/client/components/PortableText"
 import { getHome, getSettings, getWeddingData } from "@/sanity/server"
 import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
-import { Card, Stack, Typography } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 import { format, formatDistanceToNowStrict, isPast } from "date-fns"
 import { redirect } from "next/navigation"
 
@@ -30,53 +31,24 @@ export default async function Home() {
   const date = weddingDate ? format(weddingDate, "eee d MMM yy") : ""
 
   return (
-    <Stack
-      sx={{
-        textAlign: "center",
-        justifyContent: "center",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
-      <Card
-        raised
+    <Card backgroundColor={`${settings?.background?.color}`}>
+      <Typography variant="h4" component="h2" color="textSecondary">
+        {stringInterpolation(homePageData?.title, weddingData)}
+      </Typography>
+      <Typography variant="h4" component="h3" color="textSecondary">
+        {weddingDistanceMessage}
+      </Typography>
+
+      <Stack
         sx={{
-          backgroundColor: `${settings?.background?.color}`,
-          minHeight: "50%",
-          margin: 1,
-          padding: 1,
+          alignItems: "center",
         }}
       >
-        <Stack
-          sx={{
-            padding: 2,
-            textAlign: "center",
-            justifyContent: "center",
-            border: "1px solid grey",
-            gap: 2,
-            minHeight: "100%",
-            whiteSpace: "normal",
-          }}
-        >
-          <Typography variant="h4" component="h2" color="textSecondary">
-            {stringInterpolation(homePageData?.title, weddingData)}
-          </Typography>
-          <Typography variant="h4" component="h3" color="textSecondary">
-            {weddingDistanceMessage}
-          </Typography>
-
-          <Stack
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <PortableText
-              value={(homePageData?.location ?? []) as TextBlock}
-              stringInterpolationData={{ date }}
-            />
-          </Stack>
-        </Stack>
-      </Card>
-    </Stack>
+        <PortableText
+          value={(homePageData?.location ?? []) as TextBlock}
+          stringInterpolationData={{ date }}
+        />
+      </Stack>
+    </Card>
   )
 }
