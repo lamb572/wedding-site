@@ -31,24 +31,31 @@ export default async function Home() {
 
   return (
     <Stack
-      sx={{ paddingTop: 2, textAlign: "center", justifyContent: "center" }}
+      sx={{
+        textAlign: "center",
+        justifyContent: "center",
+        width: "100%",
+        alignItems: "center",
+      }}
     >
       <Card
         raised
         sx={{
           backgroundColor: `${settings?.background?.color}`,
-
+          minHeight: "50%",
           margin: 1,
           padding: 1,
         }}
       >
         <Stack
           sx={{
-            paddingTop: 2,
+            padding: 2,
             textAlign: "center",
             justifyContent: "center",
             border: "1px solid grey",
             gap: 2,
+            minHeight: "100%",
+            whiteSpace: "normal",
           }}
         >
           <Typography variant="h4" component="h2" color="textSecondary">
