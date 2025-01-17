@@ -87,7 +87,7 @@ export default async function RootLayout({
   ]
   const settings = await getSettings()
 
-  const image = imageLoader({ source: settings?.backgroundImage?.asset })
+  const image = imageLoader({ source: settings?.background?.image?.asset })
   return (
     <html lang="en">
       <body className={leagueScript.variable}>

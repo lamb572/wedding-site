@@ -31,7 +31,6 @@ export default function SaveTheDateCard({
     >
       <Stack
         sx={{
-          backgroundColor: "#DFE1D5",
           alignItems: "center",
           alignContent: "center",
           justifyContent: "center",
