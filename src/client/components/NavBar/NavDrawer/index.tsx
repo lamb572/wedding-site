@@ -16,6 +16,7 @@ export const NavDrawer = styled(MuiDrawer, {
 })((props) => {
   const theme = props.theme as Theme
   return {
+    boxShadow: "2px 1px 6px 1px rgba(0,0,0,0.14)",
     width: `calc(${theme.spacing(7)} + 1px)`,
     [theme.breakpoints.up("sm")]: {
       width: `calc(${theme.spacing(8)} + 1px)`,

@@ -1,7 +1,6 @@
 import DisableDraftMode from "@/client/components/DisableDraftMode"
 import NavBar, { NavBarItem } from "@/client/components/NavBar"
 import ThemeWrapper from "@/client/components/ThemeWrapper"
-import { imageLoader } from "@/sanity"
 import { getSanityTheme } from "@/sanity/server"
 import { getSettings } from "@/sanity/server/getSettings"
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard"
@@ -87,7 +86,6 @@ export default async function RootLayout({
   ]
   const settings = await getSettings()
 
-  const image = imageLoader({ source: settings?.background?.image?.asset })
   return (
     <html lang="en">
       <body className={leagueScript.variable}>
@@ -99,7 +97,7 @@ export default async function RootLayout({
                 flexDirection: "row",
                 height: "100%",
                 width: "100%",
-                backgroundImage: `url(${image})`,
+                backgroundColor: settings?.background?.color,
               }}
             >
               {showNav && <NavBar navBarItems={navBarItems} />}

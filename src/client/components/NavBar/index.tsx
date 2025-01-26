@@ -30,9 +30,6 @@ export default function NavBar({ navBarItems }: NavBarProps) {
           display: "flex",
           flexFlow: "column nowrap",
           gap: theme.spacing(2),
-          border: "1px grey",
-          boxShadow:
-            "0px 0px 0px 0px rgba(0,0,0,0.2),3px 0px 3px 0px rgba(0,0,0,0.14)",
         })}
       >
         <Box
