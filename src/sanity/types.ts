@@ -355,6 +355,7 @@ export type Faq = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  position?: number
   question?: string
   answer?: string
   icon?: IconPicker
