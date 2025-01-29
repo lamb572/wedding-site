@@ -1,15 +1,16 @@
 "use client"
 import PortableText from "@/client/components/PortableText"
-import { Home, imageLoader, Wedding } from "@/sanity"
+import { Home, imageLoader, Settings, Wedding } from "@/sanity"
 import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
 import { Button, Stack, Typography } from "@mui/material"
-import { format } from "date-fns"
+import { format, formatDistanceToNowStrict, isPast } from "date-fns"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 export interface HomeViewProps {
   homeFields?: Home
   weddingFields?: Wedding
+  settingsFields?: Settings
 }
 
 export function HomeView({ homeFields, weddingFields }: HomeViewProps) {
@@ -17,59 +18,87 @@ export function HomeView({ homeFields, weddingFields }: HomeViewProps) {
   const weddingDate = weddingFields?.date
     ? new Date(weddingFields.date)
     : undefined
-  // const weddingHappened = weddingDate ? isPast(weddingDate) : false
+  const weddingHappened = weddingDate ? isPast(weddingDate) : false
 
-  // const distanceToWedding = weddingDate
-  //   ? formatDistanceToNowStrict(weddingDate, {})
-  //   : ""
+  const distanceToWedding = weddingDate
+    ? formatDistanceToNowStrict(weddingDate, { unit: "day" })
+    : ""
 
-  // const weddingDistanceMessage = weddingHappened
-  //   ? homePageData?.distanceMessages?.past
-  //   : stringInterpolation(homePageData?.distanceMessages?.upcoming, {
-  //       date: distanceToWedding,
-  //     })
+  const weddingDistanceMessage = weddingHappened
+    ? homeFields?.distanceMessages?.past
+    : stringInterpolation(homeFields?.distanceMessages?.upcoming, {
+        date: distanceToWedding,
+      })
 
-  const date = weddingDate ? format(weddingDate, "eeee do MMMM yyyy") : ""
+  const date = weddingDate ? format(weddingDate, "do MMMM yyyy") : ""
 
   const image = imageLoader({ source: homeFields?.image?.asset })
   return (
     <Stack
       sx={{
-        mt: 0,
-        mb: 2,
-        mx: 4,
-        gap: 2,
-        textAlign: "center",
+        pl: 1,
         flexFlow: "column nowrap",
-        justifyContent: "space-evenly",
+        justifyContent: "center",
         alignItems: "center",
         alignContent: "stretch",
         width: "100%",
+        backgroundColor: "#f6eee3",
       }}
     >
-      <Typography variant="h2" component="h2" color="textSecondary">
-        {stringInterpolation(homeFields?.title, weddingFields)}
-      </Typography>
-      {/* <Typography variant="h4" component="h3" color="textSecondary">
-        {weddingDistanceMessage}
-      </Typography> */}
-
       <Stack
         sx={{
+          backgroundColor: "#f6eee3",
+          borderRadius: "10px",
+          gap: 2,
+          textAlign: "center",
+          flexFlow: "column nowrap",
+          justifyContent: "space-evenly",
           alignItems: "center",
+          alignContent: "stretch",
+          width: "100%",
+          paddingTop: 2,
         }}
       >
-        <PortableText
-          value={(homeFields?.location ?? []) as TextBlock}
-          stringInterpolationData={{ date }}
-        />
-      </Stack>
-      <Button onClick={() => router.push("/rsvp")} size="large" variant="text">
-        <Typography variant="h4" color="primary">
-          RSVP
+        <Typography variant="h2" component="h2" color="primary">
+          {stringInterpolation(homeFields?.title, weddingFields)}
         </Typography>
-      </Button>
-      <Image src={image} alt={"home page"} width={320} height={100} />
+
+        <Stack
+          sx={{
+            alignItems: "center",
+          }}
+        >
+          <PortableText
+            value={(homeFields?.location ?? []) as TextBlock}
+            stringInterpolationData={{ date }}
+          />
+        </Stack>
+        <Button
+          onClick={() => router.push("/rsvp")}
+          size="large"
+          variant="outlined"
+        >
+          <Typography variant="h4" color="primary">
+            RSVP
+          </Typography>
+        </Button>
+        <Image
+          src={image}
+          alt={"home page"}
+          width={1024}
+          height={200}
+          style={{
+            objectFit: "cover",
+            flexGrow: 1,
+            maxHeight: "500px",
+            border: "4px solid black",
+            borderRadius: "35% 35% 0 0",
+          }}
+        />
+        <Typography variant="h4" component="h3" color="primary">
+          {weddingDistanceMessage}
+        </Typography>
+      </Stack>
     </Stack>
   )
 }

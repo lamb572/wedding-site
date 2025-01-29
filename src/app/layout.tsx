@@ -15,15 +15,15 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 import { VisualEditing } from "next-sanity"
-import { Birthstone } from "next/font/google"
+import { Prata } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
 
-const leagueScript = Birthstone({
+const leagueScript = Prata({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-birthstone",
+  variable: "--font-prata",
 })
 
 export const metadata: Metadata = {

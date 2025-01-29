@@ -1,5 +1,5 @@
 import { HomeView } from "@/client/views"
-import { getHome, getWeddingData } from "@/sanity/server"
+import { getHome, getSettings, getWeddingData } from "@/sanity/server"
 import { redirect } from "next/navigation"
 
 export default async function Home() {
@@ -9,6 +9,13 @@ export default async function Home() {
 
   const homePageData = await getHome()
   const weddingData = await getWeddingData()
+  const settingsData = await getSettings()
 
-  return <HomeView homeFields={homePageData} weddingFields={weddingData} />
+  return (
+    <HomeView
+      homeFields={homePageData}
+      weddingFields={weddingData}
+      settingsFields={settingsData}
+    />
+  )
 }
