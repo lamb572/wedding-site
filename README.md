@@ -4,7 +4,7 @@
 
 ### Home Page
 
-- [ ] Update designs
+- [x] Update designs
 
 ### Schedule Page
 
