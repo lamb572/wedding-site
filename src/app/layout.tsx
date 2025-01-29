@@ -95,7 +95,7 @@ export default async function RootLayout({
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                height: "100%",
+                minHeight: "100%",
                 width: "100%",
                 backgroundColor: settings?.background?.color,
               }}

@@ -5,7 +5,7 @@ import { draftMode } from "next/headers"
 export async function getSaveDate() {
   try {
     const { isEnabled } = await draftMode()
-    const saveDate = await client.fetch<SaveDate>(
+    const saveDate = await client().fetch<SaveDate>(
       `*[_type == "saveDate"][0]`,
       {},
       isEnabled

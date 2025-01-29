@@ -5,7 +5,7 @@ import { draftMode } from "next/headers"
 export async function getSettings() {
   try {
     const { isEnabled } = await draftMode()
-    const settings = await client.fetch<Settings>(
+    const settings = await client().fetch<Settings>(
       `*[_type == "settings"][0]`,
       {},
       isEnabled
