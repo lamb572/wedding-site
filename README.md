@@ -2,6 +2,10 @@
 
 ## Jobs/TODO
 
+### Nav bar
+
+- [x] if you click disabled link, minimize menu
+
 ### Home Page
 
 - [x] Update designs
@@ -12,6 +16,9 @@
 - [ ] if no code in local storage ask for code
 
 ### Travel Page
+
+- transport
+- accommodation
 
 ### RSVP Page
 

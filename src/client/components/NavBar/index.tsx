@@ -20,6 +20,10 @@ export default function NavBar({ navBarItems }: NavBarProps) {
   const [navBarOpen, setNavBarOpen] = useState(isNotMobile)
   const pathName = usePathname()
 
+  const handleItemClick = () => {
+    setNavBarOpen(false)
+  }
+
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>
       <Box
@@ -54,6 +58,7 @@ export default function NavBar({ navBarItems }: NavBarProps) {
             href={href}
             selected={href === pathName}
             hideText={!navBarOpen}
+            onClick={handleItemClick}
           />
         ))}
       </Box>

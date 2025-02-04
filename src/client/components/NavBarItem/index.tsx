@@ -13,6 +13,7 @@ export interface NavBarItemProps {
   icon?: React.ReactNode
   hideIcon?: boolean
   hideText?: boolean
+  onClick?: () => void
 }
 
 export default function NavBarItem({
@@ -22,6 +23,7 @@ export default function NavBarItem({
   icon,
   hideIcon,
   hideText,
+  onClick,
 }: NavBarItemProps) {
   return (
     <ListItem
@@ -29,6 +31,7 @@ export default function NavBarItem({
       sx={{
         minHeight: "50px",
       }}
+      onClick={onClick}
     >
       <ListItemButton
         sx={{
