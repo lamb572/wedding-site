@@ -148,6 +148,9 @@ export type Settings = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  card?: {
+    backgroundColor?: HexColorPicker
+  }
   background?: {
     image?: {
       asset?: {

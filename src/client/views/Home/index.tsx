@@ -13,7 +13,11 @@ export interface HomeViewProps {
   settingsFields?: Settings
 }
 
-export function HomeView({ homeFields, weddingFields }: HomeViewProps) {
+export function HomeView({
+  homeFields,
+  weddingFields,
+  settingsFields,
+}: HomeViewProps) {
   const router = useRouter()
   const weddingDate = weddingFields?.date
     ? new Date(weddingFields.date)
@@ -33,6 +37,8 @@ export function HomeView({ homeFields, weddingFields }: HomeViewProps) {
   const date = weddingDate ? format(weddingDate, "do MMMM yyyy") : ""
 
   const image = imageLoader({ source: homeFields?.image?.asset })
+
+  const cardColor = settingsFields?.card?.backgroundColor ?? "#f6eee3"
   return (
     <Stack
       sx={{
@@ -42,12 +48,12 @@ export function HomeView({ homeFields, weddingFields }: HomeViewProps) {
         alignItems: "center",
         alignContent: "stretch",
         width: "100%",
-        backgroundColor: "#f6eee3",
+        backgroundColor: cardColor,
       }}
     >
       <Stack
         sx={{
-          backgroundColor: "#f6eee3",
+          backgroundColor: cardColor,
           borderRadius: "10px",
           gap: 2,
           textAlign: "center",

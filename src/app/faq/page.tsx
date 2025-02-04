@@ -8,7 +8,7 @@ export default async function FAQPage() {
   const faqs = await getFAQs()
   const settings = await getSettings()
   return (
-    <Card backgroundColor={`${settings?.background?.color}`}>
+    <Card backgroundColor={`${settings?.card?.backgroundColor}`}>
       <Typography variant="h3" component="h1" color="primary">
         FAQ&apos;s
       </Typography>
