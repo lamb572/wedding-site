@@ -20,6 +20,14 @@ const eslintConfig = [
         },
       ],
       "react/display-name": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   }),
 ]
