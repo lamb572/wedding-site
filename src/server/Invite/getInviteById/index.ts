@@ -1,32 +1,41 @@
 "use server"
 import mongoDBService from "@/server/mongodb"
-import { rsvpFormSchema } from "@/shared"
-import { Invite } from "./types"
+import { stringSanitize } from "@/utils/stringSanitize"
+import { Invite, rsvpFormSchema } from "../types"
 
 export interface GetInviteByIdParams {
   inviteId?: string
 }
 
 export async function getInviteById({
-  inviteId,
+  inviteId: id,
 }: GetInviteByIdParams): Promise<Omit<Invite, "_id"> | undefined> {
-  const client = await mongoDBService.client()
   try {
-    if (!inviteId) {
+    const client = await mongoDBService.client()
+    if (!id) {
       console.error("inviteId is not set")
       return undefined
     }
+    const inviteId = stringSanitize(id)
+    console.log(inviteId)
 
     const dbString = process.env.MONGODB_DB
     if (!dbString) {
       throw new Error("MONGODB_DB is not set")
     }
-    const db = client.db(dbString)
+    const db = await client.db(dbString)
     const collection = db.collection<Invite>("invites")
     const invite =
       (await collection.findOne({ inviteId: inviteId })) ?? undefined
 
-    return rsvpFormSchema.parse(invite)
+    const result = rsvpFormSchema.safeParse(invite)
+
+    if (!result.success) {
+      console.error(result.error)
+      return undefined
+    }
+
+    return result.data
   } catch (err: unknown) {
     console.error(err)
   }

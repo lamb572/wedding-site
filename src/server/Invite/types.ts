@@ -18,3 +18,10 @@ export const inviteSchema = z.object({
 })
 
 export interface Invite extends z.infer<typeof inviteSchema> {}
+
+export const rsvpFormSchema = z
+  .object({
+    guests: z.array(guestSchema.omit({ phoneNumber: true })),
+  })
+  .merge(inviteSchema.omit({ _id: true }))
+export interface RSVPForm extends z.infer<typeof rsvpFormSchema> {}

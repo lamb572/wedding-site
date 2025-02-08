@@ -1,8 +1,8 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
-import { updateInvite } from "@/server/Invite"
-import { RSVPForm, rsvpFormOptions, rsvpFormSchema } from "@/shared"
+import { RSVPForm, rsvpFormSchema, updateInvite } from "@/server/Invite"
+import { rsvpFormOptions } from "@/shared"
 import {
   Box,
   Button,

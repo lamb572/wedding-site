@@ -1,3 +1,3 @@
 export * from "./getInviteById"
-export * from "./getInviteById/types"
+export * from "./types"
 export * from "./updateInvite"

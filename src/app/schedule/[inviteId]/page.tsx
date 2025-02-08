@@ -12,7 +12,9 @@ export interface SchedulePageProps {
 
 export default async function SchedulePage({ params }: SchedulePageProps) {
   const inviteId = (await params).inviteId
+
   const invite = await getInviteById({ inviteId })
+
   const schedule = await getSchedules()
   const settings = await getSettings()
 

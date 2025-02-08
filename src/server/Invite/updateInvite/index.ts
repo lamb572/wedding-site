@@ -1,8 +1,7 @@
 "use server"
 
 import mongoDBService from "@/server/mongodb"
-import { RSVPForm } from "@/shared"
-import { Invite } from "../getInviteById/types"
+import { Invite, RSVPForm } from "../types"
 
 export async function updateInvite(invite: RSVPForm) {
   try {
