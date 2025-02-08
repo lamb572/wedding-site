@@ -1,8 +1,10 @@
 "use client"
 
+import { TextField } from "@/client/components/TextField"
 import { verifyUserExists } from "@/server/formActions"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { z } from "zod"
 
@@ -14,9 +16,11 @@ export interface InviteForm extends z.infer<typeof inviteFormSchema> {}
 
 export default function InviteView() {
   const [savedInviteId, setSavedInviteId] = useState("")
+  const router = useRouter()
 
   const handleSubmit: FormOptions<InviteForm>["onSubmit"] = ({ value }) => {
     window.localStorage.setItem("inviteId", value.inviteId)
+    router.push(`/invite/${value.inviteId}`)
   }
   const form = useForm({
     defaultValues: {

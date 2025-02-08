@@ -1,4 +1,5 @@
 "use client"
+import { useRouter } from "next/router"
 import { useEffect } from "react"
 
 export interface InviteIdViewProps {
@@ -6,11 +7,11 @@ export interface InviteIdViewProps {
 }
 
 export function InviteIdView({ inviteId }: InviteIdViewProps) {
+  const router = useRouter()
   useEffect(() => {
-    // const storedInviteId = window.localStorage.getItem("inviteId")
-
     window.localStorage.setItem("inviteId", inviteId)
-  }, [inviteId])
+    router.push(`/home`)
+  }, [inviteId, router])
 
   return <>{inviteId}</>
 }

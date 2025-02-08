@@ -1,6 +1,7 @@
 "use server"
+import { maskString } from "@/utils/maskString"
 import mongoDBService from "../mongodb"
-import { Guest } from "./types"
+import { Guest, guestSchema } from "./types"
 
 export interface GetGuestByInviteIdParams {
   inviteId?: string
@@ -8,7 +9,9 @@ export interface GetGuestByInviteIdParams {
 
 export async function getGuestByInviteId({
   inviteId,
-}: GetGuestByInviteIdParams): Promise<Guest | undefined> {
+}: GetGuestByInviteIdParams): Promise<
+  Omit<Guest, "_id" | "inviteId"> | undefined
+> {
   const client = mongoDBService.initClient()
   try {
     if (!inviteId) {
@@ -25,7 +28,18 @@ export async function getGuestByInviteId({
     const guest =
       (await collection.findOne({ inviteId: inviteId })) ?? undefined
 
-    return guest
+    return guestSchema
+      .omit({
+        _id: true,
+        inviteId: true,
+      })
+      .transform((guest) => {
+        return {
+          ...guest,
+          phoneNumber: maskString(guest.phoneNumber),
+        }
+      })
+      .parse(guest)
   } catch (err: unknown) {
     console.error(err)
   } finally {

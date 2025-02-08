@@ -1,6 +1,7 @@
 import { InviteIdView } from "@/client/views/InviteID"
 import { getGuestByInviteId } from "@/server/getGuestByInviteId"
 import { stringSanitize } from "@/utils/stringSanitize"
+import { redirect } from "next/navigation"
 
 export interface InviteIDPageProps {
   params: Promise<{
@@ -16,8 +17,7 @@ export default async function InviteIDPage({ params }: InviteIDPageProps) {
   const guest = await getGuestByInviteId({ inviteId: sanitizedInviteId })
 
   if (!guest) {
-    // TODO redirect to home with search params
-    // have home page add to the  local storage
+    redirect("/")
   }
 
   return <InviteIdView inviteId={inviteId} />

@@ -10,7 +10,7 @@ export default function RSVPView() {
     if (id) {
       router.push(`rsvp/${id}`)
     } else {
-      router.push("/")
+      router.push("/invite")
     }
   }, [router])
   return <></>
