@@ -12,7 +12,6 @@
 
 ### Schedule Page
 
-- [ ] Only show in menu if UUID in local storage
 - [ ] if no code in local storage ask for code
 
 ### Travel Page
@@ -22,9 +21,8 @@
 
 ### RSVP Page
 
-- [ ] Only show in menu if UUID in local storage
-- [ ] if no code in local storage ask for code
-- [ ] Pull data from mongo
+- [x] if no code in local storage ask for code
+- [x] Pull data from mongo
 
 ### Registry
 
@@ -32,7 +30,7 @@
 
 ### Auth
 
-- [ ] /[uuid]
-- [ ] save code to local storage
-- [ ] if guest not completed RSVP, navigate to RSVP otherwise navigate to Home page
+- [x] /[uuid]
+- [x] save code to local storage
+- [x] ~if guest not completed RSVP, navigate to RSVP otherwise navigate to Home page~ always navigate to home page
 -
