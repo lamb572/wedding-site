@@ -3,7 +3,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Box, IconButton, useMediaQuery } from "@mui/material"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"
 import { NavDrawer } from "./NavDrawer"
 
@@ -16,6 +16,7 @@ export interface NavBarProps {
 }
 
 export default function NavBar({ navBarItems }: NavBarProps) {
+  const [inviteId, setInviteId] = useState<string>()
   const isNotMobile = useMediaQuery((theme) => theme.breakpoints.up("sm"))
   const [navBarOpen, setNavBarOpen] = useState(isNotMobile)
   const pathName = usePathname()
@@ -23,6 +24,14 @@ export default function NavBar({ navBarItems }: NavBarProps) {
   const handleItemClick = () => {
     setNavBarOpen(false)
   }
+
+  useEffect(() => {
+    const id = window.localStorage.getItem("inviteId")
+    console.log("id", id)
+    if (id) {
+      setInviteId(id)
+    }
+  }, [])
 
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>
@@ -51,16 +60,18 @@ export default function NavBar({ navBarItems }: NavBarProps) {
           </IconButton>
         </Box>
 
-        {navBarItems.map(({ key, href, ...item }) => (
-          <NavBarItem
-            {...item}
-            key={key}
-            href={href}
-            selected={href === pathName}
-            hideText={!navBarOpen}
-            onClick={handleItemClick}
-          />
-        ))}
+        {navBarItems.map(({ key, href, ...item }) => {
+          return (
+            <NavBarItem
+              {...item}
+              key={key}
+              href={key === "rsvp" ? `/rsvp/${inviteId}` : href}
+              selected={href === pathName}
+              hideText={!navBarOpen}
+              onClick={handleItemClick}
+            />
+          )
+        })}
       </Box>
     </NavDrawer>
   )
