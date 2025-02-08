@@ -1,6 +1,9 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
-import { Guest, guestSchema } from "@/server/getGuestByInviteId/types"
+import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
+import { guestSchema } from "@/server/Guest"
+import { updateGuest } from "@/server/Guest/updateGuest"
+import { RSVPForm, rsvpFormOptions } from "@/shared"
 import {
   Box,
   Button,
@@ -10,15 +13,22 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material"
-import { useForm } from "@tanstack/react-form"
+import { mergeForm, useForm, useTransform } from "@tanstack/react-form"
+import { initialFormState } from "@tanstack/react-form/nextjs"
+import { useRouter } from "next/navigation"
+import { useActionState } from "react"
 
 export interface RSVPIdViewProps {
-  guest: Omit<Guest, "_id" | "inviteId">
+  guest: RSVPForm
 }
 
 export default function RSVPIdView({ guest }: RSVPIdViewProps) {
+  const [state, action] = useActionState(rsvpFormAction, initialFormState)
+  const router = useRouter()
   const form = useForm({
+    ...rsvpFormOptions,
     defaultValues: {
+      inviteId: guest.inviteId ?? "",
       name: guest.name ?? "",
       attending: guest.attending ?? false,
       foodAllergies: guest.foodAllergies ?? "",
@@ -26,7 +36,15 @@ export default function RSVPIdView({ guest }: RSVPIdViewProps) {
       phoneNumber: guest.phoneNumber ?? "",
     },
     validators: {
-      onChange: guestSchema.omit({ _id: true, inviteId: true }),
+      onChange: guestSchema.omit({ _id: true }),
+    },
+    transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
+    onSubmit: async (formData) => {
+      await updateGuest({
+        ...formData.value,
+        inviteId: guest.inviteId,
+      })
+      router.push("/thank-you")
     },
   })
   return (
@@ -44,7 +62,8 @@ export default function RSVPIdView({ guest }: RSVPIdViewProps) {
         RSVP
       </Typography>
       <Box
-        component="form"
+        component={"form"}
+        action={action}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -60,22 +79,6 @@ export default function RSVPIdView({ guest }: RSVPIdViewProps) {
             const isErrors = errors.length > 0
             return (
               <TextField
-                // sx={{
-                //   "& .MuiOutlinedInput-notchedOutline": {
-                //     borderWidth: "2px",
-                //     borderColor: "#00000070",
-                //     "&:hover": {
-                //       borderColor: "#00000090",
-                //     },
-                //   },
-                // }}
-                // slotProps={{
-                //   input: {
-                //     sx: {
-                //       backgroundColor: "white",
-                //     },
-                //   },
-                // }}
                 error={isErrors}
                 helperText={errors.join(", ")}
                 label="Guest Name"
@@ -189,6 +192,7 @@ export default function RSVPIdView({ guest }: RSVPIdViewProps) {
               variant="outlined"
               disabled={!canSubmit}
               loading={isSubmitting || isFieldsValidating}
+              onClick={form.handleSubmit}
             >
               Submit
             </Button>

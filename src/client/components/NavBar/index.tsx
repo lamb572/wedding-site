@@ -27,7 +27,6 @@ export default function NavBar({ navBarItems }: NavBarProps) {
 
   useEffect(() => {
     const id = window.localStorage.getItem("inviteId")
-    console.log("id", id)
     if (id) {
       setInviteId(id)
     }

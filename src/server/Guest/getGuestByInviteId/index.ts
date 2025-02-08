@@ -9,10 +9,8 @@ export interface GetGuestByInviteIdParams {
 
 export async function getGuestByInviteId({
   inviteId,
-}: GetGuestByInviteIdParams): Promise<
-  Omit<Guest, "_id" | "inviteId"> | undefined
-> {
-  const client = mongoDBService.initClient()
+}: GetGuestByInviteIdParams): Promise<Omit<Guest, "_id"> | undefined> {
+  const client = await mongoDBService.client()
   try {
     if (!inviteId) {
       console.error("inviteId is not set")
@@ -31,7 +29,6 @@ export async function getGuestByInviteId({
     return guestSchema
       .omit({
         _id: true,
-        inviteId: true,
       })
       .transform((guest) => {
         return {
@@ -42,7 +39,5 @@ export async function getGuestByInviteId({
       .parse(guest)
   } catch (err: unknown) {
     console.error(err)
-  } finally {
-    client.close()
   }
 }
