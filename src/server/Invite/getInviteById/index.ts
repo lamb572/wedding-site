@@ -1,7 +1,7 @@
 "use server"
 import mongoDBService from "@/server/mongodb"
-import { maskString } from "@/utils/maskString"
-import { Invite, inviteSchema } from "./types"
+import { rsvpFormSchema } from "@/shared"
+import { Invite } from "./types"
 
 export interface GetInviteByIdParams {
   inviteId?: string
@@ -26,17 +26,7 @@ export async function getInviteById({
     const invite =
       (await collection.findOne({ inviteId: inviteId })) ?? undefined
 
-    return inviteSchema
-      .omit({
-        _id: true,
-      })
-      .transform((invite) => {
-        return {
-          ...invite,
-          phoneNumber: maskString(invite.phoneNumber),
-        }
-      })
-      .parse(invite)
+    return rsvpFormSchema.parse(invite)
   } catch (err: unknown) {
     console.error(err)
   }
