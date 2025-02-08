@@ -9,7 +9,7 @@ export default async function SchedulePage() {
   return (
     <Card backgroundColor={`${settings?.card?.backgroundColor}`}>
       <Typography variant="h3" component="h1" color="primary">
-        FAQ&apos;s
+        Schedule
       </Typography>
       {schedule?.map(({ _id, heading, icon, details, time }) => {
         return (
