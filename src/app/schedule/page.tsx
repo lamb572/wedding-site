@@ -11,7 +11,8 @@ export default async function SchedulePage() {
       <Typography variant="h3" component="h1" color="primary">
         Schedule
       </Typography>
-      {schedule?.map(({ _id, heading, icon, details, time }) => {
+      {schedule?.map(({ _id, heading, icon, details, time, ceremony }) => {
+        // todo add id to params, filter if guest doesn't have access
         return (
           <ScheduleCard
             key={_id}

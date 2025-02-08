@@ -34,11 +34,18 @@ export function ScheduleCard({
       >
         {<SanityIcon icon={icon} />}
         <Typography component="span" sx={{ pl: 2 }}>
-          {`${format(localTime, "h:mm aaa")} - ${heading}`}
+          {`${format(localTime, "HH:mm")} - ${heading}`}
         </Typography>
       </AccordionSummary>
       <AccordionDetails id="faq-answer">
-        <Typography>{details}</Typography>
+        <Typography
+          sx={{
+            whiteSpace: "pre-wrap",
+            textAlign: "left",
+          }}
+        >
+          {details}
+        </Typography>
       </AccordionDetails>
     </Accordion>
   )
