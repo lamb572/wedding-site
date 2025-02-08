@@ -83,6 +83,7 @@ export type Schedule = {
   _updatedAt: string
   _rev: string
   time?: string
+  ceremony?: boolean
   heading?: string
   details?: string
   icon?: IconPicker
