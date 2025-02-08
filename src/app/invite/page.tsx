@@ -1,4 +1,4 @@
-import InviteView from "@/client/views/invite"
+import InviteView from "@/client/views/Invite"
 
 export default function InvitePage() {
   return <InviteView />
