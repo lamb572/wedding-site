@@ -1,8 +1,8 @@
 "use server"
-import { getGuestByInviteId } from "@/server/Guest"
+import { getInviteById } from "@/server/Invite"
 
-export async function verifyUserExists(inviteId: string) {
-  const guest = await getGuestByInviteId({ inviteId })
+export async function verifyInviteExists(inviteId: string) {
+  const invite = await getInviteById({ inviteId })
 
-  return Boolean(guest)
+  return Boolean(invite)
 }

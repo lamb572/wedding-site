@@ -1,15 +1,15 @@
 "use server"
 import mongoDBService from "@/server/mongodb"
 import { maskString } from "@/utils/maskString"
-import { Guest, guestSchema } from "./types"
+import { Invite, inviteSchema } from "./types"
 
-export interface GetGuestByInviteIdParams {
+export interface GetInviteByIdParams {
   inviteId?: string
 }
 
-export async function getGuestByInviteId({
+export async function getInviteById({
   inviteId,
-}: GetGuestByInviteIdParams): Promise<Omit<Guest, "_id"> | undefined> {
+}: GetInviteByIdParams): Promise<Omit<Invite, "_id"> | undefined> {
   const client = await mongoDBService.client()
   try {
     if (!inviteId) {
@@ -22,21 +22,21 @@ export async function getGuestByInviteId({
       throw new Error("MONGODB_DB is not set")
     }
     const db = client.db(dbString)
-    const collection = db.collection<Guest>("guests")
-    const guest =
+    const collection = db.collection<Invite>("invites")
+    const invite =
       (await collection.findOne({ inviteId: inviteId })) ?? undefined
 
-    return guestSchema
+    return inviteSchema
       .omit({
         _id: true,
       })
-      .transform((guest) => {
+      .transform((invite) => {
         return {
-          ...guest,
-          phoneNumber: maskString(guest.phoneNumber),
+          ...invite,
+          phoneNumber: maskString(invite.phoneNumber),
         }
       })
-      .parse(guest)
+      .parse(invite)
   } catch (err: unknown) {
     console.error(err)
   }

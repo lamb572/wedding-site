@@ -1,4 +1,4 @@
-import { guestSchema } from "@/server/Guest"
+import { inviteSchema } from "@/server/Invite"
 import { rsvpFormOptions } from "@/shared"
 import {
   createServerValidate,
@@ -8,7 +8,7 @@ import {
 const serverValidate = createServerValidate({
   ...rsvpFormOptions,
   onServerValidate: ({ value }) => {
-    const results = guestSchema
+    const results = inviteSchema
       .omit({ _id: true, inviteId: true })
       .safeParse(value)
 

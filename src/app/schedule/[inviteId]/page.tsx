@@ -1,7 +1,7 @@
 import Card from "@/client/components/Card"
 import { ScheduleCard } from "@/client/components/ScheduleCard"
 import { getSchedules, getSettings } from "@/sanity/server"
-import { getGuestByInviteId } from "@/server/Guest"
+import { getInviteById } from "@/server/Invite"
 import { Typography } from "@mui/material"
 
 export interface SchedulePageProps {
@@ -12,15 +12,15 @@ export interface SchedulePageProps {
 
 export default async function SchedulePage({ params }: SchedulePageProps) {
   const inviteId = (await params).inviteId
-  const guest = await getGuestByInviteId({ inviteId })
+  const invite = await getInviteById({ inviteId })
   const schedule = await getSchedules()
   const settings = await getSettings()
 
   const filteredSchedule = schedule?.filter(({ ceremony }) => {
-    if (ceremony && guest?.ceremony) {
+    if (ceremony && invite?.ceremony) {
       return true
     }
-    if (ceremony && !guest?.ceremony) {
+    if (ceremony && !invite?.ceremony) {
       return false
     }
     return true

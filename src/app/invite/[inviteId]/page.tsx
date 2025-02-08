@@ -1,5 +1,5 @@
 import { InviteIdView } from "@/client/views/InviteID"
-import { getGuestByInviteId } from "@/server/Guest"
+import { getInviteById } from "@/server/Invite"
 import { stringSanitize } from "@/utils/stringSanitize"
 import { redirect } from "next/navigation"
 
@@ -14,9 +14,9 @@ export default async function InviteIDPage({ params }: InviteIDPageProps) {
 
   const sanitizedInviteId = stringSanitize(inviteId)
 
-  const guest = await getGuestByInviteId({ inviteId: sanitizedInviteId })
+  const invite = await getInviteById({ inviteId: sanitizedInviteId })
 
-  if (!guest) {
+  if (!invite) {
     redirect("/")
   }
 

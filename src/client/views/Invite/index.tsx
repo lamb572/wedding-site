@@ -1,6 +1,6 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
-import { verifyUserExists } from "@/server/formActions"
+import { verifyInviteExists } from "@/server/formActions"
 import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
 import { useRouter } from "next/navigation"
@@ -63,7 +63,7 @@ export default function InviteView() {
           onChangeAsync: z.string().refine(
             async (inviteId) => {
               try {
-                const result = await verifyUserExists(inviteId)
+                const result = await verifyInviteExists(inviteId)
                 return result ?? "User not found"
               } catch (err) {
                 if (err instanceof Error) {

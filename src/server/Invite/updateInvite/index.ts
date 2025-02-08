@@ -2,9 +2,9 @@
 
 import mongoDBService from "@/server/mongodb"
 import { RSVPForm } from "@/shared"
-import { Guest } from "../getGuestByInviteId/types"
+import { Invite } from "../getInviteById/types"
 
-export async function updateGuest(guest: RSVPForm) {
+export async function updateInvite(invite: RSVPForm) {
   try {
     const client = await mongoDBService.client()
 
@@ -13,16 +13,16 @@ export async function updateGuest(guest: RSVPForm) {
       throw new Error("MONGODB_DB is not set")
     }
 
-    if (!guest.inviteId) {
+    if (!invite.inviteId) {
       throw new Error("inviteId is not set")
     }
 
     const db = client.db(dbString)
-    const collection = db.collection<Guest>("guests")
+    const collection = db.collection<Invite>("invites")
 
     await collection.updateOne(
-      { inviteId: guest.inviteId },
-      { $set: { ...guest } }
+      { inviteId: invite.inviteId },
+      { $set: { ...invite } }
     )
   } catch (err: unknown) {
     console.error(err)
