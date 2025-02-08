@@ -1,8 +1,8 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
-import { inviteSchema, updateInvite } from "@/server/Invite"
-import { RSVPForm, rsvpFormOptions } from "@/shared"
+import { updateInvite } from "@/server/Invite"
+import { RSVPForm, rsvpFormOptions, rsvpFormSchema } from "@/shared"
 import {
   Box,
   Button,
@@ -33,7 +33,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
       guests: invite.guests ?? [],
     },
     validators: {
-      onChange: inviteSchema.omit({ _id: true }),
+      onChange: rsvpFormSchema,
     },
     transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
     onSubmit: async (formData) => {
@@ -142,7 +142,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
                           <FormLabel>Menu Selection</FormLabel>
                           <RadioGroup
                             aria-labelledby="Food"
-                            value={field.state.value}
+                            value={field.state.value ?? ""}
                             name="food-group"
                             onChange={(_e, value) =>
                               field.handleChange(value as "pork" | "vegan")

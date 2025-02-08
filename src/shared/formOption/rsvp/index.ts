@@ -1,15 +1,18 @@
-import { Invite } from "@/server/Invite"
+import { guestSchema, inviteSchema } from "@/server/Invite"
 import { formOptions } from "@tanstack/react-form/nextjs"
+import { z } from "zod"
 
-export interface RSVPForm extends Omit<Invite, "_id"> {}
+export const rsvpFormSchema = z
+  .object({
+    guests: z.array(guestSchema.omit({ phoneNumber: true })),
+  })
+  .merge(inviteSchema.omit({ _id: true }))
+export interface RSVPForm extends z.infer<typeof rsvpFormSchema> {}
 
 export const rsvpFormOptions = formOptions<RSVPForm>({
   defaultValues: {
     inviteId: "",
-    name: "",
     attending: false,
-    foodAllergies: "",
-    companions: [],
-    phoneNumber: "",
+    guests: [],
   },
 })
