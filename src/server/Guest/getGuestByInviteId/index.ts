@@ -1,6 +1,6 @@
 "use server"
+import mongoDBService from "@/server/mongodb"
 import { maskString } from "@/utils/maskString"
-import mongoDBService from "../mongodb"
 import { Guest, guestSchema } from "./types"
 
 export interface GetGuestByInviteIdParams {

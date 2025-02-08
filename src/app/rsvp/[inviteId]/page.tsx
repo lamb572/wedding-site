@@ -1,6 +1,6 @@
 "use server"
 import RSVPIdView from "@/client/views/RSVPIdView"
-import { getGuestByInviteId } from "@/server/getGuestByInviteId"
+import { getGuestByInviteId } from "@/server/Guest"
 import { redirect } from "next/navigation"
 
 export interface RSVPIdPageProps {

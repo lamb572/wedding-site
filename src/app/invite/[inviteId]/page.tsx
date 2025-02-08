@@ -1,5 +1,5 @@
 import { InviteIdView } from "@/client/views/InviteID"
-import { getGuestByInviteId } from "@/server/getGuestByInviteId"
+import { getGuestByInviteId } from "@/server/Guest"
 import { stringSanitize } from "@/utils/stringSanitize"
 import { redirect } from "next/navigation"
 
