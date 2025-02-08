@@ -1,40 +1,52 @@
 "use client"
 
 import { verifyUserExists } from "@/server/formActions"
-import { inviteForm, inviteFormSchema } from "@/shared"
-import { useForm } from "@tanstack/react-form"
+import { Box, Button, TextField } from "@mui/material"
+import { FormOptions, useForm } from "@tanstack/react-form"
+import { useEffect, useState } from "react"
 import { z } from "zod"
 
+export const inviteFormSchema = z.object({
+  inviteId: z.string().min(4).max(10),
+})
+
+export interface InviteForm extends z.infer<typeof inviteFormSchema> {}
+
 export default function InviteView() {
-  const handleSubmit = () => {
-    console.log("submit")
+  const [savedInviteId, setSavedInviteId] = useState("")
+
+  const handleSubmit: FormOptions<InviteForm>["onSubmit"] = ({ value }) => {
+    window.localStorage.setItem("inviteId", value.inviteId)
   }
   const form = useForm({
-    ...inviteForm,
-    asyncDebounceMs: 500,
-    validators: {
-      onChangeAsync: inviteFormSchema.refine(
-        async (value) => {
-          try {
-            await verifyUserExists(value.inviteId)
-            return value
-          } catch (err) {
-            console.log("test -err", err)
-            return {
-              message: "User does not exist",
-            }
-          }
-        },
-        {
-          message: "You can only increase the age",
-        }
-      ),
+    defaultValues: {
+      inviteId: savedInviteId,
     },
+    validators: {
+      onChange: inviteFormSchema,
+    },
+    asyncDebounceMs: 500,
     onSubmit: handleSubmit,
   })
 
+  useEffect(() => {
+    const storedInviteId = window.localStorage.getItem("inviteId")
+    if (storedInviteId) {
+      setSavedInviteId(storedInviteId)
+    }
+  }, [])
+
   return (
-    <form
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
       onSubmit={(e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -48,7 +60,8 @@ export default function InviteView() {
           onChangeAsync: z.string().refine(
             async (inviteId) => {
               try {
-                return await verifyUserExists(inviteId)
+                const result = await verifyUserExists(inviteId)
+                return result ?? "User not found"
               } catch (err) {
                 if (err instanceof Error) {
                   return {
@@ -67,18 +80,25 @@ export default function InviteView() {
         }}
       >
         {(field) => {
+          const errors = field.state.meta.errors
+          const isErrors = errors.length > 0
           return (
             <div>
-              <input
+              <TextField
+                error={isErrors}
+                helperText={
+                  isErrors
+                    ? errors.join(", ")
+                    : "ID can be found in invite message"
+                }
+                label="Invite ID"
+                variant="outlined"
                 name="inviteId"
                 type="text"
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
               />
-              {field.state.meta.errors.map((error) => (
-                <p key={error as string}>{error}</p>
-              ))}
             </div>
           )
         }}
@@ -105,11 +125,16 @@ export default function InviteView() {
           isFieldsValidating,
           isPristine,
         ]) => (
-          <button type="submit" disabled={!canSubmit || !isDirty || isPristine}>
-            {isSubmitting || isFieldsValidating ? "..." : "Submit"}
-          </button>
+          <Button
+            type="submit"
+            variant="outlined"
+            disabled={!canSubmit || !isDirty || isPristine}
+            loading={isSubmitting || isFieldsValidating}
+          >
+            Submit Invite ID
+          </Button>
         )}
       </form.Subscribe>
-    </form>
+    </Box>
   )
 }
