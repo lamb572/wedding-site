@@ -1,3 +1,4 @@
+"use server"
 import mongoDBService from "../mongodb"
 import { Guest } from "./types"
 
