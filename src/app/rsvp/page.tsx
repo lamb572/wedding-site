@@ -1,6 +1,6 @@
 "use server"
-import RSVPView from "@/client/views/RSVPView"
+import NavToInviteView from "@/client/views/NavToInviteView"
 
 export default async function RSVPPage() {
-  return <RSVPView />
+  return <NavToInviteView page="/rsvp" />
 }

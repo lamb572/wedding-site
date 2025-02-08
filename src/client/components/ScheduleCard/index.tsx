@@ -5,10 +5,14 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Typography,
 } from "@mui/material"
 import SanityIcon from "../SanityIcon"
 import { format } from "date-fns"
+import PortableText from "../PortableText"
+import { TextBlock } from "@/utils/stringInterpolation"
+import { useState } from "react"
 
 export interface ScheduleCardProps
   extends Pick<Schedule, "details" | "heading" | "time" | "icon"> {}
@@ -19,34 +23,37 @@ export function ScheduleCard({
   time,
   heading,
 }: ScheduleCardProps) {
+  const [expanded, setExpanded] = useState<boolean>(false)
   const localTime = time ? new Date(time) : ""
+
+  const isDetails = details && details.length > 0
+
   return (
     <Accordion
       sx={(theme) => ({
         color: theme.palette.primary.dark,
         border: "1px solid",
       })}
+      expanded={expanded}
+      onChange={() => (isDetails ? setExpanded(!expanded) : undefined)}
     >
       <AccordionSummary
         aria-controls="faq-answer"
         id="faq-question"
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={isDetails ? <ExpandMoreIcon /> : undefined}
       >
         {<SanityIcon icon={icon} />}
         <Typography component="span" sx={{ pl: 2 }}>
           {`${format(localTime, "HH:mm")} - ${heading}`}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails id="faq-answer">
-        <Typography
-          sx={{
-            whiteSpace: "pre-wrap",
-            textAlign: "left",
-          }}
-        >
-          {details}
-        </Typography>
-      </AccordionDetails>
+      {isDetails && (
+        <AccordionDetails id="faq-answer">
+          <Box sx={{ textAlign: "left" }}>
+            <PortableText value={(details ?? []) as TextBlock} />
+          </Box>
+        </AccordionDetails>
+      )}
     </Accordion>
   )
 }

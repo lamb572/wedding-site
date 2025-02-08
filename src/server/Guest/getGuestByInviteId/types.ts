@@ -14,6 +14,7 @@ export const guestSchema = z.object({
   companions: z.array(companionSchema).optional(),
   foodAllergies: z.string().optional(),
   phoneNumber: z.string(),
+  ceremony: z.boolean().optional(),
 })
 
 export interface Guest extends z.infer<typeof guestSchema> {}

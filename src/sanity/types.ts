@@ -85,7 +85,33 @@ export type Schedule = {
   time?: string
   ceremony?: boolean
   heading?: string
-  details?: string
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
   icon?: IconPicker
 }
 

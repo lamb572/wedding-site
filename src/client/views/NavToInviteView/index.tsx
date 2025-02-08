@@ -3,15 +3,19 @@
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
-export default function RSVPView() {
+interface NavToInviteViewProps {
+  page: string
+}
+
+export default function NavToInviteView({ page }: NavToInviteViewProps) {
   const router = useRouter()
   useEffect(() => {
     const id = window.localStorage.getItem("inviteId")
     if (id) {
-      router.push(`rsvp/${id}`)
+      router.push(`${page}/${id}`)
     } else {
       router.push("/invite")
     }
-  }, [router])
+  }, [router, page])
   return <></>
 }
