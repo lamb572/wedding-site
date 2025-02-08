@@ -10,7 +10,7 @@ export function InviteIdView({ inviteId }: InviteIdViewProps) {
   const router = useRouter()
   useEffect(() => {
     window.localStorage.setItem("inviteId", inviteId)
-    router.push(`/home`)
+    router.push(`/`)
   }, [inviteId, router])
 
   return <>{inviteId}</>

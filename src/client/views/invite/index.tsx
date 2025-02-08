@@ -1,10 +1,9 @@
 "use client"
-
 import { TextField } from "@/client/components/TextField"
 import { verifyUserExists } from "@/server/formActions"
 import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { z } from "zod"
 
