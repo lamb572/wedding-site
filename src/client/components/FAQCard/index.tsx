@@ -18,8 +18,8 @@ export default function FAQCard({ answer, icon, question }: FAQCardProps) {
   return (
     <Accordion
       sx={(theme) => ({
-        backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.dark,
+        border: "1px solid",
       })}
     >
       <AccordionSummary
