@@ -1,4 +1,5 @@
 "use client"
+import { Box, CircularProgress } from "@mui/material"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
@@ -13,5 +14,18 @@ export function InviteIdView({ inviteId }: InviteIdViewProps) {
     router.push(`/`)
   }, [inviteId, router])
 
-  return <>{inviteId}</>
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  )
 }

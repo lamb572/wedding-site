@@ -76,6 +76,18 @@ export type Slug = {
 
 export type HexColorPicker = string
 
+export type Schedule = {
+  _id: string
+  _type: "schedule"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  time?: string
+  heading?: string
+  details?: string
+  icon?: IconPicker
+}
+
 export type Wedding = {
   _id: string
   _type: "wedding"
@@ -379,6 +391,7 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | HexColorPicker
+  | Schedule
   | Wedding
   | Theme
   | Settings

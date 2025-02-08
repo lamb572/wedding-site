@@ -1,35 +1,45 @@
-import { TextBlock } from "@/utils/stringInterpolation"
-import { Card, Stack, Typography } from "@mui/material"
-import PortableText from "../PortableText"
+"use client"
+import { Schedule } from "@/sanity"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material"
+import SanityIcon from "../SanityIcon"
+import { format } from "date-fns"
 
-export interface ScheduleCardProps {
-  heading: string | undefined
-  content: TextBlock | undefined
-  stringInterpolationData: Record<string, string>
-}
+export interface ScheduleCardProps
+  extends Pick<Schedule, "details" | "heading" | "time" | "icon"> {}
 
 export function ScheduleCard({
-  content,
+  details,
+  icon,
+  time,
   heading,
-  stringInterpolationData,
 }: ScheduleCardProps) {
+  const localTime = time ? new Date(time) : ""
   return (
-    <Card>
-      <Stack>
-        <Typography variant="h3" component="h3">
-          {heading}
+    <Accordion
+      sx={(theme) => ({
+        color: theme.palette.primary.dark,
+        border: "1px solid",
+      })}
+    >
+      <AccordionSummary
+        aria-controls="faq-answer"
+        id="faq-question"
+        expandIcon={<ExpandMoreIcon />}
+      >
+        {<SanityIcon icon={icon} />}
+        <Typography component="span" sx={{ pl: 2 }}>
+          {`${format(localTime, "h:mm aaa")} - ${heading}`}
         </Typography>
-        <Stack
-          sx={{
-            alignItems: "center",
-          }}
-        >
-          <PortableText
-            value={content as TextBlock}
-            stringInterpolationData={stringInterpolationData}
-          />
-        </Stack>
-      </Stack>
-    </Card>
+      </AccordionSummary>
+      <AccordionDetails id="faq-answer">
+        <Typography>{details}</Typography>
+      </AccordionDetails>
+    </Accordion>
   )
 }
