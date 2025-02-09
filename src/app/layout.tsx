@@ -101,7 +101,16 @@ export default async function RootLayout({
               }}
             >
               {showNav && <NavBar navBarItems={navBarItems} />}
-              {children}
+              <Box
+                sx={{
+                  maxWidth: "calc(100% - calc(7 * var(--mui-spacing, 8px)))",
+                  // maxWidth: "100%",
+                  overflowX: "hidden",
+                  wordBreak: "break-word",
+                }}
+              >
+                {children}
+              </Box>
             </Box>
             <Analytics />
             <SpeedInsights />

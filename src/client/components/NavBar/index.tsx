@@ -17,8 +17,7 @@ export interface NavBarProps {
 
 export default function NavBar({ navBarItems }: NavBarProps) {
   const [inviteId, setInviteId] = useState<string>()
-  const isNotMobile = useMediaQuery((theme) => theme.breakpoints.up("sm"))
-  const [navBarOpen, setNavBarOpen] = useState(isNotMobile)
+  const [navBarOpen, setNavBarOpen] = useState(false)
   const pathName = usePathname()
 
   const handleItemClick = () => {
