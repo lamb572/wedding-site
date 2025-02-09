@@ -1,1 +1,37 @@
-export default function TravelPage() {}
+import PortableText from "@/client/components/PortableText"
+import { getTravelAccommodation } from "@/sanity/server"
+import { TextBlock } from "@/utils/stringInterpolation"
+import { Box, Typography } from "@mui/material"
+
+export default async function TravelPage() {
+  const travelAccommodation = await getTravelAccommodation()
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 4,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        py: 4,
+        px: 2,
+      }}
+    >
+      <Typography variant="h2" component="h1" color="primary">
+        {travelAccommodation?.travelHeading}
+      </Typography>
+
+      <PortableText
+        value={(travelAccommodation?.travelDetails ?? []) as TextBlock}
+      />
+
+      <Typography variant="h2" component="h1" color="primary">
+        {travelAccommodation?.accommodationHeading}
+      </Typography>
+      <PortableText
+        value={(travelAccommodation?.accommodationDetails ?? []) as TextBlock}
+      />
+    </Box>
+  )
+}

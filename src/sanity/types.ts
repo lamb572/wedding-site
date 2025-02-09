@@ -76,16 +76,29 @@ export type Slug = {
 
 export type HexColorPicker = string
 
-export type Schedule = {
+export type Wedding = {
   _id: string
-  _type: "schedule"
+  _type: "wedding"
   _createdAt: string
   _updatedAt: string
   _rev: string
-  time?: string
-  ceremony?: boolean
-  heading?: string
-  details?: Array<{
+  date?: string
+  brideName?: string
+  groomName?: string
+  brideImage?: string
+  groomImage?: string
+  brideDescription?: string
+  groomDescription?: string
+}
+
+export type TravelAccommodation = {
+  _id: string
+  _type: "travelAccommodation"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  travelHeading?: string
+  travelDetails?: Array<{
     children?: Array<{
       marks?: Array<string>
       text?: string
@@ -112,22 +125,34 @@ export type Schedule = {
     _type: "block"
     _key: string
   }>
-  icon?: IconPicker
-}
-
-export type Wedding = {
-  _id: string
-  _type: "wedding"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  date?: string
-  brideName?: string
-  groomName?: string
-  brideImage?: string
-  groomImage?: string
-  brideDescription?: string
-  groomDescription?: string
+  accommodationHeading?: string
+  accommodationDetails?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
 }
 
 export type Theme = {
@@ -212,6 +237,45 @@ export type Settings = {
     faq?: string
     registry?: string
   }
+}
+
+export type Schedule = {
+  _id: string
+  _type: "schedule"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  time?: string
+  ceremony?: boolean
+  heading?: string
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  icon?: IconPicker
 }
 
 export type SaveDate = {
@@ -418,10 +482,11 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | HexColorPicker
-  | Schedule
   | Wedding
+  | TravelAccommodation
   | Theme
   | Settings
+  | Schedule
   | SaveDate
   | StringObjectField
   | Home

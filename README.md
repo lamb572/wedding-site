@@ -12,12 +12,12 @@
 
 ### Schedule Page
 
-- [ ] if no code in local storage ask for code
+- [x] if no code in local storage ask for code
 
 ### Travel Page
 
-- transport
-- accommodation
+- [x] transport
+- [x] accommodation
 
 ### RSVP Page
 
@@ -26,11 +26,13 @@
 
 ### Registry
 
-### User sign up
-
 ### Auth
 
 - [x] /[uuid]
 - [x] save code to local storage
 - [x] ~if guest not completed RSVP, navigate to RSVP otherwise navigate to Home page~ always navigate to home page
 -
+
+### logging responses?
+
+- send messages to discord channel
