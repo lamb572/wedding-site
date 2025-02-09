@@ -18,6 +18,10 @@
 
 - [x] transport
 - [x] accommodation
+- [ ] Google Map
+  - [x] Add Map
+  - [x] Add markers for locations
+  - [ ] make markers dynamic depending on invite ID
 
 ### RSVP Page
 
