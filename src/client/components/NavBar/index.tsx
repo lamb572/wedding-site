@@ -1,7 +1,7 @@
 "use client"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import { Box, IconButton, useMediaQuery } from "@mui/material"
+import { Box, IconButton } from "@mui/material"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"

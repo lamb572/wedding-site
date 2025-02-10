@@ -7,13 +7,6 @@ import { Box, Typography } from "@mui/material"
 export default async function TravelPage() {
   // TODO add dynamic ceremony location
   const travelAccommodation = await getTravelAccommodation()
-  const mapOptions: google.maps.MapOptions = {
-    center: {
-      lat: 50.891999,
-      lng: -1.412316,
-    },
-    zoom: 11,
-  }
 
   return (
     <Box
