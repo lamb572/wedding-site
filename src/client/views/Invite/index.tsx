@@ -49,6 +49,7 @@ export default function InviteView() {
         width: "100%",
         alignItems: "center",
         justifyContent: "center",
+        height: "100%",
       }}
       onSubmit={(e) => {
         e.preventDefault()

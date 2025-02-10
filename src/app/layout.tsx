@@ -104,7 +104,8 @@ export default async function RootLayout({
               <Box
                 sx={{
                   maxWidth: "calc(100% - calc(7 * var(--mui-spacing, 8px)))",
-                  // maxWidth: "100%",
+                  width: "100%",
+                  minHeight: "100%",
                   overflowX: "hidden",
                   wordBreak: "break-word",
                 }}
