@@ -33,8 +33,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode
+  modal: React.ReactNode
 }>) {
   const sanityTheme = await getSanityTheme()
   const sanitySettings = await getSettings()
@@ -47,6 +49,12 @@ export default async function RootLayout({
     //   href: "/save-date",
     //   text: "Save Date",
     // },
+    // {
+    //   key: "invite",
+    //   href: "/invite",
+    //   text: "invite",
+    //   icon: <HomeIcon color="primary" />,
+    // },
     {
       key: "home",
       href: "/",
@@ -58,18 +66,21 @@ export default async function RootLayout({
       href: "/schedule",
       text: pageNames?.schedule,
       icon: <ScheduleIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "travel",
       href: "/travel",
       text: pageNames?.travel,
       icon: <ModeOfTravelIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "rsvp",
       href: "/rsvp",
       text: pageNames?.rsvp,
       icon: <RsvpIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "faq",
@@ -91,6 +102,7 @@ export default async function RootLayout({
       <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
+            {modal}
             <Box
               sx={{
                 display: "flex",

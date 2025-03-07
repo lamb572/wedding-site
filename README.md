@@ -40,3 +40,9 @@
 ### logging responses?
 
 - send messages to discord channel
+
+new invite flow
+
+1. initial invite link -> / www.beach-wedding.org?invite=1234
+2. SAVE invite code to local storage
+3.

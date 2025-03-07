@@ -80,7 +80,7 @@ export function HomeView({
           />
         </Stack>
         <Button
-          onClick={() => router.push("/rsvp")}
+          onClick={() => router.push(`/invite?forward=rsvp`)}
           size="large"
           variant="outlined"
         >

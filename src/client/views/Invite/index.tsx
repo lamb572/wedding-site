@@ -13,13 +13,18 @@ export const inviteFormSchema = z.object({
 
 export interface InviteForm extends z.infer<typeof inviteFormSchema> {}
 
-export default function InviteView() {
+export interface InviteViewProps {
+  forwardRoute?: string
+}
+
+export default function InviteView({ forwardRoute }: InviteViewProps) {
   const [savedInviteId, setSavedInviteId] = useState("")
   const router = useRouter()
 
   const handleSubmit: FormOptions<InviteForm>["onSubmit"] = ({ value }) => {
     window.localStorage.setItem("inviteId", value.inviteId)
-    router.push(`/invite/${value.inviteId}`)
+    console.log("Submit", forwardRoute)
+    router.push(forwardRoute ?? `/invite/${value.inviteId}`)
   }
   const form = useForm({
     defaultValues: {

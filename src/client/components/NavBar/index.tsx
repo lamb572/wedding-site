@@ -9,6 +9,7 @@ import { NavDrawer } from "./NavDrawer"
 
 export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
   key: string
+  inviteIdRequired?: boolean
 }
 
 export interface NavBarProps {
@@ -58,12 +59,14 @@ export default function NavBar({ navBarItems }: NavBarProps) {
           </IconButton>
         </Box>
 
-        {navBarItems.map(({ key, href, ...item }) => {
+        {navBarItems.map(({ key, href, inviteIdRequired, ...item }) => {
           return (
             <NavBarItem
               {...item}
               key={key}
-              href={key === "rsvp" ? `/rsvp/${inviteId}` : href}
+              href={
+                inviteIdRequired && !inviteId ? `/invite?forward=${href}` : href
+              }
               selected={href === pathName}
               hideText={!navBarOpen}
               onClick={handleItemClick}
