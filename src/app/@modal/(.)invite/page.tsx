@@ -1,9 +1,9 @@
 import { Modal } from "./modal"
 
 interface InviteModalProps {
-  searchParams: {
+  searchParams: Promise<{
     forward?: string
-  }
+  }>
 }
 export default async function InviteModal({ searchParams }: InviteModalProps) {
   const search = await searchParams

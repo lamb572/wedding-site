@@ -7,7 +7,7 @@ interface ISanityIconProps {
   icon?: IconPicker
 }
 
-export default function SanityIcon({ icon }: ISanityIconProps): JSX.Element {
+export default function SanityIcon({ icon }: ISanityIconProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const svgString = icon?.svg
 
