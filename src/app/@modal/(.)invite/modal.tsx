@@ -26,7 +26,9 @@ export function Modal({ forward }: InviteModalProps) {
       <Box
         sx={{
           width: "100%",
-          padding: 5,
+          pt: 6,
+          px: 2,
+          pb: 2,
         }}
       >
         <IconButton

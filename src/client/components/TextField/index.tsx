@@ -12,6 +12,7 @@ export const TextField = styled(MuiTextField)<TextFieldProps>({
       },
     },
   },
+  minWidth: "270px",
   "& .MuiOutlinedInput-input": {
     margin: 5,
     backgroundColor: "white",
