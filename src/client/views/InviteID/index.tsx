@@ -1,4 +1,5 @@
 "use client"
+import { setUserInviteCookie } from "@/server/cookies/inviteId"
 import { Box, CircularProgress } from "@mui/material"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -11,6 +12,11 @@ export function InviteIdView({ inviteId }: InviteIdViewProps) {
   const router = useRouter()
   useEffect(() => {
     window.localStorage.setItem("inviteId", inviteId)
+
+    const setId = async () => {
+      await setUserInviteCookie(inviteId)
+    }
+    setId()
     router.push(`/`)
   }, [inviteId, router])
 

@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"
 import { NavDrawer } from "./NavDrawer"
+import { CookieKeys } from "@/server/cookies/types"
+import { cookies } from "next/headers"
 
 export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
   key: string
@@ -26,10 +28,14 @@ export default function NavBar({ navBarItems }: NavBarProps) {
   }
 
   useEffect(() => {
-    const id = window.localStorage.getItem("inviteId")
-    if (id) {
-      setInviteId(id)
+    const getId = async () => {
+      const cookieStore = await cookies()
+      const id = cookieStore.get(CookieKeys.INVITE)?.value
+      if (id) {
+        setInviteId(id)
+      }
     }
+    getId()
   }, [])
 
   return (

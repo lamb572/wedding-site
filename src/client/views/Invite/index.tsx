@@ -1,5 +1,6 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
+import { setUserInviteCookie } from "@/server/cookies/inviteId"
 import { verifyInviteExists } from "@/server/formActions"
 import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
@@ -21,9 +22,10 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
   const [savedInviteId, setSavedInviteId] = useState("")
   const router = useRouter()
 
-  const handleSubmit: FormOptions<InviteForm>["onSubmit"] = ({ value }) => {
-    window.localStorage.setItem("inviteId", value.inviteId)
-    console.log("Submit", forwardRoute)
+  const handleSubmit: FormOptions<InviteForm>["onSubmit"] = async ({
+    value,
+  }) => {
+    await setUserInviteCookie(value.inviteId)
     router.push(forwardRoute ?? `/invite/${value.inviteId}`)
   }
   const form = useForm({
