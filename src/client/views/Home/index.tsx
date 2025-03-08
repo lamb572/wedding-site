@@ -11,12 +11,14 @@ export interface HomeViewProps {
   homeFields?: Home
   weddingFields?: Wedding
   settingsFields?: Settings
+  inviteId?: string
 }
 
 export function HomeView({
   homeFields,
   weddingFields,
   settingsFields,
+  inviteId,
 }: HomeViewProps) {
   const router = useRouter()
   const weddingDate = weddingFields?.date
@@ -80,7 +82,9 @@ export function HomeView({
           />
         </Stack>
         <Button
-          onClick={() => router.push(`/invite?forward=rsvp`)}
+          onClick={() =>
+            router.push(inviteId ? "/rsvp" : `/invite?forward=rsvp`)
+          }
           size="large"
           variant="outlined"
         >
