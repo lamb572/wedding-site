@@ -1,4 +1,5 @@
 "use client"
+import { getUserInviteCookie } from "@/server/cookies/inviteId"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Box, IconButton } from "@mui/material"
@@ -6,8 +7,6 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"
 import { NavDrawer } from "./NavDrawer"
-import { CookieKeys } from "@/server/cookies/types"
-import { cookies } from "next/headers"
 
 export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
   key: string
@@ -29,8 +28,8 @@ export default function NavBar({ navBarItems }: NavBarProps) {
 
   useEffect(() => {
     const getId = async () => {
-      const cookieStore = await cookies()
-      const id = cookieStore.get(CookieKeys.INVITE)?.value
+      const inviteCookie = await getUserInviteCookie()
+      const id = inviteCookie?.value
       if (id) {
         setInviteId(id)
       }

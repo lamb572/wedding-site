@@ -11,3 +11,8 @@ export async function setUserInviteCookie(inviteId: string) {
     path: "/",
   })
 }
+
+export async function getUserInviteCookie() {
+  const cookieStore = await cookies()
+  return cookieStore.get(CookieKeys.INVITE)
+}
