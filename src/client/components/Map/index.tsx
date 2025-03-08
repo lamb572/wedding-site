@@ -13,7 +13,7 @@ export interface GoogleMapOptions {
 }
 
 export interface GoogleMapProps {
-  mapOptions: google.maps.MapOptions
+  invitedToCeremony: boolean
 }
 
 const BreweryId = "ChIJm0BTcB6Ec0gRcv_8d8i6Z94"
@@ -26,7 +26,7 @@ const southamptonLocation = {
   zoom: 11,
 }
 
-export default function GoogleMap() {
+export default function GoogleMap({ invitedToCeremony }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -63,11 +63,6 @@ export default function GoogleMap() {
           await loader.importLibrary("marker")
 
         const { Place } = await loader.importLibrary("places")
-
-        const ceremony = new Place({ id: CeremonyId })
-        await ceremony.fetchFields({
-          fields: ["location", "displayName", "formattedAddress"],
-        })
 
         const reception = new Place({ id: BreweryId })
         await reception.fetchFields({
@@ -110,41 +105,49 @@ export default function GoogleMap() {
             map,
           })
         })
-        const ceremonyContent = renderToString(
-          <Box>
-            <Typography variant="h3">{ceremony.displayName}</Typography>
-            <Typography variant="body1">{ceremony.formattedAddress}</Typography>
-            <Link
-              target="_blank"
-              href={`http://maps.google.com/?q=${ceremony.formattedAddress}`}
-            >
-              Google Map
-            </Link>
-          </Box>
-        )
-        const ceremonyInfoWindow = new google.maps.InfoWindow({
-          content: ceremonyContent,
-          ariaLabel: ceremony.displayName,
-        })
-
-        const ceremonyElement = new PinElement({
-          // background: "",
-          glyph: placeOfWorshipSvg,
-        })
-
-        const ceremonyMarker = new AdvancedMarkerElement({
-          map,
-          position: ceremony.location,
-          content: ceremonyElement.element,
-          title: ceremony.displayName,
-        })
-
-        ceremonyMarker.addListener("click", () => {
-          ceremonyInfoWindow.open({
-            anchor: ceremonyMarker,
-            map,
+        if (invitedToCeremony) {
+          const ceremony = new Place({ id: CeremonyId })
+          await ceremony.fetchFields({
+            fields: ["location", "displayName", "formattedAddress"],
           })
-        })
+          const ceremonyContent = renderToString(
+            <Box>
+              <Typography variant="h3">{ceremony?.displayName}</Typography>
+              <Typography variant="body1">
+                {ceremony?.formattedAddress}
+              </Typography>
+              <Link
+                target="_blank"
+                href={`http://maps.google.com/?q=${ceremony.formattedAddress}`}
+              >
+                Google Map
+              </Link>
+            </Box>
+          )
+          const ceremonyInfoWindow = new google.maps.InfoWindow({
+            content: ceremonyContent,
+            ariaLabel: ceremony.displayName,
+          })
+
+          const ceremonyElement = new PinElement({
+            // background: "",
+            glyph: placeOfWorshipSvg,
+          })
+
+          const ceremonyMarker = new AdvancedMarkerElement({
+            map,
+            position: ceremony.location,
+            content: ceremonyElement.element,
+            title: ceremony.displayName,
+          })
+
+          ceremonyMarker.addListener("click", () => {
+            ceremonyInfoWindow.open({
+              anchor: ceremonyMarker,
+              map,
+            })
+          })
+        }
       } catch (err) {
         console.error(err)
       }
@@ -152,7 +155,7 @@ export default function GoogleMap() {
     initMap()
 
     return () => {}
-  }, [])
+  }, [invitedToCeremony])
 
   return (
     <Box

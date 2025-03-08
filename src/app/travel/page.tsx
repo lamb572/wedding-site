@@ -1,12 +1,20 @@
 import GoogleMap from "@/client/components/Map"
 import PortableText from "@/client/components/PortableText"
 import { getTravelAccommodation } from "@/sanity/server"
+import { CookieKeys } from "@/server/cookies/types"
+import { getInviteById } from "@/server/Invite"
 import { TextBlock } from "@/utils/stringInterpolation"
 import { Box, Typography } from "@mui/material"
+import { cookies } from "next/headers"
 
 export default async function TravelPage() {
-  // TODO add dynamic ceremony location
+  const cookieStore = await cookies()
+  const inviteId = cookieStore.get(CookieKeys.INVITE)?.value
+
+  const invite = await getInviteById({ inviteId })
   const travelAccommodation = await getTravelAccommodation()
+
+  const userInvitedToCeremony = invite?.ceremony ?? false
 
   return (
     <Box
@@ -49,7 +57,7 @@ export default async function TravelPage() {
       <PortableText
         value={(travelAccommodation?.accommodationDetails ?? []) as TextBlock}
       />
-      <GoogleMap />
+      <GoogleMap invitedToCeremony={userInvitedToCeremony} />
     </Box>
   )
 }
