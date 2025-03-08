@@ -52,7 +52,7 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
         flexDirection: "column",
         gap: 2,
         width: "100%",
-        alignItems: "center",
+        alignItems: "stretch",
         justifyContent: "center",
         height: "100%",
       }}
