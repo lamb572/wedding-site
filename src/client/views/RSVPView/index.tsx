@@ -22,7 +22,7 @@ export interface RSVPIdViewProps {
   invite: RSVPForm
 }
 
-export default function RSVPIdView({ invite }: RSVPIdViewProps) {
+export default function RSVPView({ invite }: RSVPIdViewProps) {
   const [state, action] = useActionState(rsvpFormAction, initialFormState)
   const router = useRouter()
   const form = useForm({
@@ -54,6 +54,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
         alignItems: "center",
         justifyContent: "center",
         my: 4,
+        minWidth: { xs: 300, md: 400 },
       }}
     >
       <Typography variant="h2" component="h1" color="primary">
