@@ -35,7 +35,20 @@ export default async function RegistryPage() {
         {registry?.registryHeading}
       </Typography>
 
-      <PortableText value={(registry?.registryDetails ?? []) as TextBlock} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          border: "1px solid black",
+          padding: 2,
+          gap: 2,
+          backgroundColor: "white",
+          borderRadius: 4,
+          maxWidth: 600,
+        }}
+      >
+        <PortableText value={(registry?.registryDetails ?? []) as TextBlock} />
+      </Box>
       <Box
         sx={{
           display: "flex",
