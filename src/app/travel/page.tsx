@@ -29,35 +29,71 @@ export default async function TravelPage() {
         px: 2,
       }}
     >
-      <Typography
-        variant="h2"
-        component="h1"
-        color="primary"
+      <Box
         sx={{
-          fontSize: { xs: "10vw", md: "3.75rem" },
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
         }}
       >
-        {travelAccommodation?.travelHeading}
-      </Typography>
+        <Typography
+          variant="h2"
+          component="h2"
+          color="primary"
+          sx={{
+            fontSize: { xs: "10vw", md: "3.75rem" },
+            textAlign: "center",
+          }}
+        >
+          {travelAccommodation?.travelHeading}
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid black",
+            padding: 2,
+            gap: 2,
+            backgroundColor: "white",
+            borderRadius: 4,
+          }}
+        >
+          <PortableText
+            value={(travelAccommodation?.travelDetails ?? []) as TextBlock}
+          />
+        </Box>
 
-      <PortableText
-        value={(travelAccommodation?.travelDetails ?? []) as TextBlock}
-      />
+        <Typography
+          variant="h2"
+          component="h2"
+          color="primary"
+          sx={{
+            fontSize: { xs: "10vw", md: "3.75rem" },
+            textAlign: "center",
+          }}
+        >
+          {travelAccommodation?.accommodationHeading}
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid black",
+            padding: 2,
+            gap: 2,
+            backgroundColor: "white",
+            borderRadius: 4,
+          }}
+        >
+          <PortableText
+            value={
+              (travelAccommodation?.accommodationDetails ?? []) as TextBlock
+            }
+          />
+        </Box>
 
-      <Typography
-        variant="h2"
-        component="h1"
-        color="primary"
-        sx={{
-          fontSize: { xs: "10vw", md: "3.75rem" },
-        }}
-      >
-        {travelAccommodation?.accommodationHeading}
-      </Typography>
-      <PortableText
-        value={(travelAccommodation?.accommodationDetails ?? []) as TextBlock}
-      />
-      <GoogleMap invitedToCeremony={userInvitedToCeremony} />
+        <GoogleMap invitedToCeremony={userInvitedToCeremony} />
+      </Box>
     </Box>
   )
 }
