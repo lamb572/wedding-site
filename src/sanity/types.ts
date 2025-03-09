@@ -74,6 +74,41 @@ export type Slug = {
   source?: string
 }
 
+export type TextBlock = Array<{
+  children?: Array<{
+    marks?: Array<string>
+    text?: string
+    _type: "span"
+    _key: string
+  }>
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+  listItem?: "bullet" | "number"
+  markDefs?: Array<
+    | {
+        color?:
+          | "textSecondary"
+          | "primary"
+          | "secondary"
+          | "success"
+          | "error"
+          | "info"
+          | "warning"
+          | "textPrimary"
+          | "textDisabled"
+        _type: "color"
+        _key: string
+      }
+    | {
+        href?: string
+        _type: "link"
+        _key: string
+      }
+  >
+  level?: number
+  _type: "block"
+  _key: string
+}>
+
 export type HexColorPicker = string
 
 export type Wedding = {
@@ -98,61 +133,9 @@ export type TravelAccommodation = {
   _updatedAt: string
   _rev: string
   travelHeading?: string
-  travelDetails?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  travelDetails?: TextBlock
   accommodationHeading?: string
-  accommodationDetails?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  accommodationDetails?: TextBlock
 }
 
 export type Theme = {
@@ -237,6 +220,19 @@ export type Settings = {
     faq?: string
     registry?: string
   }
+  images?: {
+    thankYou?: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    }
+  }
 }
 
 export type Schedule = {
@@ -248,33 +244,7 @@ export type Schedule = {
   time?: string
   ceremony?: boolean
   heading?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  details?: TextBlock
   icon?: IconPicker
 }
 
@@ -285,24 +255,7 @@ export type SaveDate = {
   _updatedAt: string
   _rev: string
   heading?: StringObjectField
-  context?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      href?: string
-      _type: "link"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  context?: TextBlock
   extraInfo?: StringObjectField
   backgroundImage?: {
     asset?: {
@@ -354,33 +307,7 @@ export type Registry = {
   _updatedAt: string
   _rev: string
   registryHeading?: string
-  registryDetails?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  registryDetails?: TextBlock
   qrCode?: {
     asset?: {
       _ref: string
@@ -406,33 +333,7 @@ export type Home = {
     upcoming?: string
     past?: string
   }
-  location?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
+  location?: TextBlock
   image?: {
     asset?: {
       _ref: string
@@ -529,6 +430,7 @@ export type AllSanitySchemaTypes =
   | SanityFileAsset
   | Geopoint
   | Slug
+  | TextBlock
   | HexColorPicker
   | Wedding
   | TravelAccommodation
