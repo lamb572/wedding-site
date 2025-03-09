@@ -1,6 +1,9 @@
+import Card from "@/client/components/Card"
+import { getSettings } from "@/sanity/server"
 import { Box, Typography } from "@mui/material"
 
 export default async function ThankYouPage() {
+  const settings = await getSettings()
   return (
     <Box
       sx={{
@@ -13,9 +16,11 @@ export default async function ThankYouPage() {
         justifyContent: "center",
       }}
     >
-      <Typography variant="h2" component="h1" color="primary">
-        Thank You
-      </Typography>
+      <Card backgroundColor={`${settings?.card?.backgroundColor}`}>
+        <Typography variant="h2" component="h1" color="primary">
+          Thank You
+        </Typography>
+      </Card>
     </Box>
   )
 }
