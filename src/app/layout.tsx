@@ -18,6 +18,7 @@ import { VisualEditing } from "next-sanity"
 import { Prata } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
+import { getUserInviteCookie } from "@/server/cookies"
 
 const leagueScript = Prata({
   weight: ["400"],
@@ -42,6 +43,9 @@ export default async function RootLayout({
   const sanitySettings = await getSettings()
   const pageNames = sanitySettings?.pageNames
   const showNav = Boolean(process.env.NEXT_MAIN_SITE_FLAG)
+
+  const inviteCookie = await getUserInviteCookie()
+  const id = inviteCookie?.value
 
   const navBarItems: NavBarItem[] = [
     // {
@@ -112,7 +116,7 @@ export default async function RootLayout({
                 backgroundColor: settings?.background?.color,
               }}
             >
-              {showNav && <NavBar navBarItems={navBarItems} />}
+              {showNav && <NavBar navBarItems={navBarItems} inviteId={id} />}
               <Box
                 sx={{
                   maxWidth: "calc(100% - calc(7 * var(--mui-spacing, 8px)))",

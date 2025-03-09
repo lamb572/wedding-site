@@ -1,10 +1,9 @@
 "use client"
-import { getUserInviteCookie } from "@/server/cookies/inviteId"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Box, IconButton } from "@mui/material"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"
 import { NavDrawer } from "./NavDrawer"
 
@@ -15,27 +14,17 @@ export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
 
 export interface NavBarProps {
   navBarItems: NavBarItem[]
+  inviteId?: string
 }
 
-export default function NavBar({ navBarItems }: NavBarProps) {
-  const [inviteId, setInviteId] = useState<string>()
+export default function NavBar({ navBarItems, inviteId }: NavBarProps) {
   const [navBarOpen, setNavBarOpen] = useState(false)
   const pathName = usePathname()
 
   const handleItemClick = () => {
     setNavBarOpen(false)
   }
-
-  useEffect(() => {
-    const getId = async () => {
-      const inviteCookie = await getUserInviteCookie()
-      const id = inviteCookie?.value
-      if (id) {
-        setInviteId(id)
-      }
-    }
-    getId()
-  }, [])
+  console.log("inviteId", inviteId)
 
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>
