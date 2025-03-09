@@ -29,8 +29,8 @@ export default async function TravelPage() {
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
-          py: 4,
-          px: 2,
+          // py: 4,
+          // px: 2,
         }}
       >
         <Box
@@ -45,7 +45,7 @@ export default async function TravelPage() {
             component="h2"
             color="primary"
             sx={{
-              fontSize: { xs: "10vw", md: "3.75rem" },
+              fontSize: { xs: "8vw", md: "3.75rem" },
               textAlign: "center",
             }}
           >
@@ -56,7 +56,7 @@ export default async function TravelPage() {
               display: "flex",
               flexDirection: "column",
               border: "1px solid black",
-              padding: 2,
+              pr: 2,
               gap: 2,
               backgroundColor: "white",
               borderRadius: 4,
@@ -73,7 +73,7 @@ export default async function TravelPage() {
             component="h2"
             color="primary"
             sx={{
-              fontSize: { xs: "10vw", md: "3.75rem" },
+              fontSize: { xs: "8vw", md: "3.75rem" },
               textAlign: "center",
             }}
           >
@@ -84,7 +84,7 @@ export default async function TravelPage() {
               display: "flex",
               flexDirection: "column",
               border: "1px solid black",
-              padding: 2,
+              pr: 2,
               gap: 2,
               backgroundColor: "white",
               borderRadius: 4,
