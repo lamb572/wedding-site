@@ -91,6 +91,70 @@ export type Wedding = {
   groomDescription?: string
 }
 
+export type TravelAccommodation = {
+  _id: string
+  _type: "travelAccommodation"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  travelHeading?: string
+  travelDetails?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  accommodationHeading?: string
+  accommodationDetails?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+}
+
 export type Theme = {
   _id: string
   _type: "theme"
@@ -148,6 +212,9 @@ export type Settings = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  card?: {
+    backgroundColor?: HexColorPicker
+  }
   background?: {
     image?: {
       asset?: {
@@ -170,6 +237,45 @@ export type Settings = {
     faq?: string
     registry?: string
   }
+}
+
+export type Schedule = {
+  _id: string
+  _type: "schedule"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  time?: string
+  ceremony?: boolean
+  heading?: string
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  icon?: IconPicker
 }
 
 export type SaveDate = {
@@ -199,6 +305,135 @@ export type SaveDate = {
   }>
   extraInfo?: StringObjectField
   backgroundImage?: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
+}
+
+export type StringObjectField = {
+  _type: "stringObjectField"
+  string?: string
+  typographyVariant?:
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "body1"
+    | "body2"
+    | "button"
+    | "caption"
+    | "inherit"
+    | "overline"
+    | "subtitle1"
+    | "subtitle2"
+  color?:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "error"
+    | "info"
+    | "warning"
+    | "textPrimary"
+    | "textSecondary"
+    | "textDisabled"
+}
+
+export type Registry = {
+  _id: string
+  _type: "registry"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  registryHeading?: string
+  registryDetails?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  qrCode?: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
+  registryLink?: string
+}
+
+export type Home = {
+  _id: string
+  _type: "home"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  distanceMessages?: {
+    upcoming?: string
+    past?: string
+  }
+  location?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: "span"
+      _key: string
+    }>
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
+    listItem?: "bullet" | "number"
+    markDefs?: Array<{
+      color?:
+        | "textSecondary"
+        | "primary"
+        | "secondary"
+        | "success"
+        | "error"
+        | "info"
+        | "warning"
+        | "textPrimary"
+        | "textDisabled"
+      _type: "color"
+      _key: string
+    }>
+    level?: number
+    _type: "block"
+    _key: string
+  }>
+  image?: {
     asset?: {
       _ref: string
       _type: "reference"
@@ -268,82 +503,13 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
-export type StringObjectField = {
-  _type: "stringObjectField"
-  string?: string
-  typographyVariant?:
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "body1"
-    | "body2"
-    | "button"
-    | "caption"
-    | "inherit"
-    | "overline"
-    | "subtitle1"
-    | "subtitle2"
-  color?:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "error"
-    | "info"
-    | "warning"
-    | "textPrimary"
-    | "textSecondary"
-    | "textDisabled"
-}
-
-export type Home = {
-  _id: string
-  _type: "home"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  distanceMessages?: {
-    upcoming?: string
-    past?: string
-  }
-  location?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: "span"
-      _key: string
-    }>
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote"
-    listItem?: "bullet" | "number"
-    markDefs?: Array<{
-      color?:
-        | "textSecondary"
-        | "primary"
-        | "secondary"
-        | "success"
-        | "error"
-        | "info"
-        | "warning"
-        | "textPrimary"
-        | "textDisabled"
-      _type: "color"
-      _key: string
-    }>
-    level?: number
-    _type: "block"
-    _key: string
-  }>
-}
-
 export type Faq = {
   _id: string
   _type: "faq"
   _createdAt: string
   _updatedAt: string
   _rev: string
+  position?: number
   question?: string
   answer?: string
   icon?: IconPicker
@@ -365,16 +531,19 @@ export type AllSanitySchemaTypes =
   | Slug
   | HexColorPicker
   | Wedding
+  | TravelAccommodation
   | Theme
   | Settings
+  | Schedule
   | SaveDate
+  | StringObjectField
+  | Registry
+  | Home
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
-  | StringObjectField
-  | Home
   | Faq
   | IconPicker
 export declare const internalGroqTypeReferenceTo: unique symbol

@@ -1,14 +1,16 @@
 "use client"
+import { getUserInviteCookie } from "@/server/cookies/inviteId"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import { Box, IconButton, useMediaQuery } from "@mui/material"
+import { Box, IconButton } from "@mui/material"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import NavBarItem, { NavBarItemProps } from "../NavBarItem"
 import { NavDrawer } from "./NavDrawer"
 
 export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
   key: string
+  inviteIdRequired?: boolean
 }
 
 export interface NavBarProps {
@@ -16,9 +18,24 @@ export interface NavBarProps {
 }
 
 export default function NavBar({ navBarItems }: NavBarProps) {
-  const isNotMobile = useMediaQuery((theme) => theme.breakpoints.up("sm"))
-  const [navBarOpen, setNavBarOpen] = useState(isNotMobile)
+  const [inviteId, setInviteId] = useState<string>()
+  const [navBarOpen, setNavBarOpen] = useState(false)
   const pathName = usePathname()
+
+  const handleItemClick = () => {
+    setNavBarOpen(false)
+  }
+
+  useEffect(() => {
+    const getId = async () => {
+      const inviteCookie = await getUserInviteCookie()
+      const id = inviteCookie?.value
+      if (id) {
+        setInviteId(id)
+      }
+    }
+    getId()
+  }, [])
 
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>
@@ -30,9 +47,6 @@ export default function NavBar({ navBarItems }: NavBarProps) {
           display: "flex",
           flexFlow: "column nowrap",
           gap: theme.spacing(2),
-          border: "1px grey",
-          boxShadow:
-            "0px 0px 0px 0px rgba(0,0,0,0.2),3px 0px 3px 0px rgba(0,0,0,0.14)",
         })}
       >
         <Box
@@ -50,15 +64,20 @@ export default function NavBar({ navBarItems }: NavBarProps) {
           </IconButton>
         </Box>
 
-        {navBarItems.map(({ key, href, ...item }) => (
-          <NavBarItem
-            {...item}
-            key={key}
-            href={href}
-            selected={href === pathName}
-            hideText={!navBarOpen}
-          />
-        ))}
+        {navBarItems.map(({ key, href, inviteIdRequired, ...item }) => {
+          return (
+            <NavBarItem
+              {...item}
+              key={key}
+              href={
+                inviteIdRequired && !inviteId ? `/invite?forward=${href}` : href
+              }
+              selected={href === pathName}
+              hideText={!navBarOpen}
+              onClick={handleItemClick}
+            />
+          )
+        })}
       </Box>
     </NavDrawer>
   )

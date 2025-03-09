@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wedding Site
 
-## Getting Started
+## Jobs/TODO
 
-First, run the development server:
+### Nav bar
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [x] if you click disabled link, minimize menu
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Home Page
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [x] Update designs
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Schedule Page
 
-## Learn More
+- [x] if no code in local storage ask for code
 
-To learn more about Next.js, take a look at the following resources:
+### Travel Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] transport
+- [x] accommodation
+- [ ] Google Map
+  - [x] Add Map
+  - [x] Add markers for locations
+  - [ ] make markers dynamic depending on invite ID
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### RSVP Page
 
-## Deploy on Vercel
+- [x] if no code in local storage ask for code
+- [x] Pull data from mongo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Registry
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Auth
+
+- [x] /[uuid]
+- [x] save code to local storage
+- [x] ~if guest not completed RSVP, navigate to RSVP otherwise navigate to Home page~ always navigate to home page
+-
+
+### logging responses?
+
+- send messages to discord channel
+
+new invite flow
+
+1. initial invite link -> / www.beach-wedding.org?invite=1234
+2. SAVE invite code to local storage
+3.

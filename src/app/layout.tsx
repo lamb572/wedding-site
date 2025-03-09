@@ -1,7 +1,6 @@
 import DisableDraftMode from "@/client/components/DisableDraftMode"
 import NavBar, { NavBarItem } from "@/client/components/NavBar"
 import ThemeWrapper from "@/client/components/ThemeWrapper"
-import { imageLoader } from "@/sanity"
 import { getSanityTheme } from "@/sanity/server"
 import { getSettings } from "@/sanity/server/getSettings"
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard"
@@ -16,15 +15,15 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 import { VisualEditing } from "next-sanity"
-import { Birthstone } from "next/font/google"
+import { Prata } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
 
-const leagueScript = Birthstone({
+const leagueScript = Prata({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-birthstone",
+  variable: "--font-prata",
 })
 
 export const metadata: Metadata = {
@@ -34,8 +33,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode
+  modal: React.ReactNode
 }>) {
   const sanityTheme = await getSanityTheme()
   const sanitySettings = await getSettings()
@@ -48,6 +49,12 @@ export default async function RootLayout({
     //   href: "/save-date",
     //   text: "Save Date",
     // },
+    // {
+    //   key: "invite",
+    //   href: "/invite",
+    //   text: "invite",
+    //   icon: <HomeIcon color="primary" />,
+    // },
     {
       key: "home",
       href: "/",
@@ -59,18 +66,21 @@ export default async function RootLayout({
       href: "/schedule",
       text: pageNames?.schedule,
       icon: <ScheduleIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "travel",
       href: "/travel",
       text: pageNames?.travel,
       icon: <ModeOfTravelIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "rsvp",
       href: "/rsvp",
       text: pageNames?.rsvp,
       icon: <RsvpIcon color="primary" />,
+      inviteIdRequired: true,
     },
     {
       key: "faq",
@@ -87,23 +97,33 @@ export default async function RootLayout({
   ]
   const settings = await getSettings()
 
-  const image = imageLoader({ source: settings?.background?.image?.asset })
   return (
     <html lang="en">
       <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
+            {modal}
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                height: "100%",
+                minHeight: "100%",
                 width: "100%",
-                backgroundImage: `url(${image})`,
+                backgroundColor: settings?.background?.color,
               }}
             >
               {showNav && <NavBar navBarItems={navBarItems} />}
-              {children}
+              <Box
+                sx={{
+                  maxWidth: "calc(100% - calc(7 * var(--mui-spacing, 8px)))",
+                  width: "100%",
+                  minHeight: "100%",
+                  overflowX: "hidden",
+                  wordBreak: "break-word",
+                }}
+              >
+                {children}
+              </Box>
             </Box>
             <Analytics />
             <SpeedInsights />

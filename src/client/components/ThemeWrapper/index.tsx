@@ -17,7 +17,7 @@ export default function ThemeWrapper({
   const theme = createTheme({
     cssVariables: true,
     typography: {
-      fontFamily: "var(--font-birthstone)",
+      fontFamily: "var(--font-prata)",
     },
     ...(palette && { palette }),
   })

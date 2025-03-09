@@ -1,75 +1,26 @@
-import PortableText from "@/client/components/PortableText"
+import { HomeView } from "@/client/views"
 import { getHome, getSettings, getWeddingData } from "@/sanity/server"
-import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
-import { Card, Stack, Typography } from "@mui/material"
-import { format, formatDistanceToNowStrict, isPast } from "date-fns"
+import { CookieKeys } from "@/server/cookies/types"
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 export default async function Home() {
+  const cookieStore = await cookies()
+  const inviteId = cookieStore.get(CookieKeys.INVITE)?.value
   if (!process.env.NEXT_MAIN_SITE_FLAG) {
     redirect("/save-date")
   }
 
   const homePageData = await getHome()
   const weddingData = await getWeddingData()
-  const settings = await getSettings()
-
-  const weddingDate = weddingData?.date ? new Date(weddingData.date) : undefined
-  const weddingHappened = weddingDate ? isPast(weddingDate) : false
-
-  const distanceToWedding = weddingDate
-    ? formatDistanceToNowStrict(weddingDate, {})
-    : ""
-
-  const weddingDistanceMessage = weddingHappened
-    ? homePageData?.distanceMessages?.past
-    : stringInterpolation(homePageData?.distanceMessages?.upcoming, {
-        date: distanceToWedding,
-      })
-
-  const date = weddingDate ? format(weddingDate, "eee d MMM yy") : ""
+  const settingsData = await getSettings()
 
   return (
-    <Stack
-      sx={{ paddingTop: 2, textAlign: "center", justifyContent: "center" }}
-    >
-      <Card
-        raised
-        sx={{
-          backgroundColor: `${settings?.background?.color}`,
-
-          margin: 1,
-          padding: 1,
-        }}
-      >
-        <Stack
-          sx={{
-            paddingTop: 2,
-            textAlign: "center",
-            justifyContent: "center",
-            border: "1px solid grey",
-            gap: 2,
-          }}
-        >
-          <Typography variant="h4" component="h2" color="textSecondary">
-            {stringInterpolation(homePageData?.title, weddingData)}
-          </Typography>
-          <Typography variant="h4" component="h3" color="textSecondary">
-            {weddingDistanceMessage}
-          </Typography>
-
-          <Stack
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <PortableText
-              value={(homePageData?.location ?? []) as TextBlock}
-              stringInterpolationData={{ date }}
-            />
-          </Stack>
-        </Stack>
-      </Card>
-    </Stack>
+    <HomeView
+      homeFields={homePageData}
+      weddingFields={weddingData}
+      settingsFields={settingsData}
+      inviteId={inviteId}
+    />
   )
 }

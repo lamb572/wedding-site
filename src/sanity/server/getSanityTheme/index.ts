@@ -3,7 +3,7 @@ import { Theme } from "../../types"
 
 export async function getSanityTheme() {
   try {
-    const sanityTheme = await client.fetch<Theme | undefined>(
+    const sanityTheme = await client().fetch<Theme | undefined>(
       '*[_type == "theme"][0]',
       {}
     )

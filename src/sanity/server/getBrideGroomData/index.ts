@@ -5,7 +5,7 @@ import { draftMode } from "next/headers"
 export async function getWeddingData() {
   try {
     const { isEnabled } = await draftMode()
-    const wedding = await client.fetch<Wedding>(
+    const wedding = await client().fetch<Wedding>(
       '*[_type == "wedding"][0]',
       {},
       isEnabled
