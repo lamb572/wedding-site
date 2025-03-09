@@ -20,11 +20,13 @@ export interface InviteViewProps {
 
 export default function InviteView({ forwardRoute }: InviteViewProps) {
   const [savedInviteId, setSavedInviteId] = useState("")
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
   const router = useRouter()
 
   const handleSubmit: FormOptions<InviteForm>["onSubmit"] = async ({
     value,
   }) => {
+    setLoadingSubmit(true)
     await setUserInviteCookie(value.inviteId)
     router.push(forwardRoute ?? `/invite/${value.inviteId}`)
   }
@@ -115,32 +117,18 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
         }}
       </form.Field>
       <form.Subscribe
-        selector={({
+        selector={({ canSubmit, isFieldsValidating, isPristine }) => [
           canSubmit,
-          isSubmitting,
-          isDirty,
-          isFieldsValidating,
-          isPristine,
-        }) => [
-          canSubmit,
-          isSubmitting,
-          isDirty,
           isFieldsValidating,
           isPristine,
         ]}
       >
-        {([
-          canSubmit,
-          isSubmitting,
-          isDirty,
-          isFieldsValidating,
-          isPristine,
-        ]) => (
+        {([canSubmit, isFieldsValidating, isPristine]) => (
           <Button
             type="submit"
             variant="outlined"
-            disabled={!canSubmit || !isDirty || isPristine}
-            loading={isSubmitting || isFieldsValidating}
+            disabled={!canSubmit || isPristine}
+            loading={loadingSubmit || isFieldsValidating}
           >
             Submit Invite ID
           </Button>
