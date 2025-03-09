@@ -1,6 +1,9 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
-import { setUserInviteCookie } from "@/server/cookies/inviteId"
+import {
+  getUserInviteCookie,
+  setUserInviteCookie,
+} from "@/server/cookies/inviteId"
 import { verifyInviteExists } from "@/server/formActions"
 import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
@@ -20,11 +23,13 @@ export interface InviteViewProps {
 
 export default function InviteView({ forwardRoute }: InviteViewProps) {
   const [savedInviteId, setSavedInviteId] = useState("")
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
   const router = useRouter()
 
   const handleSubmit: FormOptions<InviteForm>["onSubmit"] = async ({
     value,
   }) => {
+    setLoadingSubmit(true)
     await setUserInviteCookie(value.inviteId)
     router.push(forwardRoute ?? `/invite/${value.inviteId}`)
   }
@@ -40,10 +45,14 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
   })
 
   useEffect(() => {
-    const storedInviteId = window.localStorage.getItem("inviteId")
-    if (storedInviteId) {
-      setSavedInviteId(storedInviteId)
+    const getId = async () => {
+      const inviteCookie = await getUserInviteCookie()
+      const id = inviteCookie?.value
+      if (id) {
+        setSavedInviteId(id)
+      }
     }
+    getId()
   }, [])
 
   return (
@@ -115,32 +124,18 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
         }}
       </form.Field>
       <form.Subscribe
-        selector={({
+        selector={({ canSubmit, isFieldsValidating, isPristine }) => [
           canSubmit,
-          isSubmitting,
-          isDirty,
-          isFieldsValidating,
-          isPristine,
-        }) => [
-          canSubmit,
-          isSubmitting,
-          isDirty,
           isFieldsValidating,
           isPristine,
         ]}
       >
-        {([
-          canSubmit,
-          isSubmitting,
-          isDirty,
-          isFieldsValidating,
-          isPristine,
-        ]) => (
+        {([canSubmit, isFieldsValidating, isPristine]) => (
           <Button
             type="submit"
             variant="outlined"
-            disabled={!canSubmit || !isDirty || isPristine}
-            loading={isSubmitting || isFieldsValidating}
+            disabled={!canSubmit || isPristine}
+            loading={loadingSubmit || isFieldsValidating}
           >
             Submit Invite ID
           </Button>
