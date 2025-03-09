@@ -11,6 +11,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Tooltip,
   Typography,
 } from "@mui/material"
 import { mergeForm, useForm, useTransform } from "@tanstack/react-form"
@@ -22,7 +23,7 @@ export interface RSVPIdViewProps {
   invite: RSVPForm
 }
 
-export default function RSVPIdView({ invite }: RSVPIdViewProps) {
+export default function RSVPView({ invite }: RSVPIdViewProps) {
   const [state, action] = useActionState(rsvpFormAction, initialFormState)
   const router = useRouter()
   const form = useForm({
@@ -54,6 +55,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
         alignItems: "center",
         justifyContent: "center",
         my: 4,
+        minWidth: { xs: 300, md: 400, lg: 600 },
       }}
     >
       <Typography variant="h2" component="h1" color="primary">
@@ -112,6 +114,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
                     gap: 2,
                     backgroundColor: "white",
                     borderRadius: 4,
+                    // width: { xs: 200, md: 300, lg: 400 },
                   }}
                 >
                   <form.Field key={i} name={`guests[${i}].name`}>
@@ -135,7 +138,7 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
                       return (
                         <FormControl
                           sx={{
-                            maxWidth: 220,
+                            maxWidth: { xs: 220, sm: 300, md: 400 },
                             gap: 1,
                           }}
                         >
@@ -147,17 +150,23 @@ export default function RSVPIdView({ invite }: RSVPIdViewProps) {
                             onChange={(_e, value) =>
                               field.handleChange(value as "pork" | "vegan")
                             }
+                            sx={{
+                              textAlign: "left",
+                            }}
                           >
                             <FormControlLabel
                               value={"pork"}
                               control={<Radio />}
                               label="Free range Pulled Pork"
                             />
-                            <FormControlLabel
-                              value={"vegan"}
-                              control={<Radio />}
-                              label="Miso & maple roasted aubergine with ginger and coriander (Ve)"
-                            />
+                            <Tooltip title="with ginger and coriander ">
+                              <FormControlLabel
+                                value={"vegan"}
+                                control={<Radio />}
+                                label="Miso & maple roasted aubergine (Ve)"
+                                about="with ginger and coriander "
+                              />
+                            </Tooltip>
                           </RadioGroup>
                         </FormControl>
                       )

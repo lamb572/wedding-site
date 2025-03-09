@@ -1,5 +1,7 @@
 "use server"
-import RSVPIdView from "@/client/views/RSVPIdView"
+import Card from "@/client/components/Card"
+import RSVPView from "@/client/views/RSVPView"
+import { getSettings } from "@/sanity/server"
 import { CookieKeys } from "@/server/cookies/types"
 import { getInviteById } from "@/server/Invite"
 import { cookies } from "next/headers"
@@ -8,6 +10,7 @@ import { redirect } from "next/navigation"
 export default async function RSVPIdPage() {
   const cookieStore = await cookies()
   const inviteId = cookieStore.get(CookieKeys.INVITE)?.value
+  const settings = await getSettings()
 
   const invite = await getInviteById({ inviteId })
 
@@ -15,5 +18,9 @@ export default async function RSVPIdPage() {
     redirect("/invite")
   }
 
-  return <RSVPIdView invite={invite} />
+  return (
+    <Card backgroundColor={`${settings?.card?.backgroundColor}`}>
+      <RSVPView invite={invite} />
+    </Card>
+  )
 }
