@@ -3,7 +3,7 @@ import {
   portableTextStringInterpolation,
   TextBlock,
 } from "@/utils/stringInterpolation"
-import { Box, Theme, Typography, TypographyProps } from "@mui/material"
+import { Box, Link, Theme, Typography, TypographyProps } from "@mui/material"
 import {
   PortableTextReactComponents,
   PortableText as SanityPortableText,
@@ -49,19 +49,19 @@ export default function PortableText({
           </Box>
         )
       },
+      link: ({ children, value }) => {
+        return (
+          <Link target="_blank" href={value.href}>
+            {children}
+          </Link>
+        )
+      },
     },
     block: {
       h1: ({ children }) => <Typography variant="h1">{children}</Typography>,
 
       normal: ({ children }) => (
-        <Typography
-          variant="body1"
-          sx={{
-            minHeight: "1rem",
-          }}
-        >
-          {children}
-        </Typography>
+        <Typography variant="body1">{children}</Typography>
       ),
       blockquote: ({ children }) => (
         <Typography
