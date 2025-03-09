@@ -1,6 +1,9 @@
 "use client"
 import { TextField } from "@/client/components/TextField"
-import { setUserInviteCookie } from "@/server/cookies/inviteId"
+import {
+  getUserInviteCookie,
+  setUserInviteCookie,
+} from "@/server/cookies/inviteId"
 import { verifyInviteExists } from "@/server/formActions"
 import { Box, Button } from "@mui/material"
 import { FormOptions, useForm } from "@tanstack/react-form"
@@ -42,10 +45,14 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
   })
 
   useEffect(() => {
-    const storedInviteId = window.localStorage.getItem("inviteId")
-    if (storedInviteId) {
-      setSavedInviteId(storedInviteId)
+    const getId = async () => {
+      const inviteCookie = await getUserInviteCookie()
+      const id = inviteCookie?.value
+      if (id) {
+        setSavedInviteId(id)
+      }
     }
+    getId()
   }, [])
 
   return (
