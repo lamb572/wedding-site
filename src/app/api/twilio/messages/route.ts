@@ -68,7 +68,9 @@ export async function POST(req: Request) {
 
     //   Respond to user
     const messagingResponse = new twiml.MessagingResponse()
-    messagingResponse.message("The Robots are coming! Head for the hills!")
+    messagingResponse.message(
+      "Thank you for your message. We will get back to you soon."
+    )
 
     return new Response(messagingResponse.toString(), {
       headers: {
