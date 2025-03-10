@@ -69,7 +69,9 @@ export async function POST(req: Request) {
     //   Respond to user
     const messagingResponse = new twiml.MessagingResponse()
     messagingResponse.message(
-      "Thank you for your message. We will get back to you soon."
+      `Thank you for your message.
+      We will get back to you soon.
+      Luke & Bernadette`
     )
 
     return new Response(messagingResponse.toString(), {
