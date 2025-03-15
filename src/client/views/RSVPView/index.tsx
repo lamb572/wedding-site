@@ -7,6 +7,7 @@ import { rsvpFormOptions } from "@/shared"
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -47,24 +48,19 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
     },
   })
   return (
-    <Box
-      component={"form"}
-      action={action}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        my: 4,
-        minWidth: { xs: 300, md: 400, lg: 600 },
-      }}
-    >
+    <>
       <Typography variant="h2" component="h1" color="primary">
         RSVP
       </Typography>
-      <Container>
+      <Container
+        component={"form"}
+        action={action}
+        sx={{
+          width: "auto",
+          gap: 2,
+          padding: 3,
+        }}
+      >
         <form.Field name="attending">
           {(field) => {
             return (
@@ -92,20 +88,26 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
             )
           }}
         </form.Field>
+        <Divider
+          sx={{
+            width: "100%",
+            mb: 1,
+          }}
+        />
         <form.Field name="guests" mode="array">
           {(field) => {
-            return field.state.value?.map((_, i) => {
+            const values = field.state.value
+            return values?.map((_, i) => {
               return (
                 <Box
                   key={i}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    border: "2px solid #00000050",
-                    padding: 2,
+                    // border: "2px solid #00000050",
+                    // padding: 2,
                     gap: 2,
                     borderRadius: 4,
-                    // width: { xs: 200, md: 300, lg: 400 },
                   }}
                 >
                   <form.Field key={i} name={`guests[${i}].name`}>
@@ -129,8 +131,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                       return (
                         <FormControl
                           sx={{
-                            maxWidth: { xs: 220, sm: 300, md: 400 },
-                            gap: 1,
+                            gap: 2,
                           }}
                         >
                           <FormLabel>Menu Selection</FormLabel>
@@ -182,11 +183,26 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                       )
                     }}
                   </form.Field>
+                  {values.length - 1 !== i && (
+                    <Divider
+                      sx={{
+                        mb: 1,
+                        mr: 2,
+                        ml: 2,
+                      }}
+                    />
+                  )}
                 </Box>
               )
             })
           }}
         </form.Field>
+
+        <Divider
+          sx={{
+            width: "100%",
+          }}
+        />
 
         <form.Subscribe
           selector={({ canSubmit, isSubmitting, isFieldsValidating }) => [
@@ -208,6 +224,6 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
           )}
         </form.Subscribe>
       </Container>
-    </Box>
+    </>
   )
 }

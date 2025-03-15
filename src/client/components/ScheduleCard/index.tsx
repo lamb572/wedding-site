@@ -33,6 +33,8 @@ export function ScheduleCard({
       sx={(theme) => ({
         color: theme.palette.primary.dark,
         border: "1px solid",
+        alignSelf: "flex-start",
+        width: "100%",
       })}
       expanded={expanded}
       onChange={() => (isDetails ? setExpanded(!expanded) : undefined)}

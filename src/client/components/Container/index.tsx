@@ -12,13 +12,14 @@ export function Container(props: ContainerProps) {
     <Box
       {...props}
       sx={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        gap: 2,
+        gap: { xs: 1, sm: 2, md: 3 },
         alignItems: "center",
         justifyContent: "center",
         border: "2px solid black",
-        padding: 2,
+        padding: { xs: 1, sm: 2, md: 3 },
         backgroundColor: "white",
         borderRadius: 4,
         ...props.sx,

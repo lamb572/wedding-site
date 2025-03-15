@@ -1,10 +1,11 @@
 import Card from "@/client/components/Card"
+import { Container } from "@/client/components/Container"
+import PortableText from "@/client/components/PortableText"
 import { imageLoader } from "@/sanity"
 import { getSettings } from "@/sanity/server"
 import { getRegistry } from "@/sanity/server/getRegistry"
 import { TextBlock } from "@/utils/stringInterpolation"
 import { Box, Typography } from "@mui/material"
-import { PortableText } from "next-sanity"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -16,7 +17,7 @@ export default async function RegistryPage() {
 
   return (
     <Card backgroundColor={`${settings?.card?.backgroundColor}`}>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -27,58 +28,51 @@ export default async function RegistryPage() {
           py: 4,
           px: 2,
         }}
+      > */}
+      <Typography
+        variant="h2"
+        component="h1"
+        color="primary"
+        sx={{
+          fontSize: { xs: "10vw", md: "3.75rem" },
+        }}
       >
-        <Typography
-          variant="h2"
-          component="h1"
-          color="primary"
-          sx={{
-            fontSize: { xs: "10vw", md: "3.75rem" },
-          }}
-        >
-          {registry?.registryHeading}
-        </Typography>
+        {registry?.registryHeading}
+      </Typography>
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            border: "1px solid black",
-            padding: 2,
-            gap: 2,
-            backgroundColor: "white",
-            borderRadius: 4,
-            maxWidth: 600,
-          }}
-        >
-          <PortableText
-            value={(registry?.registryDetails ?? []) as TextBlock}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            src={qrCode}
-            alt={"registry QR Code"}
-            width={200}
-            height={200}
-            style={{}}
-          />
-          {registry?.registryLink && (
-            <Link href={registry?.registryLink} target="_blank">
-              {/* <Typography> */}
-              Or Click Here
-              {/* </Typography> */}
-            </Link>
-          )}
-        </Box>
+      <Container
+        sx={
+          {
+            // maxWidth: { xs: 300, md: 400, lg: 600 },
+          }
+        }
+      >
+        <PortableText value={(registry?.registryDetails ?? []) as TextBlock} />
+      </Container>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          src={qrCode}
+          alt={"registry QR Code"}
+          width={200}
+          height={200}
+          style={{}}
+        />
+        {registry?.registryLink && (
+          <Link href={registry?.registryLink} target="_blank">
+            {/* <Typography> */}
+            Or Click Here
+            {/* </Typography> */}
+          </Link>
+        )}
       </Box>
+      {/* </Box> */}
     </Card>
   )
 }
