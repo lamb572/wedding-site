@@ -1,4 +1,5 @@
 "use client"
+import { Container } from "@/client/components/Container"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
 import { RSVPForm, rsvpFormSchema, updateInvite } from "@/server/Invite"
@@ -47,6 +48,8 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
   })
   return (
     <Box
+      component={"form"}
+      action={action}
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -61,18 +64,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
       <Typography variant="h2" component="h1" color="primary">
         RSVP
       </Typography>
-      <Box
-        component={"form"}
-        action={action}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Container>
         <form.Field name="attending">
           {(field) => {
             return (
@@ -109,10 +101,9 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    border: "1px solid black",
+                    border: "2px solid #00000050",
                     padding: 2,
                     gap: 2,
-                    backgroundColor: "white",
                     borderRadius: 4,
                     // width: { xs: 200, md: 300, lg: 400 },
                   }}
@@ -216,7 +207,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
             </Button>
           )}
         </form.Subscribe>
-      </Box>
+      </Container>
     </Box>
   )
 }
