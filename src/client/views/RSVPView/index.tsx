@@ -104,8 +104,6 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    // border: "2px solid #00000050",
-                    // padding: 2,
                     gap: 2,
                     borderRadius: 4,
                   }}
@@ -187,8 +185,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                     <Divider
                       sx={{
                         mb: 1,
-                        mr: 2,
-                        ml: 2,
+                        mx: 4,
                       }}
                     />
                   )}
