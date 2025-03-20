@@ -1,3 +1,4 @@
+"use server"
 import mongoDBService from "@/server/mongodb"
 import { Invite } from "../types"
 import { UpdateFilter } from "mongodb"
