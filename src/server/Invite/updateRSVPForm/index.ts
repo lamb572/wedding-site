@@ -4,7 +4,7 @@ import mongoDBService from "@/server/mongodb"
 import { Invite, RSVPForm } from "../types"
 import { sendWebhook } from "@/server/discord/sendWebhook"
 
-export async function updateInvite(invite: RSVPForm) {
+export async function updateRSVPForm(form: RSVPForm) {
   try {
     const client = await mongoDBService.client()
 
@@ -13,7 +13,7 @@ export async function updateInvite(invite: RSVPForm) {
       throw new Error("MONGODB_DB is not set")
     }
 
-    if (!invite.inviteId) {
+    if (!form.inviteId) {
       throw new Error("inviteId is not set")
     }
 
@@ -21,11 +21,11 @@ export async function updateInvite(invite: RSVPForm) {
     const collection = db.collection<Invite>("invites")
 
     await collection.updateOne(
-      { inviteId: invite.inviteId },
-      { $set: { ...invite } }
+      { inviteId: form.inviteId },
+      { $set: { ...form } }
     )
 
-    const guests = invite.guests ?? []
+    const guests = form.guests ?? []
 
     const guestFields = guests.map((guest, index) => ({
       name: `Guest - ${index}`,
@@ -34,14 +34,14 @@ export async function updateInvite(invite: RSVPForm) {
     }))
 
     await sendWebhook(process.env.INVITE_UPDATED_WEBHOOK, {
-      content: `Updated invite for ${invite.inviteId}`,
+      content: `Updated invite for ${form.inviteId}`,
       embeds: [
         {
           fields: [
             ...guestFields,
             {
               name: "Attending",
-              value: invite.attending ? "Yes" : "No",
+              value: form.attending ? "Yes" : "No",
             },
           ],
         },

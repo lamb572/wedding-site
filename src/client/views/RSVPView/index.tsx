@@ -2,7 +2,7 @@
 import { Container } from "@/client/components/Container"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
-import { RSVPForm, rsvpFormSchema, updateInvite } from "@/server/Invite"
+import { RSVPForm, rsvpFormSchema, updateRSVPForm } from "@/server/Invite"
 import { rsvpFormOptions } from "@/shared"
 import {
   Box,
@@ -40,7 +40,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
     },
     transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
     onSubmit: async (formData) => {
-      await updateInvite({
+      await updateRSVPForm({
         ...formData.value,
         inviteId: invite.inviteId,
       })
