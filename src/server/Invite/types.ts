@@ -15,6 +15,7 @@ export const inviteSchema = z.object({
   inviteId: z.string(),
   guests: z.array(guestSchema).optional(),
   ceremony: z.boolean().optional(),
+  inviteSent: z.boolean().optional(),
 })
 
 export interface Invite extends z.infer<typeof inviteSchema> {}
