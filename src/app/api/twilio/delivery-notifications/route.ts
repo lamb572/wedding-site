@@ -49,6 +49,12 @@ export async function POST(req: Request) {
 
     const invite = await getInviteByPhone({ phone: parsedResponse.To })
 
+    if (parsedResponse.MessageStatus === "queued") {
+      console.log("Message response queued")
+      return new Response(null, {
+        status: 204,
+      })
+    }
     if (!invite) {
       await sendWebhook(process.env.DELIVERY_NOTIFICATION_WEBHOOK, {
         content: `Delivery Notification - invite not found`,
