@@ -20,6 +20,8 @@ export default function FAQCard({ answer, icon, question }: FAQCardProps) {
       sx={(theme) => ({
         color: theme.palette.primary.dark,
         border: "1px solid",
+        alignSelf: "flex-start",
+        width: "100%",
       })}
     >
       <AccordionSummary

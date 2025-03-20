@@ -1,11 +1,13 @@
 "use client"
+import { Container } from "@/client/components/Container"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
-import { RSVPForm, rsvpFormSchema, updateInvite } from "@/server/Invite"
+import { RSVPForm, rsvpFormSchema, updateRSVPForm } from "@/server/Invite"
 import { rsvpFormOptions } from "@/shared"
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -38,7 +40,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
     },
     transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
     onSubmit: async (formData) => {
-      await updateInvite({
+      await updateRSVPForm({
         ...formData.value,
         inviteId: invite.inviteId,
       })
@@ -46,31 +48,17 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
     },
   })
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        my: 4,
-        minWidth: { xs: 300, md: 400, lg: 600 },
-      }}
-    >
+    <>
       <Typography variant="h2" component="h1" color="primary">
         RSVP
       </Typography>
-      <Box
+      <Container
         component={"form"}
         action={action}
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          width: "auto",
           gap: 2,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
+          padding: 3,
         }}
       >
         <form.Field name="attending">
@@ -100,21 +88,24 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
             )
           }}
         </form.Field>
+        <Divider
+          sx={{
+            width: "100%",
+            mb: 1,
+          }}
+        />
         <form.Field name="guests" mode="array">
           {(field) => {
-            return field.state.value?.map((_, i) => {
+            const values = field.state.value
+            return values?.map((_, i) => {
               return (
                 <Box
                   key={i}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    border: "1px solid black",
-                    padding: 2,
                     gap: 2,
-                    backgroundColor: "white",
                     borderRadius: 4,
-                    // width: { xs: 200, md: 300, lg: 400 },
                   }}
                 >
                   <form.Field key={i} name={`guests[${i}].name`}>
@@ -138,8 +129,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                       return (
                         <FormControl
                           sx={{
-                            maxWidth: { xs: 220, sm: 300, md: 400 },
-                            gap: 1,
+                            gap: 2,
                           }}
                         >
                           <FormLabel>Menu Selection</FormLabel>
@@ -191,11 +181,25 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                       )
                     }}
                   </form.Field>
+                  {values.length - 1 !== i && (
+                    <Divider
+                      sx={{
+                        mb: 1,
+                        mx: 4,
+                      }}
+                    />
+                  )}
                 </Box>
               )
             })
           }}
         </form.Field>
+
+        <Divider
+          sx={{
+            width: "100%",
+          }}
+        />
 
         <form.Subscribe
           selector={({ canSubmit, isSubmitting, isFieldsValidating }) => [
@@ -216,7 +220,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
             </Button>
           )}
         </form.Subscribe>
-      </Box>
-    </Box>
+      </Container>
+    </>
   )
 }

@@ -1,3 +1,4 @@
+import { sendWebhook } from "@/server/discord/sendWebhook"
 import { getInviteByPhone } from "@/server/Invite/getInviteByPhone"
 import { twiml } from "twilio"
 import { z } from "zod"
@@ -42,28 +43,22 @@ export async function POST(req: Request) {
 
     const invite = await getInviteByPhone({ phone: parsedResponse.From })
 
-    await fetch(process.env.MESSAGE_RESPONSE_WEBHOOK, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: `Received a wedding message`,
-        embeds: [
-          {
-            fields: [
-              {
-                name: "From",
-                value: invite?.guests?.at(0)?.name ?? parsedResponse.From,
-              },
-              {
-                name: "Message",
-                value: parsedResponse.Body,
-              },
-            ],
-          },
-        ],
-      }),
+    await sendWebhook(process.env.MESSAGE_RESPONSE_WEBHOOK, {
+      content: `Received a wedding message`,
+      embeds: [
+        {
+          fields: [
+            {
+              name: "From",
+              value: invite?.guests?.at(0)?.name ?? `${parsedResponse.From}`,
+            },
+            {
+              name: "Message",
+              value: `${parsedResponse.Body}`,
+            },
+          ],
+        },
+      ],
     })
 
     //   Respond to user

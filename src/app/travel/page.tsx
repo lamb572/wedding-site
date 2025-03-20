@@ -1,4 +1,5 @@
 import Card from "@/client/components/Card"
+import { Container } from "@/client/components/Container"
 import GoogleMap from "@/client/components/Map"
 import PortableText from "@/client/components/PortableText"
 import { getSettings, getTravelAccommodation } from "@/sanity/server"
@@ -26,80 +27,55 @@ export default async function TravelPage() {
           display: "flex",
           flexDirection: "column",
           gap: 4,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          // py: 4,
-          // px: 2,
         }}
       >
-        <Box
+        <Typography
+          variant="h2"
+          component="h2"
+          color="primary"
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
+            fontSize: { xs: "8vw", md: "3.75rem" },
+            textAlign: "center",
           }}
         >
-          <Typography
-            variant="h2"
-            component="h2"
-            color="primary"
-            sx={{
-              fontSize: { xs: "8vw", md: "3.75rem" },
-              textAlign: "center",
-            }}
-          >
-            {travelAccommodation?.travelHeading}
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              border: "1px solid black",
-              pr: 2,
-              gap: 2,
-              backgroundColor: "white",
-              borderRadius: 4,
-              textAlign: "initial",
-            }}
-          >
-            <PortableText
-              value={(travelAccommodation?.travelDetails ?? []) as TextBlock}
-            />
-          </Box>
+          {travelAccommodation?.travelHeading}
+        </Typography>
+        <Container
+          sx={{
+            alignItems: "flex-start",
+            textAlign: "initial",
+          }}
+        >
+          <PortableText
+            value={(travelAccommodation?.travelDetails ?? []) as TextBlock}
+          />
+        </Container>
 
-          <Typography
-            variant="h2"
-            component="h2"
-            color="primary"
-            sx={{
-              fontSize: { xs: "8vw", md: "3.75rem" },
-              textAlign: "center",
-            }}
-          >
-            {travelAccommodation?.accommodationHeading}
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              border: "1px solid black",
-              pr: 2,
-              gap: 2,
-              backgroundColor: "white",
-              borderRadius: 4,
-              textAlign: "initial",
-            }}
-          >
-            <PortableText
-              value={
-                (travelAccommodation?.accommodationDetails ?? []) as TextBlock
-              }
-            />
-          </Box>
+        <Typography
+          variant="h2"
+          component="h2"
+          color="primary"
+          sx={{
+            fontSize: { xs: "8vw", md: "3.75rem" },
+            textAlign: "center",
+          }}
+        >
+          {travelAccommodation?.accommodationHeading}
+        </Typography>
+        <Container
+          sx={{
+            alignItems: "flex-start",
+            textAlign: "initial",
+          }}
+        >
+          <PortableText
+            value={
+              (travelAccommodation?.accommodationDetails ?? []) as TextBlock
+            }
+          />
+        </Container>
 
-          <GoogleMap invitedToCeremony={userInvitedToCeremony} />
-        </Box>
+        <GoogleMap invitedToCeremony={userInvitedToCeremony} />
       </Box>
     </Card>
   )

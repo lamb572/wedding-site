@@ -124,6 +124,7 @@ export default async function RootLayout({
                   minHeight: "100%",
                   overflowX: "hidden",
                   wordBreak: "break-word",
+                  display: "flex",
                 }}
               >
                 {children}
