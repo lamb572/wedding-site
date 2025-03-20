@@ -3,7 +3,7 @@ import { Invite } from "../types"
 import { UpdateFilter } from "mongodb"
 
 interface UpdateInviteParams {
-  inviteId: string
+  inviteId?: string
   update: UpdateFilter<Invite>
 }
 
@@ -13,6 +13,9 @@ export async function updateInvite({ inviteId, update }: UpdateInviteParams) {
     const dbString = process.env.MONGODB_DB
     if (!dbString) {
       throw new Error("MONGODB_DB is not set")
+    }
+    if (!inviteId) {
+      throw new Error("inviteId is not set")
     }
 
     const db = client.db(dbString)
