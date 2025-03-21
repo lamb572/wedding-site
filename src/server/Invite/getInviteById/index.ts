@@ -17,7 +17,6 @@ export async function getInviteById({
       return undefined
     }
     const inviteId = stringSanitize(id)
-    console.log(inviteId)
 
     const dbString = process.env.MONGODB_DB
     if (!dbString) {
