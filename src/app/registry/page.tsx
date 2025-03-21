@@ -1,5 +1,5 @@
-import Card from "@/client/components/Card"
-import { Container } from "@/client/components/Container"
+import Card from "@/components/Card"
+import { Container } from "@/components/Container"
 import PortableText from "@/client/components/PortableText"
 import { imageLoader } from "@/sanity"
 import { getSettings } from "@/sanity/server"

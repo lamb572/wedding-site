@@ -1,5 +1,5 @@
-import Card from "@/client/components/Card"
-import FAQCard from "@/client/components/FAQCard"
+import Card from "@/components/Card"
+import FAQCard from "@/components/FAQCard"
 import SanityIcon from "@/client/components/SanityIcon"
 import { getFAQs, getSettings } from "@/sanity/server"
 import { Typography } from "@mui/material"

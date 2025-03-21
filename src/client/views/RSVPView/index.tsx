@@ -1,5 +1,5 @@
 "use client"
-import { Container } from "@/client/components/Container"
+import { Container } from "@/components/Container"
 import { TextField } from "@/client/components/TextField"
 import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
 import { RSVPForm, rsvpFormSchema, updateRSVPForm } from "@/server/Invite"
