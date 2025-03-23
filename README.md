@@ -49,6 +49,6 @@ new invite flow
 
 ### Job
 
-- [ ] update attending to default yes
-- [ ] fix invite form to alway allow
+- [x] update attending to default yes
+- [x] fix invite form to alway allow
 - [ ] go through users and add user data
