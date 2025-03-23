@@ -54,3 +54,9 @@ new invite flow
 - [ ] Allow admin to edit guest data and rsvp status
 - [ ] add some data points, rsvp statuses, meal choices, replied, etc
 - [ ] create guest, send invite modal?
+
+### Job
+
+- [x] update attending to default yes
+- [x] fix invite form to alway allow
+- [ ] go through users and add user data
