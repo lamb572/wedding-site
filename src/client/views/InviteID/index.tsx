@@ -11,8 +11,6 @@ export interface InviteIdViewProps {
 export function InviteIdView({ inviteId }: InviteIdViewProps) {
   const router = useRouter()
   useEffect(() => {
-    window.localStorage.setItem("inviteId", inviteId)
-
     const setId = async () => {
       await setUserInviteCookie(inviteId)
     }
