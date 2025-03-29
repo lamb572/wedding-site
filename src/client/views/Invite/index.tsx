@@ -34,12 +34,8 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
     router.push(forwardRoute ?? `/invite/${value.inviteId}`)
   }
   const form = useForm({
-    defaultValues: {
-      inviteId: savedInviteId,
-    },
-    validators: {
-      onChange: inviteFormSchema,
-    },
+    defaultValues: { inviteId: savedInviteId },
+    validators: { onChange: inviteFormSchema },
     asyncDebounceMs: 500,
     onSubmit: handleSubmit,
   })
@@ -84,18 +80,12 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
                 return result ?? "User not found"
               } catch (err) {
                 if (err instanceof Error) {
-                  return {
-                    message: err.message,
-                  }
+                  return { message: err.message }
                 }
-                return {
-                  message: "Error validating ID",
-                }
+                return { message: "Error validating ID" }
               }
             },
-            {
-              message: "Error validating User ID",
-            }
+            { message: "Error validating User ID" }
           ),
         }}
       >
