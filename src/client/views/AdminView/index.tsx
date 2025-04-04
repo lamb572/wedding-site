@@ -1,11 +1,12 @@
 'use client';
 
+import EditableCell from '@/client/components/Table/EditableCell';
 import TableCell from '@/client/components/Table/TableCell';
 import TableHeader from '@/client/components/Table/TableHeader';
 import TableHeaderRow from '@/client/components/Table/TableHeaderRow';
 import TableRow from '@/client/components/Table/TableRow';
-import { Invite } from '@/server/Invite';
-import { Box, Button, Typography } from '@mui/material';
+import { Invite, updateInvite } from '@/server/Invite';
+import { Box, Button, MenuItem, Typography } from '@mui/material';
 import {
   ColumnDef,
   createColumnHelper,
@@ -14,7 +15,7 @@ import {
   getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 interface AdminViewProps {
   invites: Omit<Invite, '_id'>[];
@@ -49,7 +50,38 @@ export default function AdminView({ invites }: AdminViewProps) {
 
     columnHelper.accessor('attending', {
       header: () => <Typography component="span">Attending</Typography>,
-      cell: (info) => (info.getValue() ? 'Yes' : 'No'),
+      cell: (info) => {
+        const value = info.getValue() ? 'y' : 'n';
+        const options = [
+          { label: 'Yes', value: 'y' },
+          { label: 'No', value: 'n' },
+        ];
+
+        return (
+          <EditableCell
+            value={value}
+            onChange={(value) => {
+              updateInvite({
+                inviteId: info.row.original.inviteId,
+                update: {
+                  $set: { attending: value === 'y' },
+                },
+              });
+              console.log('onChange', value);
+            }}
+            select
+            sx={{
+              width: '80px',
+            }}
+          >
+            {options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </EditableCell>
+        );
+      },
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor('guests', {
@@ -121,49 +153,83 @@ export default function AdminView({ invites }: AdminViewProps) {
           ))}
         </Box>
         <Box component="tbody">
-          {table.getRowModel().rows.map((row) => (
-            <Fragment key={row.id}>
-              <TableRow>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-              {row.getIsExpanded() && (
+          {table.getRowModel().rows.map((row) => {
+            // const inviteId = row.original.inviteId;
+            return (
+              <Fragment key={row.id}>
                 <TableRow>
-                  <TableCell colSpan={row.getAllCells().length}>
-                    <Box
-                      component="table"
-                      sx={{
-                        borderCollapse: 'collapse',
-                        width: '100%',
-                      }}
-                    >
-                      <thead>
-                        <TableHeaderRow>
-                          <TableHeader>Name</TableHeader>
-                          <TableHeader>Food</TableHeader>
-                          <TableHeader>Food Allergies</TableHeader>
-                          <TableHeader>Phone Number</TableHeader>
-                        </TableHeaderRow>
-                      </thead>
-                      <tbody>
-                        {row.original.guests?.map((guest, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{guest?.name}</TableCell>
-                            <TableCell>{guest?.food}</TableCell>
-                            <TableCell>{guest?.foodAllergies}</TableCell>
-                            <TableCell>{guest?.phoneNumber}</TableCell>
-                          </TableRow>
-                        ))}
-                      </tbody>
-                    </Box>
-                  </TableCell>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
                 </TableRow>
-              )}
-            </Fragment>
-          ))}
+                {row.getIsExpanded() && (
+                  <TableRow>
+                    <TableCell colSpan={row.getAllCells().length}>
+                      <Box
+                        component="table"
+                        sx={{
+                          borderCollapse: 'collapse',
+                          width: '100%',
+                        }}
+                      >
+                        <thead>
+                          <TableHeaderRow>
+                            <TableHeader>Name</TableHeader>
+                            <TableHeader>Food</TableHeader>
+                            <TableHeader>Food Allergies</TableHeader>
+                            <TableHeader>Phone Number</TableHeader>
+                          </TableHeaderRow>
+                        </thead>
+                        <tbody>
+                          {row.original.guests?.map((guest, index) => (
+                            <TableRow key={index}>
+                              <TableCell>
+                                <EditableCell
+                                  value={guest?.name}
+                                  onChange={(value) => {
+                                    console.log('onChange', value);
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <EditableCell
+                                  value={guest?.food}
+                                  onChange={(value) => {
+                                    console.log('onChange', value);
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <EditableCell
+                                  value={guest?.foodAllergies}
+                                  onChange={(value) => {
+                                    console.log('onChange', value);
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <EditableCell
+                                  value={guest?.phoneNumber}
+                                  onChange={(value) => {
+                                    console.log('onChange', value);
+                                  }}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </tbody>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </Fragment>
+            );
+          })}
         </Box>
       </Box>
     </>
