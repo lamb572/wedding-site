@@ -124,17 +124,16 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
         }}
       </form.Field>
       <form.Subscribe
-        selector={({ canSubmit, isFieldsValidating, isPristine }) => [
+        selector={({ canSubmit, isFieldsValidating }) => [
           canSubmit,
           isFieldsValidating,
-          isPristine,
         ]}
       >
-        {([canSubmit, isFieldsValidating, isPristine]) => (
+        {([canSubmit, isFieldsValidating]) => (
           <Button
             type="submit"
             variant="outlined"
-            disabled={!canSubmit || isPristine}
+            disabled={!canSubmit}
             loading={loadingSubmit || isFieldsValidating}
           >
             Submit Invite ID

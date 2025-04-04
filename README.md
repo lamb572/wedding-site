@@ -46,3 +46,9 @@ new invite flow
 1. initial invite link -> / www.beach-wedding.org?invite=1234
 2. SAVE invite code to local storage
 3.
+
+### Job
+
+- [x] update attending to default yes
+- [x] fix invite form to alway allow
+- [ ] go through users and add user data

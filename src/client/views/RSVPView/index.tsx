@@ -32,7 +32,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
     ...rsvpFormOptions,
     defaultValues: {
       inviteId: invite.inviteId ?? "",
-      attending: invite.attending ?? false,
+      attending: invite.attending ?? true,
       guests: invite.guests ?? [],
     },
     validators: {
