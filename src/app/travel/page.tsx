@@ -1,5 +1,5 @@
-import Card from "@/client/components/Card"
-import { Container } from "@/client/components/Container"
+import Card from "@/components/Card"
+import { Container } from "@/components/Container"
 import GoogleMap from "@/client/components/Map"
 import PortableText from "@/client/components/PortableText"
 import { getSettings, getTravelAccommodation } from "@/sanity/server"

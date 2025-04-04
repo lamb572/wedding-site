@@ -4,7 +4,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Box, IconButton } from "@mui/material"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import NavBarItem, { NavBarItemProps } from "../NavBarItem"
+import NavBarItem, { NavBarItemProps } from "../../../components/NavBarItem"
 import { NavDrawer } from "./NavDrawer"
 
 export interface NavBarItem extends Omit<NavBarItemProps, "selected"> {
@@ -24,7 +24,6 @@ export default function NavBar({ navBarItems, inviteId }: NavBarProps) {
   const handleItemClick = () => {
     setNavBarOpen(false)
   }
-  console.log("inviteId", inviteId)
 
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>

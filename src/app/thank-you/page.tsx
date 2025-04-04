@@ -1,4 +1,4 @@
-import Card from "@/client/components/Card"
+import Card from "@/components/Card"
 import { imageLoader } from "@/sanity"
 import { getSettings } from "@/sanity/server"
 import { Box, Typography } from "@mui/material"
