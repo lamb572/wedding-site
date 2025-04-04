@@ -1,17 +1,56 @@
-import { auth } from "@/auth"
-import { redirect } from "next/navigation"
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+
+import AdminView from '@/client/views/AdminView';
+import { getSettings } from '@/sanity/server';
+import { getInvites } from '@/server/Invite/getInvites';
+import Card from '@mui/material/Card';
+import { Stack } from '@mui/material';
 
 export default async function Admin() {
-  const session = await auth()
+  const session = await auth();
+
+  const settings = await getSettings();
 
   // console.log("session", session)
   if (!session?.user) {
-    redirect("/admin/signin")
+    redirect('/admin/signin');
   }
+
+  const invites = await getInvites();
+
   return (
-    <div>
-      <h1>Admin</h1>
-      <p>Admin page content goes here.</p>
-    </div>
-  )
+    <Stack
+      sx={{
+        textAlign: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        alignItems: 'center',
+        padding: 2,
+      }}
+    >
+      <Card
+        raised
+        sx={{
+          backgroundColor: settings?.card?.backgroundColor,
+          minHeight: '50%',
+          margin: 1,
+          padding: 1,
+          width: '100%',
+        }}
+      >
+        <Stack
+          sx={{
+            textAlign: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            alignItems: 'center',
+            padding: 2,
+          }}
+        >
+          <AdminView invites={invites ?? []} />
+        </Stack>
+      </Card>
+    </Stack>
+  );
 }
