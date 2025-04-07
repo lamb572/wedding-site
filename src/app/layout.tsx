@@ -108,6 +108,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <meta property="og:image" content={ogImage} />
+      <meta name="robots" content="noindex, nofollow" />
       <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
