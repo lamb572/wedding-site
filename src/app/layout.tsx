@@ -19,6 +19,7 @@ import { Prata } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
 import { getUserInviteCookie } from "@/server/cookies"
+import { imageLoader } from "@/sanity"
 
 const leagueScript = Prata({
   weight: ["400"],
@@ -42,6 +43,9 @@ export default async function RootLayout({
   const sanityTheme = await getSanityTheme()
   const sanitySettings = await getSettings()
   const pageNames = sanitySettings?.pageNames
+  const ogImage = imageLoader({
+    source: sanitySettings?.images?.ogImage?.asset,
+  })
   const showNav = Boolean(process.env.NEXT_MAIN_SITE_FLAG)
 
   const inviteCookie = await getUserInviteCookie()
@@ -103,6 +107,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <meta property="og:image" content={ogImage} />
+      <meta name="robots" content="noindex, nofollow" />
       <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
