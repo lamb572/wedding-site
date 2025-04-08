@@ -28,16 +28,19 @@ export default async function ThankYouPage() {
         </Typography>
         <Image
           src={thankYouImage}
-          alt={"registry QR Code"}
+          alt={"Thank You"}
           width={200}
           height={200}
+          priority
           style={{
             alignSelf: "center",
             objectFit: "cover",
             flexGrow: 1,
-            maxHeight: "500px",
+            maxHeight: "200px",
             border: "4px solid black",
             borderRadius: "35% 35% 0 0",
+            aspectRatio: "auto",
+            minHeight: "200px",
           }}
         />
       </Card>
