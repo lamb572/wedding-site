@@ -221,6 +221,17 @@ export type Settings = {
     registry?: string
   }
   images?: {
+    ogImage?: {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: "image"
+    }
     thankYou?: {
       asset?: {
         _ref: string

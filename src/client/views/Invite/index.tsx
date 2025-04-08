@@ -19,9 +19,10 @@ export interface InviteForm extends z.infer<typeof inviteFormSchema> {}
 
 export interface InviteViewProps {
   forwardRoute?: string
+  error?: string
 }
 
-export default function InviteView({ forwardRoute }: InviteViewProps) {
+export default function InviteView({ forwardRoute, error }: InviteViewProps) {
   const [savedInviteId, setSavedInviteId] = useState("")
   const [loadingSubmit, setLoadingSubmit] = useState(false)
   const router = useRouter()
@@ -90,7 +91,7 @@ export default function InviteView({ forwardRoute }: InviteViewProps) {
         }}
       >
         {(field) => {
-          const errors = field.state.meta.errors
+          const errors = [...field.state.meta.errors, error].filter(Boolean)
           const isErrors = errors.length > 0
           return (
             <div>

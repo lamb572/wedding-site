@@ -14,7 +14,8 @@ export default async function InviteIDPage({ params }: InviteIDPageProps) {
   const invite = await getInviteById({ inviteId })
 
   if (!invite) {
-    redirect("/")
+    const error = encodeURIComponent("Invite not found")
+    redirect(`/invite?error=${error}`)
   }
 
   return <InviteIdView inviteId={inviteId} />

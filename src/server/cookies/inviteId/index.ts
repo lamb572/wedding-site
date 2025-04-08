@@ -8,6 +8,8 @@ export async function setUserInviteCookie(inviteId: string) {
   cookieStore.set(CookieKeys.INVITE, inviteId, {
     secure: true,
     httpOnly: true,
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 100, // 100 days
     path: "/",
   })
 }

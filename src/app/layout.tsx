@@ -19,6 +19,7 @@ import { Prata } from "next/font/google"
 import { draftMode } from "next/headers"
 import "./globals.css"
 import { getUserInviteCookie } from "@/server/cookies"
+import { imageLoader } from "@/sanity"
 
 const leagueScript = Prata({
   weight: ["400"],
@@ -42,6 +43,9 @@ export default async function RootLayout({
   const sanityTheme = await getSanityTheme()
   const sanitySettings = await getSettings()
   const pageNames = sanitySettings?.pageNames
+  const ogImage = imageLoader({
+    source: sanitySettings?.images?.ogImage?.asset,
+  })
   const showNav = Boolean(process.env.NEXT_MAIN_SITE_FLAG)
 
   const inviteCookie = await getUserInviteCookie()
@@ -103,6 +107,33 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <meta name="robots" content="noindex, nofollow" />
+      <title>L+B Wedding</title>
+      <meta
+        name="description"
+        content="Luke and Bernadette's wedding website"
+      />
+
+      {/* <!-- Facebook Meta Tags --> */}
+      <meta property="og:url" content="https://www.beach-wedding.org" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="L+B Wedding" />
+      <meta
+        property="og:description"
+        content="Luke and Bernadette's wedding website"
+      />
+      <meta property="og:image" content={ogImage} />
+
+      {/* <!-- Twitter Meta Tags --> */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:domain" content="beach-wedding.org" />
+      <meta property="twitter:url" content="https://www.beach-wedding.org" />
+      <meta name="twitter:title" content="L+B Wedding" />
+      <meta
+        name="twitter:description"
+        content="Luke and Bernadette's wedding website"
+      />
+      <meta name="twitter:image" content={ogImage} />
       <body className={leagueScript.variable}>
         <AppRouterCacheProvider>
           <ThemeWrapper sanityTheme={sanityTheme}>
