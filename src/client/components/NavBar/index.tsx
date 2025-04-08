@@ -24,7 +24,6 @@ export default function NavBar({ navBarItems, inviteId }: NavBarProps) {
   const handleItemClick = () => {
     setNavBarOpen(false)
   }
-  console.log("inviteId", inviteId)
 
   return (
     <NavDrawer variant="permanent" open={navBarOpen}>
