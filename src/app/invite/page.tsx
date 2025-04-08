@@ -1,7 +1,15 @@
 import InviteView from "@/client/views/Invite"
 import { Box } from "@mui/material"
 
-export default function InvitePage() {
+export interface InvitePageProps {
+  searchParams: Promise<{
+    error?: string
+  }>
+}
+
+export default async function InvitePage({ searchParams }: InvitePageProps) {
+  const error = (await searchParams).error
+
   return (
     <Box
       sx={{
@@ -17,7 +25,7 @@ export default function InvitePage() {
           display: "flex",
         }}
       >
-        <InviteView />
+        <InviteView error={error} />
       </Box>
     </Box>
   )

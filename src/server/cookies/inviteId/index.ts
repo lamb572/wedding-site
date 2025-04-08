@@ -9,7 +9,7 @@ export async function setUserInviteCookie(inviteId: string) {
     secure: true,
     httpOnly: true,
     sameSite: "lax",
-    expires: new Date("2025-10-26T23:59:00.000Z"),
+    maxAge: 60 * 60 * 24 * 100, // 100 days
     path: "/",
   })
 }
