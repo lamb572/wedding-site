@@ -8,6 +8,8 @@ export async function setUserInviteCookie(inviteId: string) {
   cookieStore.set(CookieKeys.INVITE, inviteId, {
     secure: true,
     httpOnly: true,
+    sameSite: "lax",
+    expires: new Date("2023-10-25T23:59:00.000Z"),
     path: "/",
   })
 }
