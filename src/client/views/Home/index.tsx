@@ -95,12 +95,15 @@ export function HomeView({
         <Image
           src={image}
           alt={"home page"}
-          width={1024}
-          height={200}
+          width={680}
+          height={350}
+          priority
           style={{
+            aspectRatio: "auto",
             objectFit: "cover",
             flexGrow: 1,
             maxHeight: "500px",
+            minHeight: "350px",
             border: "4px solid black",
             borderRadius: "35% 35% 0 0",
           }}

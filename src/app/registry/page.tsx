@@ -62,7 +62,13 @@ export default async function RegistryPage() {
           alt={"registry QR Code"}
           width={200}
           height={200}
-          style={{}}
+          priority
+          style={{
+            aspectRatio: "auto",
+            objectFit: "cover",
+            maxHeight: "200px",
+            minHeight: "200px",
+          }}
         />
         {registry?.registryLink && (
           <Link href={registry?.registryLink} target="_blank">
