@@ -19,6 +19,7 @@
     "@portabletext/react": "^3.2.0",
     "@sanity/client": "^6.24.1",
     "@sanity/image-url": "^1.1.0",
+    "@sentry/nextjs": "^9.12.0",
     "@tanstack/react-form": "^0.41.3",
     "@tanstack/zod-form-adapter": "^0.41.3",
     "@vercel/analytics": "^1.4.1",
