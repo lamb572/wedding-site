@@ -1,5 +1,6 @@
-import { z } from "zod"
+import { captureException } from "@sentry/nextjs"
 import validator from "validator"
+import { z } from "zod"
 
 export function stringSanitize(string: string) {
   const schema = z.string().transform((data) => {
@@ -11,6 +12,7 @@ export function stringSanitize(string: string) {
   if (result.success) {
     return result.data
   } else {
+    captureException(result.error)
     console.error(result.error.errors)
   }
   return undefined

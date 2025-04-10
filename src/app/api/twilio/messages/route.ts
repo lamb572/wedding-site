@@ -1,5 +1,6 @@
 import { sendWebhook } from "@/server/discord/sendWebhook"
 import { getInviteByPhone } from "@/server/Invite/getInviteByPhone"
+import { captureException } from "@sentry/nextjs"
 import { twiml } from "twilio"
 import { z } from "zod"
 
@@ -77,6 +78,7 @@ export async function POST(req: Request) {
     })
   } catch (error) {
     console.error(error)
+    captureException(error)
     const requestBody = await req.text()
     await fetch(process.env.MESSAGE_RESPONSE_WEBHOOK ?? "", {
       method: "POST",

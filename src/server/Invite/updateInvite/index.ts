@@ -1,7 +1,8 @@
 "use server"
 import mongoDBService from "@/server/mongodb"
-import { Invite } from "../types"
+import { captureException } from "@sentry/nextjs"
 import { UpdateFilter } from "mongodb"
+import { Invite } from "../types"
 
 interface UpdateInviteParams {
   inviteId?: string
@@ -28,6 +29,7 @@ export async function updateInvite({ inviteId, update }: UpdateInviteParams) {
 
     return updatedDoc
   } catch (err: unknown) {
+    captureException(err)
     console.error(err)
     throw err
   }
