@@ -1,6 +1,7 @@
 "use server"
 import mongoDBService from "@/server/mongodb"
 import { stringSanitize } from "@/utils/stringSanitize"
+import { captureException } from "@sentry/nextjs"
 import { Invite, rsvpFormSchema } from "../types"
 
 export interface GetInviteByIdParams {
@@ -30,12 +31,14 @@ export async function getInviteById({
     const result = rsvpFormSchema.safeParse(invite)
 
     if (!result.success) {
+      captureException(result.error)
       console.error(result.error)
       return undefined
     }
 
     return result.data
   } catch (err: unknown) {
+    captureException(err)
     console.error(err)
   }
 }

@@ -1,8 +1,9 @@
 "use server"
 
-import mongoDBService from "@/server/mongodb"
-import { Invite, RSVPForm } from "../types"
 import { sendWebhook } from "@/server/discord/sendWebhook"
+import mongoDBService from "@/server/mongodb"
+import { captureException } from "@sentry/nextjs"
+import { Invite, RSVPForm } from "../types"
 
 export async function updateRSVPForm(form: RSVPForm) {
   try {
@@ -48,6 +49,7 @@ export async function updateRSVPForm(form: RSVPForm) {
       ],
     })
   } catch (err: unknown) {
+    captureException(err)
     console.error(err)
   }
 }

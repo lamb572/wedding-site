@@ -1,5 +1,6 @@
 import { inviteSchema } from "@/server/Invite"
 import { rsvpFormOptions } from "@/shared"
+import { captureException } from "@sentry/nextjs"
 import {
   createServerValidate,
   ServerValidateError,
@@ -24,6 +25,7 @@ export async function rsvpFormAction(prev: unknown, formData: FormData) {
 
     return formData
   } catch (e) {
+    captureException(e)
     if (e instanceof ServerValidateError) {
       return e.formState
     }

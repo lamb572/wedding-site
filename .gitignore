@@ -9,3 +9,4 @@ dist
 out
 *.log
 *.lock
+.env.sentry-build-plugin

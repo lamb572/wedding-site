@@ -1,6 +1,7 @@
 "use client"
 import { Loader } from "@googlemaps/js-api-loader"
 import { Box, Link, Typography } from "@mui/material"
+import { captureException } from "@sentry/nextjs"
 import { useEffect, useRef } from "react"
 import { renderToString } from "react-dom/server"
 
@@ -149,6 +150,7 @@ export default function GoogleMap({ invitedToCeremony }: GoogleMapProps) {
           })
         }
       } catch (err) {
+        captureException(err)
         console.error(err)
       }
     }

@@ -1,4 +1,5 @@
 "use server"
+import { captureException } from "@sentry/nextjs"
 import { DiscordMessage } from "./type"
 
 export async function sendWebhook(
@@ -18,6 +19,7 @@ export async function sendWebhook(
       body: JSON.stringify(message),
     })
   } catch (err: unknown) {
+    captureException(err)
     console.error(err)
   }
 }
