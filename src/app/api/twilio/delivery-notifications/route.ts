@@ -1,6 +1,7 @@
 import { sendWebhook } from "@/server/discord/sendWebhook"
 import { updateInvite } from "@/server/Invite"
 import { getInviteByPhone } from "@/server/Invite/getInviteByPhone"
+import { captureException } from "@sentry/nextjs"
 import { z } from "zod"
 
 const deliveryNotificationSchema = z.object({
@@ -114,6 +115,7 @@ export async function POST(req: Request) {
       status: 204,
     })
   } catch (error) {
+    captureException(error)
     console.error(error)
   }
 }

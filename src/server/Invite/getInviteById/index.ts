@@ -1,5 +1,6 @@
 "use server"
 import { stringSanitize } from "@/utils/stringSanitize"
+import { captureException } from "@sentry/nextjs"
 import { getInvite } from "../getInvite"
 import { Invite, rsvpFormSchema } from "../types"
 
@@ -22,12 +23,14 @@ export async function getInviteById({
     const result = rsvpFormSchema.safeParse(invite)
 
     if (!result.success) {
+      captureException(result.error)
       console.error(result.error)
       return undefined
     }
 
     return result.data
   } catch (err: unknown) {
+    captureException(err)
     console.error(err)
   }
 }
