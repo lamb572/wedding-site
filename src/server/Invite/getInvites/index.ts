@@ -1,8 +1,9 @@
 'use server';
 import mongoDBService from '@/server/mongodb';
+import { captureException } from '@sentry/nextjs';
 import { Filter } from 'mongodb';
-import { Invite, inviteSchema } from '../types';
 import { z } from 'zod';
+import { Invite, inviteSchema } from '../types';
 
 export async function getInvites(
   filter: Filter<Invite> = {},
@@ -33,6 +34,7 @@ export async function getInvites(
 
     return result.data ?? [];
   } catch (err: unknown) {
+    captureException(err);
     console.error(err);
     return [];
   }

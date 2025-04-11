@@ -1,15 +1,17 @@
-import { client, Faq } from "@/sanity"
+import { client, Faq } from '@/sanity';
+import { captureException } from '@sentry/nextjs';
 
 export async function getFAQs() {
   try {
     const faqs = await client().fetch<Faq[]>(
       '*[_type == "faq"]| order(position asc)',
-      {}
-    )
+      {},
+    );
 
-    return faqs
+    return faqs;
   } catch (err) {
-    console.warn(err)
-    return undefined
+    captureException(err);
+    console.warn(err);
+    return undefined;
   }
 }
