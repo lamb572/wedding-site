@@ -1,4 +1,4 @@
-import Card from "@/client/components/Card"
+import Card from "@/components/Card"
 import { ScheduleCard } from "@/client/components/ScheduleCard"
 import { getSchedules, getSettings } from "@/sanity/server"
 import { CookieKeys } from "@/server/cookies/types"

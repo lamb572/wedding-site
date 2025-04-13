@@ -1,5 +1,5 @@
 "use server"
-import Card from "@/client/components/Card"
+import Card from "@/components/Card"
 import RSVPView from "@/client/views/RSVPView"
 import { getSettings } from "@/sanity/server"
 import { CookieKeys } from "@/server/cookies/types"

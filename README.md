@@ -18,10 +18,10 @@
 
 - [x] transport
 - [x] accommodation
-- [ ] Google Map
+- [x] Google Map
   - [x] Add Map
   - [x] Add markers for locations
-  - [ ] make markers dynamic depending on invite ID
+  - [x] make markers dynamic depending on invite ID
 
 ### RSVP Page
 
@@ -39,13 +39,21 @@
 
 ### logging responses?
 
-- send messages to discord channel
+- [x] send messages to discord channel
 
 new invite flow
 
 1. initial invite link -> / www.beach-wedding.org?invite=1234
-2. SAVE invite code to local storage
+2. SAVE invite code to cookies
 3.
+
+### Admin Page
+
+- [x] /admin
+- [ ] Create table of guests with rsvp status
+- [ ] Allow admin to edit guest data and rsvp status
+- [ ] add some data points, rsvp statuses, meal choices, replied, etc
+- [ ] create guest, send invite modal?
 
 ### Job
 

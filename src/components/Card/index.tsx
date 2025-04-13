@@ -1,5 +1,3 @@
-"use client"
-
 import { Card as MUICard, Stack, StackProps } from "@mui/material"
 import { PropsWithChildren } from "react"
 
