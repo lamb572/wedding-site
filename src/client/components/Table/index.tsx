@@ -154,7 +154,7 @@ export default function InviteTable({ invites }: InviteTableProps) {
   const getRowBackgroundColor = (row: Row<Omit<Invite, '_id'>>) => {
     const isExpanded = row.getIsExpanded();
     const attending =
-      row.getValue('attending') === null
+      row.getValue('attending') === undefined
         ? 'notReplied'
         : row.getValue('attending');
     const isNotAttending = attending === false;
