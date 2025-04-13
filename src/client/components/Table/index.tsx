@@ -13,6 +13,7 @@ import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
+  Row,
   useReactTable,
 } from '@tanstack/react-table';
 import { Fragment } from 'react';
@@ -35,6 +36,30 @@ export default function InviteTable({ invites }: InviteTableProps) {
       header: () => <Typography component="span">Invite ID</Typography>,
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor('guests', {
+      header: () => <Typography component="span">Guests</Typography>,
+      footer: (info) => info.column.id,
+      cell: ({ getValue, row }) => {
+        const guests = getValue() ?? [];
+        const guestNames =
+          guests?.length > 2
+            ? `${guests.at(0)?.name}, ${guests.at(1)?.name}, ...`
+            : guests.map((guest) => guest.name).join(', ');
+        return row.getCanExpand() ? (
+          <Button
+            onClick={row.getToggleExpandedHandler()}
+            variant="text"
+            sx={{
+              textTransform: 'none',
+            }}
+          >
+            {row.getIsExpanded() ? '👇' : '👉'} {guestNames}
+          </Button>
+        ) : (
+          '🔵'
+        );
+      },
     }),
     columnHelper.accessor('ceremony', {
       header: () => <Typography component="span">Ceremony</Typography>,
@@ -107,30 +132,7 @@ export default function InviteTable({ invites }: InviteTableProps) {
       },
       footer: (info) => info.column.id,
     }),
-    columnHelper.accessor('guests', {
-      header: () => <Typography component="span">Guests</Typography>,
-      footer: (info) => info.column.id,
-      cell: ({ getValue, row }) => {
-        const guests = getValue() ?? [];
-        const guestNames =
-          guests?.length > 2
-            ? `${guests.at(0)?.name}, ${guests.at(1)?.name}, ...`
-            : guests.map((guest) => guest.name).join(', ');
-        return row.getCanExpand() ? (
-          <Button
-            onClick={row.getToggleExpandedHandler()}
-            variant="text"
-            sx={{
-              textTransform: 'none',
-            }}
-          >
-            {row.getIsExpanded() ? '👇' : '👉'} {guestNames}
-          </Button>
-        ) : (
-          '🔵'
-        );
-      },
-    }),
+
     columnHelper.accessor('inviteSentStatus', {
       header: () => <Typography component="span">Invite Status</Typography>,
       cell: (info) => info.getValue()?.join(', '),
@@ -148,6 +150,31 @@ export default function InviteTable({ invites }: InviteTableProps) {
       return guests.length > 0;
     },
   });
+
+  const getRowBackgroundColor = (row: Row<Omit<Invite, '_id'>>) => {
+    const isExpanded = row.getIsExpanded();
+    const attending =
+      row.getValue('attending') === null
+        ? 'notReplied'
+        : row.getValue('attending');
+    const isNotAttending = attending === false;
+    const notReplied = attending === 'notReplied';
+    const hasFoodAllergy = row.original.guests?.some((guest) =>
+      Boolean(guest.foodAllergies),
+    );
+    if (isExpanded) {
+      return 'secondary.light';
+    }
+    if (isNotAttending) {
+      return 'error.light';
+    }
+    if (notReplied) {
+      return 'warning.light';
+    }
+    if (hasFoodAllergy) {
+      return 'pink';
+    }
+  };
 
   return (
     <>
@@ -178,7 +205,11 @@ export default function InviteTable({ invites }: InviteTableProps) {
           {table.getRowModel().rows.map((row) => {
             return (
               <Fragment key={row.id}>
-                <TableRow>
+                <TableRow
+                  sx={{
+                    backgroundColor: getRowBackgroundColor(row),
+                  }}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
