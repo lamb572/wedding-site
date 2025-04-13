@@ -13,7 +13,6 @@ export default async function Admin() {
 
   const settings = await getSettings();
 
-  // console.log("session", session)
   if (!session?.user) {
     redirect('/admin/signin');
   }
