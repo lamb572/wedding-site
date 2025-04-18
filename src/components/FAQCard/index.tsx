@@ -1,25 +1,26 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+'use client';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
-} from "@mui/material"
-import { ReactNode } from "react"
+} from '@mui/material';
+import { ReactNode } from 'react';
 
 export interface FAQCardProps {
-  icon?: ReactNode
-  answer?: string
-  question?: string
+  icon?: ReactNode;
+  answer?: string;
+  question?: string;
 }
 export default function FAQCard({ answer, icon, question }: FAQCardProps) {
   return (
     <Accordion
       sx={(theme) => ({
         color: theme.palette.primary.dark,
-        border: "1px solid",
-        alignSelf: "flex-start",
-        width: "100%",
+        border: '1px solid',
+        alignSelf: 'flex-start',
+        width: '100%',
       })}
     >
       <AccordionSummary
@@ -36,5 +37,5 @@ export default function FAQCard({ answer, icon, question }: FAQCardProps) {
         <Typography>{answer}</Typography>
       </AccordionDetails>
     </Accordion>
-  )
+  );
 }
