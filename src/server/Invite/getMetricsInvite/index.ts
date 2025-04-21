@@ -3,18 +3,24 @@ import mongoDBService from '@/server/mongodb';
 import { captureException } from '@sentry/nextjs';
 import { Invite } from '../types';
 
+interface Metric {
+  value: number;
+  percentage?: number;
+}
+
 export interface MetricsAggregate {
-  guests: number;
-  attending: number;
-  notAttending: number;
-  notReplied: number;
-  pork: number;
-  vegan: number;
+  guests: Metric;
+  attending: Metric;
+  notAttending: Metric;
+  notReplied: Metric;
+  pork: Metric;
+  vegan: Metric;
 }
 
 export interface MetricsInvite {
   label: string;
   value: number;
+  percentage?: number;
 }
 
 export async function getMetricsInvite(): Promise<MetricsInvite[] | undefined> {
@@ -139,6 +145,83 @@ export async function getMetricsInvite(): Promise<MetricsInvite[] | undefined> {
           },
         },
       },
+      {
+        $project:
+          /**
+           * specifications: The fields to
+           *   include or exclude.
+           */
+          {
+            Guests: {
+              value: '$Guests',
+            },
+            Attending: {
+              value: '$Attending',
+              percentage: {
+                $floor: {
+                  $multiply: [
+                    {
+                      $divide: ['$Attending', '$Guests'],
+                    },
+                    100,
+                  ],
+                },
+              },
+            },
+            'Not Attending': {
+              value: '$Not Attending',
+              percentage: {
+                $floor: {
+                  $multiply: [
+                    {
+                      $divide: ['$Not Attending', '$Guests'],
+                    },
+                    100,
+                  ],
+                },
+              },
+            },
+            'Not Replied': {
+              value: '$Not Replied',
+              percentage: {
+                $floor: {
+                  $multiply: [
+                    {
+                      $divide: ['$Not Replied', '$Guests'],
+                    },
+                    100,
+                  ],
+                },
+              },
+            },
+            Pork: {
+              value: '$Pork',
+              percentage: {
+                $floor: {
+                  $multiply: [
+                    {
+                      $divide: ['$Pork', '$Guests'],
+                    },
+                    100,
+                  ],
+                },
+              },
+            },
+            Vegan: {
+              value: '$Vegan',
+              percentage: {
+                $floor: {
+                  $multiply: [
+                    {
+                      $divide: ['$Vegan', '$Guests'],
+                    },
+                    100,
+                  ],
+                },
+              },
+            },
+          },
+      },
     ]);
     const result = (await metrics.toArray()) as MetricsInvite[];
 
@@ -147,7 +230,10 @@ export async function getMetricsInvite(): Promise<MetricsInvite[] | undefined> {
         if (label === '_id') {
           return acc;
         }
-        return [...acc, { label, value }];
+        return [
+          ...acc,
+          { label, value: value.value, percentage: value.percentage },
+        ];
       },
       [],
     );

@@ -53,6 +53,13 @@ export default function MetricCards({ metrics }: MetricCardsProps) {
             >
               {metric.value}
             </Typography>
+            <Typography
+              variant="subtitle1"
+              component={'h3'}
+              color="primary.contrastText"
+            >
+              {Boolean(metric.percentage) && `${metric.percentage}%`}
+            </Typography>
           </Card>
         </Grid2>
       ))}
