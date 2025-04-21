@@ -1,9 +1,9 @@
-"use client"
-import { Container } from "@/components/Container"
-import { TextField } from "@/client/components/TextField"
-import { rsvpFormAction } from "@/server/formActions/rsvpFormAction"
-import { RSVPForm, rsvpFormSchema, updateRSVPForm } from "@/server/Invite"
-import { rsvpFormOptions } from "@/shared"
+'use client';
+import { TextField } from '@/client/components/TextField';
+import { Container } from '@/components/Container';
+import { rsvpFormAction } from '@/server/formActions/rsvpFormAction';
+import { RSVPForm, rsvpFormSchema, updateRSVPForm } from '@/server/Invite';
+import { rsvpFormOptions } from '@/shared';
 import {
   Box,
   Button,
@@ -15,23 +15,23 @@ import {
   RadioGroup,
   Tooltip,
   Typography,
-} from "@mui/material"
-import { mergeForm, useForm, useTransform } from "@tanstack/react-form"
-import { initialFormState } from "@tanstack/react-form/nextjs"
-import { useRouter } from "next/navigation"
-import { useActionState } from "react"
+} from '@mui/material';
+import { mergeForm, useForm, useTransform } from '@tanstack/react-form';
+import { initialFormState } from '@tanstack/react-form/nextjs';
+import { useRouter } from 'next/navigation';
+import { useActionState } from 'react';
 
 export interface RSVPIdViewProps {
-  invite: RSVPForm
+  invite: RSVPForm;
 }
 
 export default function RSVPView({ invite }: RSVPIdViewProps) {
-  const [state, action] = useActionState(rsvpFormAction, initialFormState)
-  const router = useRouter()
+  const [state, action] = useActionState(rsvpFormAction, initialFormState);
+  const router = useRouter();
   const form = useForm({
     ...rsvpFormOptions,
     defaultValues: {
-      inviteId: invite.inviteId ?? "",
+      inviteId: invite.inviteId ?? '',
       attending: invite.attending ?? true,
       guests: invite.guests ?? [],
     },
@@ -43,20 +43,21 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
       await updateRSVPForm({
         ...formData.value,
         inviteId: invite.inviteId,
-      })
-      router.push("/thank-you")
+      });
+      router.push('/thank-you');
     },
-  })
+  });
   return (
     <>
       <Typography variant="h2" component="h1" color="primary">
         RSVP
       </Typography>
       <Container
-        component={"form"}
+        component={'form'}
         action={action}
         sx={{
-          width: "auto",
+          width: 'auto',
+          maxWidth: '100%',
           gap: 2,
           padding: 3,
         }}
@@ -67,45 +68,46 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
               <FormControl>
                 <RadioGroup
                   aria-labelledby="attending"
-                  value={field.state.value ? "true" : "false"}
+                  value={field.state.value ? 'true' : 'false'}
                   name="attending-group"
                   onChange={(_e, value) =>
-                    field.handleChange(Boolean(value === "true"))
+                    field.handleChange(Boolean(value === 'true'))
                   }
                 >
                   <FormControlLabel
-                    value={"true"}
+                    value={'true'}
                     control={<Radio />}
                     label="Attending"
                   />
                   <FormControlLabel
-                    value={"false"}
+                    value={'false'}
                     control={<Radio />}
                     label="Not Attending"
                   />
                 </RadioGroup>
               </FormControl>
-            )
+            );
           }}
         </form.Field>
         <Divider
           sx={{
-            width: "100%",
+            width: '100%',
             mb: 1,
           }}
         />
         <form.Field name="guests" mode="array">
           {(field) => {
-            const values = field.state.value
+            const values = field.state.value;
             return values?.map((_, i) => {
               return (
                 <Box
                   key={i}
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                     gap: 2,
                     borderRadius: 4,
+                    maxWidth: '-webkit-fill-available',
                   }}
                 >
                   <form.Field key={i} name={`guests[${i}].name`}>
@@ -121,7 +123,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                           name={`companions-${i}`}
                           type="text"
                         />
-                      )
+                      );
                     }}
                   </form.Field>
                   <form.Field name={`guests[${i}].food`}>
@@ -135,23 +137,23 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                           <FormLabel>Menu Selection</FormLabel>
                           <RadioGroup
                             aria-labelledby="Food"
-                            value={field.state.value ?? ""}
+                            value={field.state.value ?? ''}
                             name="food-group"
                             onChange={(_e, value) =>
-                              field.handleChange(value as "pork" | "vegan")
+                              field.handleChange(value as 'pork' | 'vegan')
                             }
                             sx={{
-                              textAlign: "left",
+                              textAlign: 'left',
                             }}
                           >
                             <FormControlLabel
-                              value={"pork"}
+                              value={'pork'}
                               control={<Radio />}
                               label="Free range Pulled Pork"
                             />
                             <Tooltip title="with ginger and coriander ">
                               <FormControlLabel
-                                value={"vegan"}
+                                value={'vegan'}
                                 control={<Radio />}
                                 label="Miso & maple roasted aubergine (Ve)"
                                 about="with ginger and coriander "
@@ -159,17 +161,17 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                             </Tooltip>
                           </RadioGroup>
                         </FormControl>
-                      )
+                      );
                     }}
                   </form.Field>
                   <form.Field name={`guests[${i}].foodAllergies`}>
                     {(field) => {
-                      const errors = field.state.meta.errors
-                      const isErrors = errors.length > 0
+                      const errors = field.state.meta.errors;
+                      const isErrors = errors.length > 0;
                       return (
                         <TextField
                           error={isErrors}
-                          helperText={errors.join(", ")}
+                          helperText={errors.join(', ')}
                           label="Dietary Requirement?"
                           variant="outlined"
                           name="foodAllergies"
@@ -178,7 +180,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                         />
-                      )
+                      );
                     }}
                   </form.Field>
                   {values.length - 1 !== i && (
@@ -190,14 +192,14 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                     />
                   )}
                 </Box>
-              )
-            })
+              );
+            });
           }}
         </form.Field>
 
         <Divider
           sx={{
-            width: "100%",
+            width: '100%',
           }}
         />
 
@@ -222,5 +224,5 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
         </form.Subscribe>
       </Container>
     </>
-  )
+  );
 }

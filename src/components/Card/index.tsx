@@ -36,14 +36,13 @@ export default function Card({
         }}
       >
         <Stack
-          // {...stackProps}
+          {...stackProps}
           sx={{
-            padding: 2,
+            padding: { xs: 1, sm: 2 },
             textAlign: 'center',
             justifyContent: 'center',
             alignItems: 'center',
             border: '1px solid grey',
-            // gap: 4,
             gap: 2,
             minHeight: '100%',
             whiteSpace: 'normal',

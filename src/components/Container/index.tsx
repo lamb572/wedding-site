@@ -1,7 +1,7 @@
-import { Box } from "@mui/material"
-import { OverrideProps } from "@mui/material/OverridableComponent"
-import { BoxTypeMap } from "@mui/system"
-import { PropsWithChildren } from "react"
+import { Box } from '@mui/material';
+import { OverrideProps } from '@mui/material/OverridableComponent';
+import { BoxTypeMap } from '@mui/system';
+import { PropsWithChildren } from 'react';
 
 export interface ContainerProps
   extends OverrideProps<BoxTypeMap, React.ElementType>,
@@ -12,18 +12,18 @@ export function Container(props: ContainerProps) {
     <Box
       {...props}
       sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         gap: { xs: 1, sm: 2, md: 3 },
-        alignItems: "center",
-        justifyContent: "center",
-        border: "2px solid black",
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '2px solid black',
         padding: { xs: 1, sm: 2, md: 3 },
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderRadius: 4,
         ...props.sx,
       }}
     />
-  )
+  );
 }
