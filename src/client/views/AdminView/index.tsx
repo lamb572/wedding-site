@@ -1,5 +1,6 @@
 'use client';
 
+import CreateUserModal from '@/client/components/CreateUserModal';
 import MetricCards from '@/client/components/MetricCards';
 import InviteTable from '@/client/components/Table';
 import { Invite } from '@/server/Invite';
@@ -17,7 +18,7 @@ export default function AdminView({ invites, metrics }: AdminViewProps) {
         <strong>Invite List</strong>
       </Typography>
       <MetricCards metrics={metrics} />
-
+      <CreateUserModal />
       {/* todo add numbers, attending,not attending, not replied, food choices,  
       Add colors to rows:
       - Red for Not Attending
