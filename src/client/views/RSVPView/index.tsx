@@ -65,7 +65,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
         <form.Field name="attending">
           {(field) => {
             return (
-              <FormControl>
+              <FormControl disabled>
                 <RadioGroup
                   aria-labelledby="attending"
                   value={field.state.value ? 'true' : 'false'}
@@ -75,11 +75,13 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                   }
                 >
                   <FormControlLabel
+                    disabled
                     value={'true'}
                     control={<Radio />}
                     label="Attending"
                   />
                   <FormControlLabel
+                    disabled
                     value={'false'}
                     control={<Radio />}
                     label="Not Attending"
@@ -114,6 +116,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                     {(subField) => {
                       return (
                         <TextField
+                          disabled
                           value={subField.state.value}
                           onChange={(e) =>
                             subField.handleChange(e.target.value)
@@ -130,6 +133,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                     {(field) => {
                       return (
                         <FormControl
+                          disabled
                           sx={{
                             gap: 2,
                           }}
@@ -147,12 +151,14 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                             }}
                           >
                             <FormControlLabel
+                              disabled
                               value={'pork'}
                               control={<Radio />}
                               label="Free range Pulled Pork"
                             />
                             <Tooltip title="with ginger and coriander ">
                               <FormControlLabel
+                                disabled
                                 value={'vegan'}
                                 control={<Radio />}
                                 label="Miso & maple roasted aubergine (Ve)"
@@ -170,6 +176,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
                       const isErrors = errors.length > 0;
                       return (
                         <TextField
+                          disabled
                           error={isErrors}
                           helperText={errors.join(', ')}
                           label="Dietary Requirement?"
@@ -210,13 +217,14 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
             isFieldsValidating,
           ]}
         >
-          {([canSubmit, isSubmitting, isFieldsValidating]) => (
+          {([isSubmitting, isFieldsValidating]) => (
             <Button
               type="submit"
               variant="outlined"
-              disabled={!canSubmit}
+              // disabled={!canSubmit}
               loading={isSubmitting || isFieldsValidating}
               onClick={form.handleSubmit}
+              disabled
             >
               Submit
             </Button>
