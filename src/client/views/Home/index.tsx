@@ -1,17 +1,17 @@
-"use client"
-import PortableText from "@/client/components/PortableText"
-import { Home, imageLoader, Settings, Wedding } from "@/sanity"
-import { stringInterpolation, TextBlock } from "@/utils/stringInterpolation"
-import { Button, Stack, Typography } from "@mui/material"
-import { format, formatDistanceToNowStrict, isPast } from "date-fns"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+'use client';
+import PortableText from '@/client/components/PortableText';
+import { Home, imageLoader, Settings, Wedding } from '@/sanity';
+import { stringInterpolation, TextBlock } from '@/utils/stringInterpolation';
+import { Button, Stack, Typography } from '@mui/material';
+import { format, formatDistanceToNowStrict, isPast, parseISO } from 'date-fns';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export interface HomeViewProps {
-  homeFields?: Home
-  weddingFields?: Wedding
-  settingsFields?: Settings
-  inviteId?: string
+  homeFields?: Home;
+  weddingFields?: Wedding;
+  settingsFields?: Settings;
+  inviteId?: string;
 }
 
 export function HomeView({
@@ -20,50 +20,51 @@ export function HomeView({
   settingsFields,
   inviteId,
 }: HomeViewProps) {
-  const router = useRouter()
+  const router = useRouter();
   const weddingDate = weddingFields?.date
-    ? new Date(weddingFields.date)
-    : undefined
-  const weddingHappened = weddingDate ? isPast(weddingDate) : false
+    ? parseISO(weddingFields.date)
+    : undefined;
+  console.log('weddingDate', weddingFields);
+  const weddingHappened = weddingDate ? isPast(weddingDate) : false;
 
   const distanceToWedding = weddingDate
-    ? formatDistanceToNowStrict(weddingDate, { unit: "day" })
-    : ""
+    ? formatDistanceToNowStrict(weddingDate, { unit: 'day' })
+    : '';
 
   const weddingDistanceMessage = weddingHappened
     ? homeFields?.distanceMessages?.past
     : stringInterpolation(homeFields?.distanceMessages?.upcoming, {
         date: distanceToWedding,
-      })
+      });
 
-  const date = weddingDate ? format(weddingDate, "do MMMM yyyy") : ""
+  const date = weddingDate ? format(weddingDate, 'do MMMM yyyy') : '';
 
-  const image = imageLoader({ source: homeFields?.image?.asset })
+  const image = imageLoader({ source: homeFields?.image?.asset });
 
-  const cardColor = settingsFields?.card?.backgroundColor ?? "#f6eee3"
+  const cardColor = settingsFields?.card?.backgroundColor ?? '#f6eee3';
   return (
     <Stack
       sx={{
         pl: 1,
-        flexFlow: "column nowrap",
-        justifyContent: "center",
-        alignItems: "center",
-        alignContent: "stretch",
-        width: "100%",
+        flexFlow: 'column nowrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'stretch',
+        width: '100%',
         backgroundColor: cardColor,
       }}
     >
       <Stack
         sx={{
           backgroundColor: cardColor,
-          borderRadius: "10px",
+          borderRadius: '10px',
           gap: 2,
-          textAlign: "center",
-          flexFlow: "column nowrap",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          alignContent: "stretch",
-          width: "100%",
+          textAlign: 'center',
+          flexFlow: 'column nowrap',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          alignContent: 'stretch',
+          width: '100%',
           paddingTop: 2,
         }}
       >
@@ -73,7 +74,7 @@ export function HomeView({
 
         <Stack
           sx={{
-            alignItems: "center",
+            alignItems: 'center',
           }}
         >
           <PortableText
@@ -83,7 +84,7 @@ export function HomeView({
         </Stack>
         <Button
           onClick={() =>
-            router.push(inviteId ? "/rsvp" : `/invite?forward=rsvp`)
+            router.push(inviteId ? '/rsvp' : `/invite?forward=rsvp`)
           }
           size="large"
           variant="outlined"
@@ -94,18 +95,18 @@ export function HomeView({
         </Button>
         <Image
           src={image}
-          alt={"home page"}
+          alt={'home page'}
           width={680}
           height={350}
           priority
           style={{
-            aspectRatio: "auto",
-            objectFit: "cover",
+            aspectRatio: 'auto',
+            objectFit: 'cover',
             flexGrow: 1,
-            maxHeight: "500px",
-            minHeight: "350px",
-            border: "4px solid black",
-            borderRadius: "35% 35% 0 0",
+            maxHeight: '500px',
+            minHeight: '350px',
+            border: '4px solid black',
+            borderRadius: '35% 35% 0 0',
           }}
         />
         <Typography variant="h4" component="h3" color="primary">
@@ -113,5 +114,5 @@ export function HomeView({
         </Typography>
       </Stack>
     </Stack>
-  )
+  );
 }
