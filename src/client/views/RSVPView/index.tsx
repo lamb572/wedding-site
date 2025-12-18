@@ -2,7 +2,8 @@
 import { TextField } from '@/client/components/TextField';
 import { Container } from '@/components/Container';
 import { rsvpFormAction } from '@/server/formActions/rsvpFormAction';
-import { RSVPForm, rsvpFormSchema, updateRSVPForm } from '@/server/Invite';
+import { guestSchema, RSVPForm, updateRSVPForm } from '@/server/Invite';
+import { z } from 'zod';
 import { rsvpFormOptions } from '@/shared';
 import {
   Box,
@@ -21,6 +22,12 @@ import { initialFormState, useTransform } from '@tanstack/react-form-nextjs';
 import { useRouter } from 'next/navigation';
 import { useActionState } from 'react';
 
+const rsvpViewFormSchema = z.object({
+  inviteId: z.string(),
+  attending: z.boolean(),
+  guests: z.array(guestSchema.omit({ phoneNumber: true })),
+});
+
 export interface RSVPIdViewProps {
   invite: RSVPForm;
 }
@@ -36,7 +43,7 @@ export default function RSVPView({ invite }: RSVPIdViewProps) {
       guests: invite.guests ?? [],
     },
     validators: {
-      onChange: rsvpFormSchema,
+      onChange: rsvpViewFormSchema,
     },
     transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
     onSubmit: async (formData) => {
