@@ -1,5 +1,4 @@
 import { Container } from '@/components';
-import { guestSchema } from '@/server/Invite';
 import { createInvite } from '@/server/Invite/createInvite';
 import {
   Box,
@@ -21,9 +20,13 @@ import { useForm } from '@tanstack/react-form';
 import { useState } from 'react';
 import { z } from 'zod';
 
+const createUserGuestSchema = z.object({
+  name: z.string(),
+});
+
 const createUserFormSchema = z.object({
   ceremony: z.boolean(),
-  guests: z.array(guestSchema),
+  guests: z.array(createUserGuestSchema),
 });
 
 export default function CreateUserModal() {
