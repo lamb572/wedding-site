@@ -17,7 +17,7 @@ import {
   Typography,
 } from '@mui/material';
 import { mergeForm, useForm, useTransform } from '@tanstack/react-form';
-import { initialFormState } from '@tanstack/react-form/nextjs';
+import { initialFormState } from '@tanstack/react-form-nextjs';
 import { useRouter } from 'next/navigation';
 import { useActionState } from 'react';
 
