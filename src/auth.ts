@@ -1,9 +1,10 @@
 import NextAuth from 'next-auth';
-import authConfig from './auth.config';
+import { authOptions } from './auth.config';
 import { getUser } from './server/users/getUsers';
+import type { NextAuthOptions } from 'next-auth';
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  ...authConfig,
+export const authOptionsWithCallbacks: NextAuthOptions = {
+  ...authOptions,
   callbacks: {
     async signIn({ profile }) {
       const email = profile?.email;
@@ -20,4 +21,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
   },
-});
+};
+
+export default NextAuth(authOptionsWithCallbacks);

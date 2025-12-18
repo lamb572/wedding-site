@@ -1,5 +1,11 @@
-import type { NextAuthConfig } from 'next-auth';
-import Discord from 'next-auth/providers/discord';
+import type { NextAuthOptions } from 'next-auth';
+import DiscordProvider from 'next-auth/providers/discord';
 
-// Notice this is only an object, not a full Auth.js instance
-export default { providers: [Discord] } satisfies NextAuthConfig;
+export const authOptions: NextAuthOptions = {
+  providers: [
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID!,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+    }),
+  ],
+};

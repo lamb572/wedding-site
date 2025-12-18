@@ -1,12 +1,13 @@
 "use server"
-import { auth, signOut as so } from "@/auth"
+import { getServerSession } from "next-auth/next"
+import { authOptionsWithCallbacks } from "@/auth"
 import { redirect } from "next/navigation"
 
 export async function signOut() {
-  const session = await auth()
+  const session = await getServerSession(authOptionsWithCallbacks)
 
   if (session?.user) {
-    so()
+    redirect("/api/auth/signout")
   }
-  await redirect("/")
+  redirect("/")
 }

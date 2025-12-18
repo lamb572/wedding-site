@@ -8,7 +8,7 @@ export default function SignIn() {
       variant="contained"
       onClick={async () => {
         await signIn('discord', {
-          redirectTo: '/admin',
+          callbackUrl: '/admin',
         });
       }}
     >
