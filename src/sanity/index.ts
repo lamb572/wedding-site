@@ -1,6 +1,5 @@
 import { createClient } from "next-sanity"
-import imageUrlBuilder from "@sanity/image-url"
-import { SanityImageSource } from "@sanity/image-url/lib/types/types"
+import { createImageUrlBuilder, SanityImageSource } from "@sanity/image-url"
 
 export const client = () =>
   createClient({
@@ -21,7 +20,7 @@ export interface ImageProps {
 }
 
 export const imageLoader = ({ source, width, quality }: ImageProps) => {
-  const imageBuilder = imageUrlBuilder(client())
+  const imageBuilder = createImageUrlBuilder(client())
 
   if (!source) return ""
   const image = imageBuilder.image(source)

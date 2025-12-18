@@ -1,4 +1,5 @@
-import { auth } from '@/auth';
+import { getServerSession } from 'next-auth/next';
+import { authOptionsWithCallbacks } from '@/auth';
 import { redirect } from 'next/navigation';
 
 import AdminView from '@/client/views/AdminView';
@@ -9,7 +10,7 @@ import { Stack } from '@mui/material';
 import Card from '@mui/material/Card';
 
 export default async function Admin() {
-  const session = await auth();
+  const session = await getServerSession(authOptionsWithCallbacks);
 
   const settings = await getSettings();
 

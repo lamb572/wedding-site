@@ -1,5 +1,5 @@
 import { MetricsInvite } from '@/server/Invite/getMetricsInvite';
-import { Card, Grid2, Typography } from '@mui/material';
+import { Card, Grid, Typography } from '@mui/material';
 
 interface MetricCardsProps {
   metrics: MetricsInvite[];
@@ -7,7 +7,7 @@ interface MetricCardsProps {
 
 export default function MetricCards({ metrics }: MetricCardsProps) {
   return (
-    <Grid2
+    <Grid
       container
       spacing={2}
       direction="row"
@@ -17,7 +17,7 @@ export default function MetricCards({ metrics }: MetricCardsProps) {
       }}
     >
       {metrics.map((metric) => (
-        <Grid2
+        <Grid
           key={metric.label}
           size={{ xs: 12, sm: 6, md: 3, lg: 2 }}
           sx={{
@@ -61,8 +61,8 @@ export default function MetricCards({ metrics }: MetricCardsProps) {
               {Boolean(metric.percentage) && `${metric.percentage}%`}
             </Typography>
           </Card>
-        </Grid2>
+        </Grid>
       ))}
-    </Grid2>
+    </Grid>
   );
 }

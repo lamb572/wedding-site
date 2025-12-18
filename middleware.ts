@@ -1,4 +1,11 @@
-import authConfig from '@/auth.config';
-import NextAuth from 'next-auth';
+import { withAuth } from 'next-auth/middleware';
 
-export const { auth: middleware } = NextAuth(authConfig);
+export default withAuth({
+  pages: {
+    signIn: '/admin/signin',
+  },
+});
+
+export const config = {
+  matcher: ['/admin/:path*'],
+};

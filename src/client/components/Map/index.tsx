@@ -1,5 +1,5 @@
 "use client"
-import { Loader } from "@googlemaps/js-api-loader"
+import { setOptions, importLibrary } from "@googlemaps/js-api-loader"
 import { Box, Link, Typography } from "@mui/material"
 import { captureException } from "@sentry/nextjs"
 import { useEffect, useRef } from "react"
@@ -31,9 +31,9 @@ export default function GoogleMap({ invitedToCeremony }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const loader = new Loader({
-      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
-      version: "weekly",
+    setOptions({
+      key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
+      v: "weekly",
       libraries: ["places", "marker"],
     })
     const currentRef = mapRef.current
@@ -55,15 +55,15 @@ export default function GoogleMap({ invitedToCeremony }: GoogleMapProps) {
     ).documentElement
     const initMap = async () => {
       try {
-        const { Map } = await loader.importLibrary("maps")
+        const { Map } = await importLibrary("maps")
         const map = new Map(currentRef, {
           ...southamptonLocation,
           mapId: process.env.NEXT_PUBLIC_MAP_ID,
         })
         const { AdvancedMarkerElement, PinElement } =
-          await loader.importLibrary("marker")
+          await importLibrary("marker")
 
-        const { Place } = await loader.importLibrary("places")
+        const { Place } = await importLibrary("places")
 
         const reception = new Place({ id: BreweryId })
         await reception.fetchFields({
