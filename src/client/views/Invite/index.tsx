@@ -7,7 +7,7 @@ import {
 import { verifyInviteExists } from '@/server/formActions';
 import { Box, Button } from '@mui/material';
 import { captureException } from '@sentry/nextjs';
-import { FormOptions, useForm } from '@tanstack/react-form';
+import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
@@ -28,9 +28,7 @@ export default function InviteView({ forwardRoute, error }: InviteViewProps) {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const router = useRouter();
 
-  const handleSubmit: FormOptions<InviteForm>['onSubmit'] = async ({
-    value,
-  }) => {
+  const handleSubmit = async ({ value }: { value: InviteForm }) => {
     setLoadingSubmit(true);
     await setUserInviteCookie(value.inviteId);
     router.push(forwardRoute ?? `/invite/${value.inviteId}`);
