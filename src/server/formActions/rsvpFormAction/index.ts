@@ -4,7 +4,7 @@ import { captureException } from "@sentry/nextjs"
 import {
   createServerValidate,
   ServerValidateError,
-} from "@tanstack/react-form/nextjs"
+} from "@tanstack/react-form-nextjs"
 
 const serverValidate = createServerValidate({
   ...rsvpFormOptions,
