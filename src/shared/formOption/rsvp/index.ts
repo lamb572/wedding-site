@@ -1,10 +1,9 @@
-import { RSVPForm } from "@/server/Invite"
 import { formOptions } from "@tanstack/react-form-nextjs"
 
-export const rsvpFormOptions = formOptions<RSVPForm>({
+export const rsvpFormOptions = formOptions({
   defaultValues: {
     inviteId: "",
     attending: false,
-    guests: [],
+    guests: [] as { name?: string; food?: "pork" | "vegan"; foodAllergies?: string }[],
   },
 })
